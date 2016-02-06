@@ -56,7 +56,7 @@ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-d
 ```bash
 # After those dependencies, lets install the bot
 cd $HOME
-git clone https://github.com/Josepdal/DBTeam.gif
+git clone https://github.com/Josepdal/DBTeam.git
 cd Talibot
 ./launch.sh install
 ./launch.sh # Will ask you for a phone number & confirmation code.
