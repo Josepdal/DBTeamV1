@@ -1,37 +1,22 @@
-local function kick_user(user_id, chat_id)
-  local chat = 'chat#id'..chat_id
-  local user = 'user#id'..user_id
-  chat_del_user(chat, user, function (data, success, result)
-    if success ~= 1 then
-      send_msg(data.chat, 'Error while kicking user', ok_cb, nil)
+local function kick_user(msg)
+    local chat = 'chat#id'..msg.to.id
+    local channel = 'channel#id'..msg.to.id
+    local user = msg.from.id
+    send_msg('channel#id'..msg.to.id, ' @'..msg.from.username..'  ( Id:  '..msg.from.id..' ) Vuelve pronto .', ok_cb, true)
+    if msg.to.type == 'chat' then
+        chat_del_user(chat, 'user#id'..user, ok_cb, true)
+    elseif msg.to.type == 'channel' then
+        channel_kick_user(channel, 'user#id'..user, ok_cb, true)
     end
-  end, {chat=chat, user=user})
 end
 
-local function run (msg, matches)
-  local user = msg.from.id
-  local chat = msg.to.id
-
-  if msg.to.type ~= 'chat' then
-    return "Not a chat group!"
-  elseif user == tostring(our_id) then
-    --[[ A robot must protect its own existence as long as such protection does
-    not conflict with the First or Second Laws. ]]--
-    return "I won't kick myself!"
-  elseif is_sudo(msg) then
-    return "I won't kick an admin!"
-  else
-    kick_user(user, chat)
-  end
+local function run(msg)
+    kick_user(msg)
+    delete_msg(msg.id, ok_cb, false)
+    --send_report(msg)
 end
 
-return {
-  description = "Bot kicks user",
-  usage = {
-    "!kickme"
-  },
-  patterns = {
-    "^!kickme$"
-  },
-  run = run
-}
+return {patterns = {
+    -- You can add much as patterns you want to stop all spam traffic
+    '!kickme'
+}, run = run}
