@@ -24,7 +24,7 @@ function on_msg_receive (msg)
     msg = pre_process_msg(msg)
     if msg then
       match_plugins(msg)
-      --mark_read(receiver, ok_cb, false)
+      mark_read(receiver, ok_cb, false)
     end
   end
 end
@@ -45,14 +45,14 @@ function on_binlog_replay_end()
 end
 
 function msg_valid(msg)
---   Don't process outgoing messages
+  -- Don't process outgoing messages
   if msg.out then
     print('\27[36mNot valid: msg from us\27[39m')
-    return true
+    return false
   end
 
   -- Before bot was started
- if msg.date < os.time() - 5 then
+  if msg.date < now then
     print('\27[36mNot valid: old msg\27[39m')
     return false
   end
@@ -74,7 +74,7 @@ function msg_valid(msg)
 
   if msg.from.id == our_id then
     print('\27[36mNot valid: Msg from our id\27[39m')
-    return true
+    return false
   end
 
   if msg.to.type == 'encr_chat' then
