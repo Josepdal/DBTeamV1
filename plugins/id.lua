@@ -71,10 +71,10 @@ local function run(msg, matches)
   -- Id of the user and info about group / channel
   if matches[1] == "#id" then
     if msg.to.type == 'channel' then
-      send_msg(msg.to.peer_id, '🔠 Channel Name: '..msg.to.print_name..'\n👥 Channel ID: '..msg.to.id..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
+      send_msg(msg.to.peer_id, '🔠 Channel Name: '..msg.to.print_name:gsub("_", " ")..'\n👥 Channel ID: '..msg.to.id..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
     end
     if msg.to.type == 'chat' then
-      send_msg(msg.to.peer_id, '🔠 Chat Name:'..msg.to.print_name..'\n👥 Chat ID: '..msg.to.id..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
+      send_msg(msg.to.peer_id, '🔠 Chat Name:'..msg.to.print_name:gsub("_", " ")..'\n👥 Chat ID: '..msg.to.id..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
     end
   elseif matches[1] == 'chat' or matches[1] == 'channel' then
     local type = matches[1]
