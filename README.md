@@ -12,36 +12,83 @@ Bot Commands
     <tr>
       <td><strong>Name</strong></td>
       <td><strong>Description</strong></td>
-      <td><strong>Usage</strong></td>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>channels.lua</td>
       <td>Plugin to manage channels. Enable or disable channel.</td>
-      <td>!channel enable: enable current channel<br>!channel disable: disable current channel<br></td>
+     <br></td>
     </tr>
     <tr>
       <td>plugins.lua</td>
       <td>Plugin to manage other plugins. Enable, disable or reload.</td>
-      <td>!plugins: list all plugins.<br>!plugins enable [plugin]: enable plugin.<br>!plugins disable [plugin]: disable plugin.<br>!plugins disable [plugin] chat: disable plugin only this chat.<br>!plugins reload: reloads all plugins.<br></td>
+      <br>
     </tr>
 <tr>
     <td>spam.lua</td>
 <td>Plugin to manage spam at groups and supergroups. When someone write a Telegram link to another group or channel, automatically, plugin delete that user from the chat, and delete their message.</td>
-<td>You can add patterns to use this plugin like Telegram.me/org links from adf.ly...</td>
 </tr>
 <tr>
 <td>flood.lua</td>
 <td>Plugin to manage flood at groups and supergroups. When someone write multiple messages in a short time, bot delete them from the chat.</td>
-<td>Messages per second</td>
 </tr>
 <tr>
 <td>banhammer.lua</td>
 <td>Plugin to manage users from chats. Kickbyreply implemented and working with chats, not in channels. When some user is unbanned from chat, the bot automatically add him into the group again.</td>
-<td>Reply !ban to ban user
-Reply !kick to kick user
-!ban delete ID to unban user</td>
+</tr>
+  </tbody>
+</table>
+
+#Commands Usage
+<table>
+  <thead>
+    <tr>
+      <td><strong>Plugin</strong></td>
+      <td><strong>Usage</strong></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+<td>[Channels] Commands for manage channels .</td>
+<td>#channel enable: enable current channel<br>
+#channel disable: disable current channel<br></td></tr>
+<tr>
+<td>[Plugins] Commands for manage plugins .</td>
+<td>#plugins: list all plugins.<br>
+#plugins enable [plugin]: enable plugin.<br>
+#plugins disable [plugin]: disable plugin.<br>
+#plugins disable [plugin] chat: disable plugin only this chat.<br>
+#plugins reload: reloads all plugins.<br></td></tr>
+</tr>
+<tr>
+<td>[Spam] Commands for manage spam .</td>
+<td>You can add patterns to use this plugin like Telegram.me/org links from adf.ly....<br></td></tr>
+</tr>
+<tr>
+<td>[Flood] Commands for manage flood .</td>
+<td>#settings maxflood [messages]: Set messages  for seconds.<br>
+#settings floodtime [seconds] Set seconds<br></td></tr>
+</tr>
+<td>[Kicks/Bans] Commands for manage kicks and bans .</td>
+<td>#kick: If type in reply, will kick user from chat/channel group.<br>
+        #kick id <user_id>: Kick user from chat/channel group.<br>
+        #kick user <@username>: Kick user from chat/channel group.<br>
+        #ban: If type in reply, will ban user from chat/channel group.<br>
+        #ban id <user_id>: Kick user from chat and kick if user joins chat/channel again.<br>
+        #ban user <@username>: Kick user from chat and kick if user joins chat/channel again.<br>
+        #unban: If type in reply, will unban user from chat/channel group.<br>
+        #unban id <user_id>: Unban user.<br>
+        #unban user <@username>: Unban user.<br>
+        #gban: If type in reply, will ban user from all chats/channels groups.<br>
+        #gban id <user_id> : Kick user_id from all chats/channels and kick user if he joins again.<br>
+        #gban user <@username> : Kick username from all chats/channels and kick user if he joins again.<br>
+        #ungban: If type in reply, will unban user globally.<br>
+        #ungban id <user_id> : Unban user_id from all chats/channels.<br>
+        #ungban user <@username> : Unban username from all chats/channels.<br>
+        #add: If type in old reply, you can add an old user that is out right now.<br>
+        #add id <user_id>: Add a user by id into chat/channel group.<br>
+        #add id <user_id>: Add a user by username into chat/channel group.'<br></td></tr>
 </tr>
   </tbody>
 </table>
