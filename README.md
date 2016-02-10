@@ -133,4 +133,4 @@ $ sudo stop telegram # To stop it
 
 Contact me
 ------------
-You can contact us [via Telegram](https://telegram.me/Josepdal) [via Telegram](https://telegram.me/MaSkAoS) but if you have an issue please [open](https://github.com/Josepdal/DBTeam/issues) one.
+You can contact us [via Telegram](https://telegram.me/Josepdal) or [via Telegram](https://telegram.me/MaSkAoS) but if you have an issue please [open](https://github.com/Josepdal/DBTeam/issues) one.
