@@ -67,7 +67,7 @@ Bot Commands
 </tr>
 <tr>
 <td>[Flood] Commands for manage flood .</td>
-<td>#settings maxflood [messages]: Set messages  for seconds.<br>
+<td>#settings flood enable : enable flood .<br>#settings flood disable : disable flood .<br>#settings maxflood [messages]: Set messages  for seconds.<br>
 #settings floodtime [seconds] Set seconds<br></td></tr>
 </tr>
 <td>[Kicks/Bans] Commands for manage kicks and bans .</td>
