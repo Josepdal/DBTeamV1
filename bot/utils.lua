@@ -547,3 +547,13 @@ function backward_msg_format (msg)
   end
   return msg
 end
+
+function is_admin(user_id)
+  for v,user in pairs(_config.admin_users) do
+    print(user[1])
+    if user[1] == user_id then
+        return true
+    end
+  end
+  return false
+end

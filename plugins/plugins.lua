@@ -1,3 +1,16 @@
+--------------------------------------------------
+--      ____  ____ _____                        --
+--     |    \|  _ )_   _|___ ____   __  __      --
+--     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
+--     |____/|____/ |_|\____/\_____|_/\/\_|     --
+--                                              --
+--------------------------------------------------
+--                                              --
+--       Developers: @Josepdal & @MaSkAoS       --
+--         Support: @Skneos & @Thef7HD          --
+--                                              --
+--------------------------------------------------
+
 do
 
 -- Returns the key (index) in the config.enabled_plugins table
@@ -25,8 +38,8 @@ local function list_plugins(only_enabled)
   local text = 'ℹ️ Plugins:\n'
   local psum = 0
   for k, v in pairs( plugins_names( )) do
-    --  ✅ enabled, ❌ disabled
-    local status = '❌'
+    --  ✅ enabled, ❎ disabled
+    local status = '❎'
     psum = psum+1
     pact = 0
     -- Check if is enabled
@@ -42,8 +55,8 @@ local function list_plugins(only_enabled)
       text = text..status..'  '..v..'\n'
     end
   end
-  local text = text..'\n'..psum..'  plugins instalados.\n✅  '
-              ..pact..' habilitados.\n❌  '..psum-pact..' desactivados'
+  local text = text..'\n🔢 '..psum..'  plugins instalados.\n✅ '
+              ..pact..' habilitados.\n❎ '..psum-pact..' desactivados'
   return text
 end
 

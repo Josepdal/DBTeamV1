@@ -1,8 +1,20 @@
---By @MaSkAoS & @Josepdal
+--------------------------------------------------
+--      ____  ____ _____                        --
+--     |    \|  _ )_   _|___ ____   __  __      --
+--     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
+--     |____/|____/ |_|\____/\_____|_/\/\_|     --
+--                                              --
+--------------------------------------------------
+--                                              --
+--       Developers: @Josepdal & @MaSkAoS       --
+--         Support: @Skneos & @Thef7HD          --
+--                                              --
+--------------------------------------------------
 
 do
 
 local function pre_process(msg)
+    vardump(msg)
     local hash = 'flood:max:'..msg.to.id
     if not redis:get(hash) then
         floodMax = 5
@@ -61,7 +73,7 @@ local function pre_process(msg)
         mp4 = 'nothing'
     else
         if msg.media.type == 'document' then
-            mp4 = msg.media.caption
+            mp4 = msg.media.caption or 'audio'
         end
     end
     --Checking GIFs and MP4 files
@@ -74,8 +86,12 @@ local function pre_process(msg)
         if not msg.media then
         else
             if msg.media.type == 'document' then
-                gifytpe = string.find(mp4, 'gif.mp4')
-                if not gifytpe then
+                gifytpe = string.find(mp4, 'gif.mp4') or 'audio'
+                if gifytpe == 'audio' then
+                    hash = 'audio:'..msg.to.id
+                    if redis:get(hash) then
+                        delete_msg(msg.id, ok_cb, false)
+                    end
                 else
                     hash = 'gifs:'..msg.to.id
                     if redis:get(hash) then
@@ -174,6 +190,24 @@ local function run(msg, matches)
                             send_msg('channel#id'..msg.to.id, 'Arabic are not allowed in this channel', ok_cb, false)
                         end
                     end
+                elseif matches[2] == 'audios' then
+                    if matches[3] == 'enable' then
+                        hash = 'audio:'..msg.to.id
+                        redis:del(hash)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'Audios are now allowed in this chat', ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'Audios are now allowed in this channel', ok_cb, false)
+                        end
+                    elseif matches[3] == 'disable' then
+                        hash = 'audio:'..msg.to.id
+                        redis:set(hash, true)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'Audios are not allowed in this chat', ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'Audios are not allowed in this channel', ok_cb, false)
+                        end
+                    end
                 elseif matches[2] == 'kickme' then
                     if matches[3] == 'enable' then
                         hash = 'kickme:'..msg.to.id
@@ -190,24 +224,6 @@ local function run(msg, matches)
                             send_msg('chat#id'..msg.to.id, 'Autokick are not allowed in this chat', ok_cb, false)
                         elseif msg.to.type == 'channel' then
                             send_msg('channel#id'..msg.to.id, 'Autokick are not allowed in this channel', ok_cb, false)
-                        end
-                    end
-                elseif matches[2] == 'mute' then
-                    if matches[3] == 'enable' then
-                        hash = 'mute:'..msg.to.id
-                        redis:set(hash, true)
-                        if msg.to.type == 'chat' then
-                            send_msg('chat#id'..msg.to.id, 'Muteare now allowed in this channel', ok_cb, false)
-                        elseif msg.to.type == 'channel' then
-                            send_msg('channel#id'..msg.to.id, 'Mute are now allowed in this channel', ok_cb, false)
-                        end
-                    elseif matches[3] == 'disable' then
-                        hash = 'mute:'..msg.to.id
-                        redis:del(hash)
-                        if msg.to.type == 'chat' then
-                            send_msg('chat#id'..msg.to.id, 'Mute are not allowed in this chat', ok_cb, false)
-                        elseif msg.to.type == 'channel' then
-                            send_msg('channel#id'..msg.to.id, 'Mute are not allowed in this channel', ok_cb, false)
                         end
                     end
                 elseif matches[2] == 'flood' then
@@ -256,7 +272,7 @@ local function run(msg, matches)
             if msg.to.type == 'chat' then
                 text = '⚙ Group settings:\n'
             elseif msg.to.type == 'channel' then
-                text = '⚙ Super Group Settings:\n'
+                text = '⚙ SuperGroup settings:\n'
             end
 
             --Enable/disable Stickers
@@ -325,6 +341,17 @@ local function run(msg, matches)
             end
             text = text..sPhotoD..' Photos: '..sPhoto..'\n'
 
+            --Enable/disable send audios
+            local hash = 'audio:'..msg.to.id
+            if redis:get(hash) then
+                sAudio = 'not allowed'
+                sAudioD = '🔹'
+            else
+                sAudio = 'allowed'
+                sAudioD = '🔸'
+            end
+            text = text..sAudioD..' Audios: '..sAudio..'\n'
+
             --Enable/disable autokick
             local hash = 'kickme:'..msg.to.id
             if redis:get(hash) then
@@ -335,17 +362,6 @@ local function run(msg, matches)
                 sKickmeD = '🔹'
             end
             text = text..sKickmeD..' Kickme: '..sKickme..'\n'
-
-            --Enable/disable autokick
-            local hash = 'mute:'..msg.to.id
-            if redis:get(hash) then
-                sMute = 'allowed'
-                sMuteD = '🔸'
-            else
-                sMute = 'not allowed'
-                sMuteD = '🔹'
-            end
-            text = text..sMuteD..' Mute: '..sMute..'\n'
 
             --Enable/disable changing group name
             local hash = 'name:enabled:'..msg.to.id
@@ -403,17 +419,6 @@ local function run(msg, matches)
                 channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
             end
         end
-    elseif matches[1] == 'kickme' then
-        local hash = 'kickme:'..msg.to.id
-        if redis:get(hash) then
-            if msg.to.type == 'chat' then
-                send_msg('chat#id'..msg.to.id, '@'..msg.from.username..' ('..msg.from.id..') bye.', ok_cb, true)
-                chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-            elseif msg.to.type == 'channel' then
-                send_msg('channel#id'..msg.to.id, '@'..msg.from.username..' ('..msg.from.id..') bye.', ok_cb, true)
-                channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-            end
-        end  
     end
 end
 
@@ -422,7 +427,7 @@ return {
         '^#(settings)$',
         '^#(kickme)$',
         '^#(settings) (.*) (.*)$',
-        "([\216-\219][\128-\191])"
+        '([\216-\219][\128-\191])'
     },
     pre_process = pre_process,
     run = run
