@@ -557,3 +557,52 @@ function is_admin(user_id)
   end
   return false
 end
+
+function is_id(name_id)
+	local var = tonumber(name_id)
+	if var then
+		return true
+	else
+		return false
+	end
+end
+
+function lang_text(chat_id, keyword)
+    local hash = 'langset:'..chat_id
+    local lang = redis:get(hash)
+    if lang then
+        local hashtext = 'lang:'..lang..':'..keyword
+        if redis:get(hashtext) then
+            return redis:get(hashtext)
+        else
+            return 'Please, install your selected "'..lang..'" language by #install [archive_name(english_lang, spanish_lang...)]. First, active your language package like a normal plugin by it\'s name. For example, #plugins enable english_lang. Or set another one by typing #lang [language(en, es...)].'
+        end
+    else
+        return "Please, set a language in this chat. #lang es/en... "
+    end
+end
+
+function set_text(lang, keyword, text)
+    local hash = 'lang:'..lang..':'..keyword
+    redis:set(hash, text)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
