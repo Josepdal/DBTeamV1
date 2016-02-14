@@ -355,11 +355,9 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-
     if not is_sudo(msg) then
         return nil
     end
-
     if matches[1] == 'ban' then
         local chat_id = msg.to.id
         local chat_type = msg.to.type
@@ -372,12 +370,12 @@ local function run(msg, matches)
             end
         end
         -- Using pattern #ban user @username
-        if matches[2] == 'user' then
-            local member = string.gsub(matches[3], '@', '')
+        if not is_id(matches[2]) then
+            local member = string.gsub(matches[2], '@', '')
             resolve_username(member, ban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
         -- Using pattern #ban id #id
-        elseif matches[2] == 'id' then
-            user_id = matches[3]
+        else
+            user_id = matches[2]
             if chat_type == 'chat' then
                 send_msg('chat#id'..chat_id, 'User '..user_id..' banned', ok_cb, false)
                 chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
@@ -398,19 +396,19 @@ local function run(msg, matches)
             end
         end
         -- Using pattern #ban user @username
-        if matches[2] == 'user' then
-            local member = string.gsub(matches[3], '@', '')
+        if not is_id(matches[2]) then
+            local member = string.gsub(matches[2], '@', '')
             resolve_username(member, unban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
         -- Using pattern #ban id #id
-        elseif matches[2] == 'id' then
-            local hash =  'banned:'..chat_id..':'..matches[3]
+        else
+            local hash =  'banned:'..chat_id..':'..matches[2]
             redis:del(hash)
             if msg.to.type == 'chat' then
-                chat_add_user('chat#id'..chat_id, 'user#id'..matches[3], ok_cb, false)
+                chat_add_user('chat#id'..chat_id, 'user#id'..matches[2], ok_cb, false)
             elseif msg.to.type == 'channel' then
-                channel_invite_user('channel#id'..chat_id, 'user#id'..matches[3], ok_cb, false)
+                channel_invite_user('channel#id'..chat_id, 'user#id'..matches[2], ok_cb, false)
             end
-            return 'User '..matches[3]..' is unbanned'
+            return 'User '..matches[2]..' is unbanned'
         end
     elseif matches[1] == 'kick' then
         local chat_id = msg.to.id
@@ -419,17 +417,17 @@ local function run(msg, matches)
         if msg.reply_id then
             get_message(msg.reply_id, chat_kick, false)
         end
-        if matches[2] == 'user' then
-            local member = string.gsub(matches[3], '@', '')
+        if not is_id(matches[2]) then
+            local member = string.gsub(matches[2], '@', '')
             resolve_username(member, kick_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        elseif matches[2] == 'id' then
-            local user_id = matches[3]
+        else
+            local user_id = matches[2]
             if msg.to.type == 'chat' then
                 send_msg('chat#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
-                kick_user(matches[3], msg.to.id)
+                kick_user(matches[2], msg.to.id)
             elseif msg.to.type == 'channel' then
                 send_msg('channel#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
-                kick_user(matches[3], msg.to.id)
+                kick_user(matches[2], msg.to.id)
             end
         end
     elseif matches[1] == 'gban' then
@@ -438,11 +436,11 @@ local function run(msg, matches)
         if msg.reply_id then
             get_message(msg.reply_id, gban_by_reply, false)
         end
-        if matches[2] == 'user' then
-            local member = string.gsub(matches[3], '@', '')
+        if not is_id(matches[2]) then
+            local member = string.gsub(matches[2], '@', '')
             resolve_username(member, gban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        elseif matches[2] == 'id' then
-            local user_id = matches[3]
+        else
+            local user_id = matches[2]
             local hash = 'gban:'..user_id
             redis:set(hash, true)
             if chat_type == 'chat' then
@@ -454,16 +452,17 @@ local function run(msg, matches)
             end
         end
     elseif matches[1] == 'ungban' then
+    	chat_id = msg.to.id
+    	chat_type = msg.to.type
         if msg.reply_id then
             get_message(msg.reply_id, ungban_by_reply, false)
         end
-        if matches[2] == 'user' then
+        if not is_id(matches[2]) then
             local chat_type = msg.to.type
-            local member = string.gsub(matches[3], '@', '')
+            local member = string.gsub(matches[2], '@', '')
             resolve_username(member, ungban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        elseif matches[2] == 'id' then
-            local user_id = matches[3]
-            local chat_type = msg.to.type
+        else
+            local user_id = matches[2]
             local hash = 'gban:'..user_id
             redis:del(hash)
             if chat_type == 'chat' then
@@ -480,18 +479,16 @@ local function run(msg, matches)
         if msg.reply_id then
             get_message(msg.reply_id, add_by_reply, false)
         end
-        if matches[2] == 'user' then
-            local member = string.gsub(matches[3], '@', '')
+        if not is_id(matches[2]) then
+            local member = string.gsub(matches[2], '@', '')
             resolve_username(member, add_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        elseif matches[2] == 'id' then
-            local user_id = matches[3]
+        else
+            local user_id = matches[2]
             if chat_type == 'chat' then
                 send_msg('chat#id'..chat_id, 'User '..user_id..' added to chat', ok_cb, false)
                 chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
             elseif chat_type == 'channel' then
                 send_msg('channel#id'..chat_id, 'User '..user_id..' added to channel', ok_cb, false)
-                print(user_id)
-                print(chat_id)
                 channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
             end
         end   
@@ -500,16 +497,16 @@ local function run(msg, matches)
             get_message(msg.reply_id, mute_by_reply, false)
         end
         if matches[2] then
-            if matches[2] == 'id' then
-                local hash = 'muted:'..msg.to.id..':'..matches[3]
+            if is_id(matches[2]) then
+                local hash = 'muted:'..msg.to.id..':'..matches[2]
                 redis:set(hash, true)
                 if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, 'User '..matches[3]..' is muted', ok_cb, true)
+                    send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
                 elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, 'User '..matches[3]..' is muted', ok_cb, true)
+                    send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
                 end
-            elseif matches[2] == 'user' then
-                local member = string.gsub(matches[3], '@', '')
+            else
+                local member = string.gsub(matches[2], '@', '')
                 local chat_id = msg.to.id
                 local chat_type = msg.to.type
                 resolve_username(member, mute_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
@@ -520,16 +517,16 @@ local function run(msg, matches)
             get_message(msg.reply_id, unmute_by_reply, false)
         end
         if matches[2] then
-            if matches[2] == 'id' then
-                local hash = 'muted:'..msg.to.id..':'..matches[3]
+            if is_id(matches[2]) then
+                local hash = 'muted:'..msg.to.id..':'..matches[2]
                 redis:del(hash)
                 if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, 'User '..matches[3]..' is muted', ok_cb, true)
+                    send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
                 elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, 'User '..matches[3]..' is muted', ok_cb, true)
+                    send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
                 end
-            elseif matches[2] == 'user' then
-                local member = string.gsub(matches[3], '@', '')
+            else
+                local member = string.gsub(matches[2], '@', '')
                 local chat_id = msg.to.id
                 local chat_type = msg.to.type
                 resolve_username(member, unmute_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
@@ -578,34 +575,20 @@ return {
         '#unmute user <@username>: Unmute a <@username> in this chat/channel group.'
     },
     patterns = {
-        "^#(ban) (user) (.*)$",
-        "^#(ban) (id) (.*)$",
         "^#(ban) (.*)$",
         "^#(ban)$",
-        "^#(unban) (user) (.*)$",
-        "^#(unban) (id) (.*)$",
         "^#(unban) (.*)$",
         "^#(unban)$",
-        "^#(kick) (user) (.*)$",
-        "^#(kick) (id) (.*)$",
         "^#(kick) (.*)$",
         "^#(kick)$",
-        "^#(add) (user) (.*)$",
-        "^#(add) (id) (.*)$",
         "^#(add) (.*)$",
         "^#(add)$",
-        "^#(gban) (user) (.*)$",
-        "^#(gban) (id) (.*)$",
         "^#(gban) (.*)$",
         "^#(gban)$",
-        "^#(ungban) (user) (.*)$",
-        "^#(ungban) (id) (.*)$",
         "^#(ungban) (.*)$",
         "^#(ungban)$",
-        '^#(mute) (.*) (.*)$',
         '^#(mute) (.*)$',
         '^#(mute)$',
-        '^#(unmute) (.*) (.*)$',
         '^#(unmute) (.*)$',
         '^#(unmute)$',
         "^!!tgservice (.*)$"
