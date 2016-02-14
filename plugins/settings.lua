@@ -283,6 +283,24 @@ local function run(msg, matches)
                         end
                     end
                     return
+                elseif matches[2] == 'setname' then
+                    if matches[3] == 'enable' then
+                        local hash = 'name:enabled:'..msg.to.id
+                        redis:set(hash, true)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'Now you can rename the chat', ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'Now you can rename the channel', ok_cb, false)
+                        end
+                    elseif matches[3] == 'disable' then
+                        local hash = 'name:enabled:'..msg.to.id
+                        redis:del(hash)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'Now you can\'t rename the chat', ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'Now you can\'t rename the channel', ok_cb, false)
+                        end
+                    end
                 end
             --end
         else
@@ -460,6 +478,16 @@ local function run(msg, matches)
         hash = 'langset:'..msg.to.id
         redis:set(hash, matches[2])
         return lang_text(msg.to.id, 'langUpdated')..matches[2]
+    elseif matches[1] == 'setname' then
+        local hash = 'name:enabled:'..msg.to.id
+        if redis:get(hash) then
+            if msg.to.type == 'chat' then
+                rename_chat(msg.to.peer_id, matches[2], ok_cb, false)
+            elseif msg.to.type == 'channel' then
+                rename_channel(msg.to.peer_id, matches[2], ok_cb, false)
+            end
+        end
+        return
     end
     local hash = 'arabic:'..msg.to.id
     if redis:get(hash) then
@@ -480,6 +508,7 @@ return {
         '^#(kickme)$',
         '^#(settings) (.*) (.*)$',
         '^#(rem)$',
+        '^#(setname) (.*)$',
         '^#(lang) (.*)$',
         '([\216-\219][\128-\191])'
     },
