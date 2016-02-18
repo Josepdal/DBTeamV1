@@ -13,6 +13,16 @@
 
 do
 
+local function index_gban(user_id)
+  for k,v in pairs(_gbans.gbans_users) do
+    if tonumber(user_id) == tonumber(v) then
+      return k
+    end
+  end
+  -- If not found
+  return false
+end
+
 local function unmute_by_reply(extra, success, result)
     result = backward_msg_format(result)
     local msg = result
@@ -74,7 +84,7 @@ local function kick_user(user_id, chat_id)
     local user = 'user#id'..user_id
     local channel = 'channel#id'..chat_id
     if user_id == tostring(our_id) then
-        send_msg(chat, "I won't kick myself!", ok_cb,  true)
+        print("I won't kick myself!")
     else
         chat_del_user(chat, user, ok_cb, true)
         channel_kick_user(channel, user, ok_cb, true)
@@ -131,11 +141,16 @@ end
 
 local function gban_by_reply(extra, success, result)
     result = backward_msg_format(result)
-    local msg = result
+    local msg = resultq
     local chat = msg.to.id
     local user = msg.from.id
     local hash = 'gban:'..user
     redis:set(hash, true)
+    if not is_gbanned_table(msg.to.id) then
+        table.insert(_gbans.gbans_users, tonumber(user_id))
+        print(user_id..' added to _gbans table')
+        save_gbans()
+    end
     if msg.to.type == 'chat' then
         chat_del_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
         send_msg('chat#id'..chat, 'User '..user..' globally banned', ok_cb,  true)
@@ -150,8 +165,14 @@ local function ungban_by_reply(extra, success, result)
     local msg = result
     local chat = msg.to.id
     local user = msg.from.id
+    local indexid = index_gban(user)
     local hash = 'gban:'..user
     redis:del(hash)
+    if is_gbanned_table(user_id) then
+        table.remove(_gbans.gbans_users, indexid)
+        print(user_id..' removed from _gbans table')
+        save_gbans()
+    end
     if msg.to.type == 'chat' then
         chat_add_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
         send_msg('chat#id'..chat, 'User '..user..' globally unbanned', ok_cb,  true)
@@ -244,6 +265,11 @@ local function gban_by_username(cb_extra, success, result)
     local chat_type = cb_extra.chat_type
     local hash =  'gban:'..user_id
     redis:set(hash, true)
+    if not is_gbanned_table(user_id) then
+        table.insert(_gbans.gbans_users, tonumber(user_id))
+        print(user_id..' added to _gbans table')
+        save_gbans()
+    end
     if chat_type == 'chat' then
         send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') globally banned', ok_cb, false)
         chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
@@ -258,8 +284,14 @@ local function ungban_by_username(cb_extra, success, result)
     user_id = result.peer_id
     user_username = result.username
     chat_type = cb_extra.chat_type
+    local indexid = index_gban(user_id)
     local hash =  'gban:'..user_id
     redis:del(hash)
+    if is_gbanned_table(user_id) then
+        table.remove(_gbans.gbans_users, indexid)
+        print(user_id..' removed from _gbans table')
+        save_gbans()
+    end
     if chat_type == 'chat' then
         send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') globally unbanned', ok_cb, false)
         chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
@@ -299,7 +331,7 @@ local function add_by_username(cb_extra, success, result)
     end
 end
 
-local function is_gbanned(user_id, chat_id)
+local function is_gbanned(user_id)
     local hash =  'gban:'..user_id
     local banned = redis:get(hash)
     return banned or false
@@ -323,13 +355,23 @@ local function pre_process(msg)
         -- Check if banned user joins chat
         if action == 'chat_add_user' or action == 'chat_add_user_link' then
             local user_id
+            local hash = 'lockmember:'..msg.to.id
+            if redis:get(hash) then
+                if msg.action.link_issuer then
+                    user_id = msg.from.id
+                else
+                    user_id = msg.action.user.id
+                end
+                kick_user(user_id, msg.to.id)
+                delete_msg(msg.id, ok_cb, true)
+            end
             if msg.action.link_issuer then
                 user_id = msg.from.id
             else
                 user_id = msg.action.user.id
             end
             print('Checking invited user '..user_id)
-            local banned = is_banned(user_id, msg.to.id) or is_gbanned(user_id, msg.to.id)
+            local banned = is_banned(user_id, msg.to.id) or is_gbanned(user_id)
             if banned then
                 print('User is banned!')
                 kick_user(user_id, msg.to.id)
@@ -424,10 +466,10 @@ local function run(msg, matches)
             local user_id = matches[2]
             if msg.to.type == 'chat' then
                 send_msg('chat#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
-                kick_user(matches[2], msg.to.id)
+                chat_del_user('chat#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
             elseif msg.to.type == 'channel' then
                 send_msg('channel#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
-                kick_user(matches[2], msg.to.id)
+                channel_kick_user('channel#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
             end
         end
     elseif matches[1] == 'gban' then
@@ -443,6 +485,11 @@ local function run(msg, matches)
             local user_id = matches[2]
             local hash = 'gban:'..user_id
             redis:set(hash, true)
+            if not is_gbanned_table(user_id) then
+                table.insert(_gbans.gbans_users, tonumber(user_id))
+                print(user_id..' added to _gbans table')
+                save_gbans()
+            end
             if chat_type == 'chat' then
                 send_msg('chat#id'..chat_id, 'User '..user_id..' globally banned', ok_cb, false)
                 chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
@@ -464,7 +511,13 @@ local function run(msg, matches)
         else
             local user_id = matches[2]
             local hash = 'gban:'..user_id
+            local indexid = index_gban(user_id)
             redis:del(hash)
+            if is_gbanned_table(user_id) then
+                table.remove(_gbans.gbans_users, indexid)
+                print(user_id..' removed from _gbans table')
+                save_gbans()
+            end
             if chat_type == 'chat' then
                 send_msg('chat#id'..chat_id, 'User '..user_id..' globally unbanned', ok_cb, false)
                 chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
@@ -537,10 +590,10 @@ local function run(msg, matches)
         if redis:get(hash) then
             if msg.to.type == 'chat' then
                 send_msg('chat#id'..msg.to.id, '@'..msg.from.username..' ('..msg.from.id..') bye.', ok_cb, true)
-                chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+                chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, false)
             elseif msg.to.type == 'channel' then
                 send_msg('channel#id'..msg.to.id, '@'..msg.from.username..' ('..msg.from.id..') bye.', ok_cb, true)
-                channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+                channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, false)
             end
         end  
     end
