@@ -1,6 +1,7 @@
-LANG = 'es'
+local LANG = 'es'
 
 local function run(msg, matches)
+	print(LANG)
 	-- Translation version --
 	set_text(LANG, 'version', '0.1')
 	set_text(LANG, 'versionExtended', 'Traducción versión 0.1')
