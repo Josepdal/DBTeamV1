@@ -41,6 +41,7 @@ local function whoisname(cb_extra, success, result)
 end
 
 local function whoisid(cb_extra, success, result)
+    print(2)
     chat_id = cb_extra.chat_id
     user_id = cb_extra.user_id
     print(cb_extra.chat_id)
@@ -96,9 +97,9 @@ local function run(msg, matches)
     if matches[1] == "whois" then
         if msg.reply_id then
             get_message(msg.reply_id, get_id_who, {receiver=get_receiver(msg)})
+            return
         end
     end
-
     -- Id of the user and info about group / channel
     if matches[1] == "#id" then
         if msg.to.type == 'channel' then
@@ -109,10 +110,11 @@ local function run(msg, matches)
     elseif matches[1] == 'whois' then
         chat_type = msg.to.type
         chat_id = msg.to.id
-        if matches[2] == 'id' then
-            user_info('user#id'..matches[3], whoisid, {chat_type=chat_type, chat_id=chat_id, user_id=matches[3]})
-        elseif matches[2] == 'user' then
-            local member = string.gsub(matches[3], '@', '')
+        if is_id(matches[2]) then
+            print(1)
+            user_info('user#id'..matches[2], whoisid, {chat_type=chat_type, chat_id=chat_id, user_id=matches[2]})
+        else
+            local member = string.gsub(matches[2], '@', '')
             resolve_username(member, whoisname, {chat_id=chat_id, member=member, chat_type=chat_type})
         end
     elseif matches[1] == 'chat' or matches[1] == 'channel' then
@@ -155,8 +157,7 @@ return {
     "^#id$",
     "^#ids? (chat)$",
     "^#ids? (channel)$",
-    "^#(whois) (id) (.*)$",
-    "^#(whois) (user) (.*)$"
+    "^#(whois) (.*)$"
   },
   run = run
 }
