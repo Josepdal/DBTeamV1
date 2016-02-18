@@ -588,6 +588,28 @@ function set_text(lang, keyword, text)
     redis:set(hash, text)
 end
 
+function is_mod(chat_id, user_id)
+    local hash = 'mod:'..chat_id..':'..user_id
+    if redis:get(hash) then
+        return true
+    else
+        return false
+    end
+end
+
+function is_gbanned_table(user_id)
+  for v,user in pairs(_gbans.gbans_users) do
+    if tonumber(user) == tonumber(user_id) then
+        return true
+    end
+  end
+  return false
+end
+
+function gban_id(user_id)
+  local hash = 'gban:'..user_id
+  redis:set(hash, true)
+end
 
 
 
