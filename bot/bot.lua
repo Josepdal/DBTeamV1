@@ -39,6 +39,8 @@ function on_binlog_replay_end()
 
   _config = load_config()
 
+  _gbans = load_gbans()
+
   -- load plugins
   plugins = {}
   load_plugins()
@@ -184,6 +186,11 @@ function save_config( )
   print ('saved config into ./data/config.lua')
 end
 
+function save_gbans( )
+  serialize_to_file(_gbans, './data/gbans.lua')
+  print ('saved gban into ./data/gbans.lua')
+end
+
 -- Returns the config from config.lua file.
 -- If file doesn't exist, create it.
 function load_config( )
@@ -202,19 +209,62 @@ function load_config( )
   return config
 end
 
+function load_gbans( )
+  local f = io.open('./data/gbans.lua', "r")
+  -- If gbans.lua doesn't exist
+  if not f then
+    print ("Created new gbans file: data/gbans.lua")
+    create_gbans()
+  else
+    f:close()
+  end
+  local gbans = loadfile ("./data/gbans.lua")()
+  return gbans
+end
+
 -- Create a basic config.json file and saves it.
 function create_config( )
   -- A simple config with basic plugins and ourselves as privileged user
   config = {
     enabled_plugins = {
+      "9gag",
+      "eur",
+      "echo",
+      "btc",
+      "get",
+      "giphy",
+      "google",
+      "gps",
+      "help",
+      "id",
+      "images",
+      "img_google",
+      "location",
+      "media",
       "plugins",
-      "settings",
-      "id" },
+      "channels",
+      "set",
+      "stats",
+      "time",
+      "version",
+      "weather",
+      "xkcd",
+      "youtube" },
     sudo_users = {our_id},
+    admin_users = {},
     disabled_channels = {}
   }
   serialize_to_file(config, './data/config.lua')
   print ('saved config into ./data/config.lua')
+end
+
+function create_gbans( )
+  -- A simple config with basic plugins and ourselves as privileged user
+  gbans = {
+    gbans_users = {}
+  }
+  serialize_to_file(gbans, './data/gbans.lua')
+  print ('saved gbans into ./data/gbans.lua')
 end
 
 function on_our_id (id)
