@@ -15,8 +15,23 @@ do
 
 local function remove_message(extra, success, result)
     msg = backward_msg_format(result)
-    print(2)
     delete_msg(msg.id, ok_cb, false)
+end
+
+local function set_group_photo(msg, success, result)
+    local receiver = get_receiver(msg)
+    if success then
+        local file = 'data/photos/chat_photo_'..msg.to.id..'.jpg'
+        print('File downloaded to:', result)
+        os.rename(result, file)
+        print('File moved to:', file)
+        print(receiver)
+        channel_set_photo (receiver, file, ok_cb, false)
+        return 'Photo saved!'
+    else
+        print('Error downloading: '..msg.id)
+        return 'Failed, please try again!'
+    end
 end
 
 local function pre_process(msg)
@@ -88,8 +103,7 @@ local function pre_process(msg)
             delete_msg(msg.id, ok_cb, false)
         end
     else
-        if not msg.media then
-        else
+        if msg.media then
             if msg.media.type == 'document' then
                 gifytpe = string.find(mp4, 'gif.mp4') or 'audio'
                 if gifytpe == 'audio' then
@@ -107,10 +121,15 @@ local function pre_process(msg)
         end
     end
     --Checking photos
-    if not msg.media then
-    else
+    if msg.media then
         if msg.media.type == 'photo' then
-            hash = 'photo:'..msg.to.id
+            local hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+                if redis:get(hash) then
+                    redis:del(hash)
+                    load_photo(msg.id, set_group_photo, msg)
+                    delete_msg(msg.id, ok_cb, false)
+                end
+            local hash = 'photo:'..msg.to.id
             if redis:get(hash) then
                 delete_msg(msg.id, ok_cb, false)
             end
@@ -259,6 +278,24 @@ local function run(msg, matches)
                         end
                     end
                     return
+                elseif matches[2] == 'lockmember' then
+                    hash = 'lockmember:'..msg.to.id
+                    if matches[3] == 'enable' then
+                        redis:set(hash, true)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'members tope de locked', ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'members tope de locked', ok_cb, false)
+                        end
+                    elseif matches[3] == 'disable' then
+                        redis:del(hash)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'pues ya nostan locked', ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'pues ya nostan locked', ok_cb, false)
+                        end
+                    end
+                    return
                 elseif matches[2] == 'floodtime' then
                     if not matches[3] then
                     else
@@ -371,11 +408,11 @@ local function run(msg, matches)
             --Enable/disable send photos
             local hash = 'photo:'..msg.to.id
             if redis:get(hash) then
-                sPhoto = allowed
-                sPhotoD = '🔸'
-            else
                 sPhoto = noAllowed
                 sPhotoD = '🔹'
+            else
+                sPhoto = allowed
+                sPhotoD = '🔸'
             end
             text = text..sPhotoD..' '..lang_text(msg.to.id, 'photos')..': '..sPhoto..'\n'
 
@@ -412,6 +449,17 @@ local function run(msg, matches)
             end
             text = text..sSpamD..' '..lang_text(msg.to.id, 'spam')..': '..sSpam..'\n'
 
+            --Enable/disable autokick
+            local hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+            if redis:get(hash) then
+                sSPhoto = allowed
+                sSPhotoD = '🔸'
+            else
+                sSPhoto = noAllowed
+                sSPhotoD = '🔹'
+            end
+            text = text..sSPhotoD..' '..'Poner una foto'..': '..sSPhoto..'\n'
+
             --Enable/disable changing group name
             local hash = 'name:enabled:'..msg.to.id
             if redis:get(hash) then
@@ -422,6 +470,17 @@ local function run(msg, matches)
                 sNameD = '🔹'
             end
             text = text..sNameD..' '..lang_text(msg.to.id, 'gName')..': '..sName..'\n'
+
+            --Enable/disable changing member xdxdwtf
+            local hash = 'lockmember:'..msg.to.id
+            if redis:get(hash) then
+                sLock = noAllowed
+                sLockD = '🔹'
+            else
+                sLock = allowed
+                sLockD = '🔸'
+            end
+            text = text..sLockD..' lockmembers: '..sLock..'\n'
 
             --Enable/disable Flood
             local hash = 'anti-flood:'..msg.to.id
@@ -488,6 +547,51 @@ local function run(msg, matches)
             end
         end
         return
+    elseif matches[1] == 'setlink' then
+        hash = 'link:'..msg.to.id
+        redis:set(hash, matches[2])
+        if msg.to.type == 'chat' then
+            send_msg('chat#id'..msg.to.id, 'New link saved', ok_cb, true)
+        elseif msg.to.type == 'channel' then
+            send_msg('channel#id'..msg.to.id, 'New link saved', ok_cb, true)
+        end
+        return
+    elseif matches[1] == 'link' then
+        hash = 'link:'..msg.to.id
+        local linktext = redis:get(hash)
+        if linktext then
+            if msg.to.type == 'chat' then
+                send_msg('chat#id'..msg.to.id, '🌐 Group Link: '..linktext, ok_cb, true)
+            elseif msg.to.type == 'channel' then
+                send_msg('channel#id'..msg.to.id, '🌐 SuperGroup Link: '..linktext, ok_cb, true)
+            end
+        else
+            if msg.to.type == 'chat' then
+                send_msg('chat#id'..msg.to.id, 'There is not link set yet. Please add one by #setlink [Link]', ok_cb, true)
+            elseif msg.to.type == 'channel' then
+                send_msg('channel#id'..msg.to.id, 'There is not link set yet. Please add one by #setlink [Link]', ok_cb, true)
+            end
+        end
+        return
+    elseif matches[1] == 'setphoto' then
+        if matches[2] == 'stop' then
+            hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+            redis:del(hash)
+            if msg.to.type == 'chat' then
+                send_msg('chat#id'..msg.to.id, 'Setphoto aborted kjakjjjajjjsjjjsjsjj', ok_cb, true)
+            elseif msg.to.type == 'channel' then
+                send_msg('channel#id'..msg.to.id, 'Setphoto aborted kjakjjjajjjsjjjsjsjj', ok_cb, true)
+            end
+        else
+            hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+            redis:set(hash, true)
+            if msg.to.type == 'chat' then
+                send_msg('chat#id'..msg.to.id, 'Send a photo', ok_cb, true)
+            elseif msg.to.type == 'channel' then
+                send_msg('channel#id'..msg.to.id, 'Send a photo', ok_cb, true)
+            end
+        end
+        return
     end
     local hash = 'arabic:'..msg.to.id
     if redis:get(hash) then
@@ -509,6 +613,10 @@ return {
         '^#(settings) (.*) (.*)$',
         '^#(rem)$',
         '^#(setname) (.*)$',
+        '^#(setphoto)$',
+        '^#(setphoto) (.*)$',
+        '^#(link)$',
+        '^#(setlink) (.*)$',
         '^#(lang) (.*)$',
         '([\216-\219][\128-\191])'
     },
