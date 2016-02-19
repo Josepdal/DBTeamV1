@@ -55,14 +55,18 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-	local receiver = get_receiver(msg)
-	-- Enable a channel
-	if matches[1] == 'on' then
-		return enable_channel(receiver, msg.to.id)
-	end
-	-- Disable a channel
-	if matches[1] == 'off' then
-		return disable_channel(receiver, msg.to.id)
+	if permissions(msg.from.id, msg.to.id, "bot") then
+		local receiver = get_receiver(msg)
+		-- Enable a channel
+		if matches[1] == 'on' then
+			return enable_channel(receiver, msg.to.id)
+		end
+		-- Disable a channel
+		if matches[1] == 'off' then
+			return disable_channel(receiver, msg.to.id)
+		end
+	else
+		return '🚫 '..lang_text(msg.to.id, 'require_sudo')
 	end
 end
 
@@ -75,6 +79,5 @@ return {
 		"^#bot? (on)",
 		"^#bot? (off)" }, 
 	run = run,
-	privileged = true,
 	pre_process = pre_process
 }

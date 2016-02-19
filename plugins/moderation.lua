@@ -397,193 +397,241 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-    if not is_sudo(msg) then
-        return nil
-    end
+    
     if matches[1] == 'ban' then
-        local chat_id = msg.to.id
-        local chat_type = msg.to.type
-        -- Using pattern #ban
-        if msg.reply_id then
-            if msg.to.type == 'chat' then
-                get_message(replyId, chat_ban, false)
-            elseif msg.to.type == 'channel' then
-                get_message(msg.reply_id, channel_ban, {receiver=get_receiver(msg)})
+        if permissions(msg.from.id, msg.to.id, "ban") then
+            local chat_id = msg.to.id
+            local chat_type = msg.to.type
+            if msg.reply_id then
+                if msg.to.type == 'chat' then
+                    get_message(replyId, chat_ban, false)
+                elseif msg.to.type == 'channel' then
+                    get_message(msg.reply_id, channel_ban, {receiver=get_receiver(msg)})
+                end
+                return
             end
-        end
-        -- Using pattern #ban user @username
-        if not is_id(matches[2]) then
-            local member = string.gsub(matches[2], '@', '')
-            resolve_username(member, ban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        -- Using pattern #ban id #id
+            if not is_id(matches[2]) then
+                local member = string.gsub(matches[2], '@', '')
+                resolve_username(member, ban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
+            else
+                user_id = matches[2]
+                if chat_type == 'chat' then
+                    send_msg('chat#id'..chat_id, 'User '..user_id..' banned', ok_cb, false)
+                    chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                elseif chat_type == 'channel' then
+                    send_msg('channel#id'..chat_id, 'User '..user_id..' banned', ok_cb, false)
+                    channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                end
+                ban_user(user_id, chat_id)
+                return
+            end
         else
-            user_id = matches[2]
-            if chat_type == 'chat' then
-                send_msg('chat#id'..chat_id, 'User '..user_id..' banned', ok_cb, false)
-                chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            elseif chat_type == 'channel' then
-                send_msg('channel#id'..chat_id, 'User '..user_id..' banned', ok_cb, false)
-                channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            end
-            ban_user(user_id, chat_id)
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
     elseif matches[1] == 'unban' then
-        local chat_id = msg.to.id
-        local chat_type = msg.to.type
-        if msg.reply_id then
-            if msg.to.type == 'chat' then
-                get_message(replyId, chat_unban, false)
-            elseif msg.to.type == 'channel' then
-                get_message(msg.reply_id, channel_unban, false)
-            end
-        end
-        -- Using pattern #ban user @username
-        if not is_id(matches[2]) then
-            local member = string.gsub(matches[2], '@', '')
-            resolve_username(member, unban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        -- Using pattern #ban id #id
-        else
-            local hash =  'banned:'..chat_id..':'..matches[2]
-            redis:del(hash)
-            if msg.to.type == 'chat' then
-                chat_add_user('chat#id'..chat_id, 'user#id'..matches[2], ok_cb, false)
-            elseif msg.to.type == 'channel' then
-                channel_invite_user('channel#id'..chat_id, 'user#id'..matches[2], ok_cb, false)
-            end
-            return 'User '..matches[2]..' is unbanned'
-        end
-    elseif matches[1] == 'kick' then
-        local chat_id = msg.to.id
-        local chat_type = msg.to.type
-        -- Using pattern #kick
-        if msg.reply_id then
-            get_message(msg.reply_id, chat_kick, false)
-        end
-        if not is_id(matches[2]) then
-            local member = string.gsub(matches[2], '@', '')
-            resolve_username(member, kick_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        else
-            local user_id = matches[2]
-            if msg.to.type == 'chat' then
-                send_msg('chat#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
-                chat_del_user('chat#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
-            elseif msg.to.type == 'channel' then
-                send_msg('channel#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
-                channel_kick_user('channel#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
-            end
-        end
-    elseif matches[1] == 'gban' then
-        chat_id = msg.to.id
-        chat_type = msg.to.type
-        if msg.reply_id then
-            get_message(msg.reply_id, gban_by_reply, false)
-        end
-        if not is_id(matches[2]) then
-            local member = string.gsub(matches[2], '@', '')
-            resolve_username(member, gban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        else
-            local user_id = matches[2]
-            local hash = 'gban:'..user_id
-            redis:set(hash, true)
-            if not is_gbanned_table(user_id) then
-                table.insert(_gbans.gbans_users, tonumber(user_id))
-                print(user_id..' added to _gbans table')
-                save_gbans()
-            end
-            if chat_type == 'chat' then
-                send_msg('chat#id'..chat_id, 'User '..user_id..' globally banned', ok_cb, false)
-                chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            elseif chat_type == 'channel' then
-                send_msg('channel#id'..chat_id, 'User '..user_id..' globally banned', ok_cb, false)
-                channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            end
-        end
-    elseif matches[1] == 'ungban' then
-    	chat_id = msg.to.id
-    	chat_type = msg.to.type
-        if msg.reply_id then
-            get_message(msg.reply_id, ungban_by_reply, false)
-        end
-        if not is_id(matches[2]) then
+        if permissions(msg.from.id, msg.to.id, "unban") then
+            local chat_id = msg.to.id
             local chat_type = msg.to.type
-            local member = string.gsub(matches[2], '@', '')
-            resolve_username(member, ungban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        else
-            local user_id = matches[2]
-            local hash = 'gban:'..user_id
-            local indexid = index_gban(user_id)
-            redis:del(hash)
-            if is_gbanned_table(user_id) then
-                table.remove(_gbans.gbans_users, indexid)
-                print(user_id..' removed from _gbans table')
-                save_gbans()
-            end
-            if chat_type == 'chat' then
-                send_msg('chat#id'..chat_id, 'User '..user_id..' globally unbanned', ok_cb, false)
-                chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            elseif chat_type == 'channel' then
-                send_msg('channel#id'..chat_id, 'User '..user_id..' globally unbanned', ok_cb, false)
-                channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            end
-        end   
-    elseif matches[1] == 'add' then
-        local chat_id = msg.to.id
-        local chat_type = msg.to.type
-        if msg.reply_id then
-            get_message(msg.reply_id, add_by_reply, false)
-        end
-        if not is_id(matches[2]) then
-            local member = string.gsub(matches[2], '@', '')
-            resolve_username(member, add_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
-        else
-            local user_id = matches[2]
-            if chat_type == 'chat' then
-                send_msg('chat#id'..chat_id, 'User '..user_id..' added to chat', ok_cb, false)
-                chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            elseif chat_type == 'channel' then
-                send_msg('channel#id'..chat_id, 'User '..user_id..' added to channel', ok_cb, false)
-                channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
-            end
-        end   
-    elseif matches[1] == 'mute' then
-        if msg.reply_id then
-            get_message(msg.reply_id, mute_by_reply, false)
-        end
-        if matches[2] then
-            if is_id(matches[2]) then
-                local hash = 'muted:'..msg.to.id..':'..matches[2]
-                redis:set(hash, true)
+            if msg.reply_id then
                 if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    get_message(replyId, chat_unban, false)
                 elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    get_message(msg.reply_id, channel_unban, false)
                 end
-            else
-                local member = string.gsub(matches[2], '@', '')
-                local chat_id = msg.to.id
-                local chat_type = msg.to.type
-                resolve_username(member, mute_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
             end
-        end
-    elseif matches[1] == 'unmute' then
-        if msg.reply_id then
-            get_message(msg.reply_id, unmute_by_reply, false)
-        end
-        if matches[2] then
-            if is_id(matches[2]) then
-                local hash = 'muted:'..msg.to.id..':'..matches[2]
+            if not is_id(matches[2]) then
+                local member = string.gsub(matches[2], '@', '')
+                resolve_username(member, unban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
+            else
+                local hash =  'banned:'..chat_id..':'..matches[2]
                 redis:del(hash)
                 if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    chat_add_user('chat#id'..chat_id, 'user#id'..matches[2], ok_cb, false)
                 elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    channel_invite_user('channel#id'..chat_id, 'user#id'..matches[2], ok_cb, false)
                 end
-            else
-                local member = string.gsub(matches[2], '@', '')
-                local chat_id = msg.to.id
-                local chat_type = msg.to.type
-                resolve_username(member, unmute_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return 'User '..matches[2]..' is unbanned'
             end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'kick' then
+        if permissions(msg.from.id, msg.to.id, "kick") then
+            local chat_id = msg.to.id
+            local chat_type = msg.to.type
+            -- Using pattern #kick
+            if msg.reply_id then
+                get_message(msg.reply_id, chat_kick, false)
+                return
+            end
+            if not is_id(matches[2]) then
+                local member = string.gsub(matches[2], '@', '')
+                resolve_username(member, kick_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
+            else
+                local user_id = matches[2]
+                if msg.to.type == 'chat' then
+                    send_msg('chat#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
+                    chat_del_user('chat#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
+                elseif msg.to.type == 'channel' then
+                    send_msg('channel#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
+                    channel_kick_user('channel#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
+                end
+                return
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'gban' then
+        if permissions(msg.from.id, msg.to.id, "gban") then
+            chat_id = msg.to.id
+            chat_type = msg.to.type
+            if msg.reply_id then
+                get_message(msg.reply_id, gban_by_reply, false)
+                return
+            end
+            if not is_id(matches[2]) then
+                local member = string.gsub(matches[2], '@', '')
+                resolve_username(member, gban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
+            else
+                local user_id = matches[2]
+                local hash = 'gban:'..user_id
+                redis:set(hash, true)
+                if not is_gbanned_table(user_id) then
+                    table.insert(_gbans.gbans_users, tonumber(user_id))
+                    print(user_id..' added to _gbans table')
+                    save_gbans()
+                end
+                if chat_type == 'chat' then
+                    send_msg('chat#id'..chat_id, 'User '..user_id..' globally banned', ok_cb, false)
+                    chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                elseif chat_type == 'channel' then
+                    send_msg('channel#id'..chat_id, 'User '..user_id..' globally banned', ok_cb, false)
+                    channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                end
+                return
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'ungban' then
+        if permissions(msg.from.id, msg.to.id, "ungban") then
+        	chat_id = msg.to.id
+        	chat_type = msg.to.type
+            if msg.reply_id then
+                get_message(msg.reply_id, ungban_by_reply, false)
+                return
+            end
+            if not is_id(matches[2]) then
+                local chat_type = msg.to.type
+                local member = string.gsub(matches[2], '@', '')
+                resolve_username(member, ungban_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
+            else
+                local user_id = matches[2]
+                local hash = 'gban:'..user_id
+                local indexid = index_gban(user_id)
+                redis:del(hash)
+                if is_gbanned_table(user_id) then
+                    table.remove(_gbans.gbans_users, indexid)
+                    print(user_id..' removed from _gbans table')
+                    save_gbans()
+                end
+                if chat_type == 'chat' then
+                    send_msg('chat#id'..chat_id, 'User '..user_id..' globally unbanned', ok_cb, false)
+                    chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                elseif chat_type == 'channel' then
+                    send_msg('channel#id'..chat_id, 'User '..user_id..' globally unbanned', ok_cb, false)
+                    channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                end
+                return
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'add' then
+        if permissions(msg.from.id, msg.to.id, "add") then
+            local chat_id = msg.to.id
+            local chat_type = msg.to.type
+            if msg.reply_id then
+                get_message(msg.reply_id, add_by_reply, false)
+                return
+            end
+            if not is_id(matches[2]) then
+                local member = string.gsub(matches[2], '@', '')
+                resolve_username(member, add_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
+            else
+                local user_id = matches[2]
+                if chat_type == 'chat' then
+                    send_msg('chat#id'..chat_id, 'User '..user_id..' added to chat', ok_cb, false)
+                    chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                elseif chat_type == 'channel' then
+                    send_msg('channel#id'..chat_id, 'User '..user_id..' added to channel', ok_cb, false)
+                    channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
+                end
+                return
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'mute' then
+        if permissions(msg.from.id, msg.to.id, "mute") then
+            if msg.reply_id then
+                get_message(msg.reply_id, mute_by_reply, false)
+                return
+            end
+            if matches[2] then
+                if is_id(matches[2]) then
+                    local hash = 'muted:'..msg.to.id..':'..matches[2]
+                    redis:set(hash, true)
+                    if msg.to.type == 'chat' then
+                        send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    elseif msg.to.type == 'channel' then
+                        send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    end
+                    return
+                else
+                    local member = string.gsub(matches[2], '@', '')
+                    local chat_id = msg.to.id
+                    local chat_type = msg.to.type
+                    resolve_username(member, mute_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                    return
+                end
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'unmute' then
+        if permissions(msg.from.id, msg.to.id, "unmute") then
+            if msg.reply_id then
+                get_message(msg.reply_id, unmute_by_reply, false)
+                return
+            end
+            if matches[2] then
+                if is_id(matches[2]) then
+                    local hash = 'muted:'..msg.to.id..':'..matches[2]
+                    redis:del(hash)
+                    if msg.to.type == 'chat' then
+                        send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    elseif msg.to.type == 'channel' then
+                        send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                    end
+                    return
+                else
+                    local member = string.gsub(matches[2], '@', '')
+                    local chat_id = msg.to.id
+                    local chat_type = msg.to.type
+                    resolve_username(member, unmute_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
+                    return
+                end
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
     elseif matches[1] == 'kickme' then
         local hash = 'kickme:'..msg.to.id

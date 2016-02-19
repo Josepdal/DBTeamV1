@@ -93,50 +93,59 @@ end
 
 local function run(msg, matches)
     local receiver = get_receiver(msg)
-
-    if matches[1] == "whois" then
-        if msg.reply_id then
-            get_message(msg.reply_id, get_id_who, {receiver=get_receiver(msg)})
-            return
-        end
-    end
     -- Id of the user and info about group / channel
     if matches[1] == "#id" then
-        if msg.to.type == 'channel' then
-            send_msg(msg.to.peer_id, '👥 Chanel ID: '..msg.to.id..'\n🔠 Channel Name:'..msg.to.print_name:gsub("_", " ")..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
-        elseif msg.to.type == 'chat' then
-            send_msg(msg.to.peer_id, '👥 Chat ID: '..msg.to.id..'\n🔠 Chat Name:'..msg.to.print_name:gsub("_", " ")..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
+        if permissions(msg.from.id, msg.to.id, "id") then
+            if msg.to.type == 'channel' then
+                send_msg(msg.to.peer_id, '🔠 SuperGroup Name:'..msg.to.print_name:gsub("_", " ")..'\n👥 SuperGroup ID: '..msg.to.id..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
+            elseif msg.to.type == 'chat' then
+                send_msg(msg.to.peer_id, '🔠 Chat Name:'..msg.to.print_name:gsub("_", " ")..'👥 Chat ID: '..msg.to.id..'\n'..'\n🆔 User ID: '..msg.from.id, ok_cb, false)
+            end
         end
     elseif matches[1] == 'whois' then
-        chat_type = msg.to.type
-        chat_id = msg.to.id
-        if is_id(matches[2]) then
-            print(1)
-            user_info('user#id'..matches[2], whoisid, {chat_type=chat_type, chat_id=chat_id, user_id=matches[2]})
+        if permissions(msg.from.id, msg.to.id, "whois") then
+            chat_type = msg.to.type
+            chat_id = msg.to.id
+            if msg.reply_id then
+                get_message(msg.reply_id, get_id_who, {receiver=get_receiver(msg)})
+                return
+            end
+            if is_id(matches[2]) then
+                print(1)
+                user_info('user#id'..matches[2], whoisid, {chat_type=chat_type, chat_id=chat_id, user_id=matches[2]})
+                return
+            else
+                local member = string.gsub(matches[2], '@', '')
+                resolve_username(member, whoisname, {chat_id=chat_id, member=member, chat_type=chat_type})
+                return
+            end
         else
-            local member = string.gsub(matches[2], '@', '')
-            resolve_username(member, whoisname, {chat_id=chat_id, member=member, chat_type=chat_type})
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
     elseif matches[1] == 'chat' or matches[1] == 'channel' then
-        local type = matches[1]
-        local chanId = matches[2]
-        -- !ids? (chat) (%d+)
-        if chanId then
-            local chan = ("%s#id%s"):format(type, chanId)
-            if type == 'chat' then
-                chat_info(chan, returnids, {receiver=receiver})
+        if permissions(msg.from.id, msg.to.id, "whois") then
+            local type = matches[1]
+            local chanId = matches[2]
+            -- !ids? (chat) (%d+)
+            if chanId then
+                local chan = ("%s#id%s"):format(type, chanId)
+                if type == 'chat' then
+                    chat_info(chan, returnids, {receiver=receiver})
+                else
+                    channel_get_users(chan, channelUserIDs, {receiver=receiver})
+                end
             else
-                channel_get_users(chan, channelUserIDs, {receiver=receiver})
+                -- !id chat/channel
+                local chan = ("%s#id%s"):format(msg.to.type, msg.to.id)
+                if msg.to.type == 'channel' then
+                    channel_get_users(chan, channelUserIDs, {receiver=receiver})
+                end
+                if msg.to.type == 'chat' then
+                    chat_info(chan, returnids, {receiver=receiver})
+                end
             end
         else
-            -- !id chat/channel
-            local chan = ("%s#id%s"):format(msg.to.type, msg.to.id)
-            if msg.to.type == 'channel' then
-                channel_get_users(chan, channelUserIDs, {receiver=receiver})
-            end
-            if msg.to.type == 'chat' then
-                chat_info(chan, returnids, {receiver=receiver})
-            end
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
     end
 end

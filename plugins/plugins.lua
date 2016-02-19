@@ -141,42 +141,46 @@ end
 
 local function run(msg, matches)
   -- Show the available plugins
-  if matches[1] == '#plugins' then
-    return list_plugins()
-  end
+  if permissions(msg.from.id, msg.to.id, "plugins") then
+    if matches[1] == '#plugins' then
+      return list_plugins()
+    end
 
-  -- Re-enable a plugin for this chat
-  if matches[1] == 'enable' and matches[3] == 'chat' then
-    local receiver = get_receiver(msg)
-    local plugin = matches[2]
-    print("enable "..plugin..' on this chat')
-    return reenable_plugin_on_chat(receiver, plugin)
-  end
+    -- Re-enable a plugin for this chat
+    if matches[1] == 'enable' and matches[3] == 'chat' then
+      local receiver = get_receiver(msg)
+      local plugin = matches[2]
+      print("enable "..plugin..' on this chat')
+      return reenable_plugin_on_chat(receiver, plugin)
+    end
 
-  -- Enable a plugin
-  if matches[1] == 'enable' then
-    local plugin_name = matches[2]
-    print("enable: "..matches[2])
-    return enable_plugin(plugin_name)
-  end
+    -- Enable a plugin
+    if matches[1] == 'enable' then
+      local plugin_name = matches[2]
+      print("enable: "..matches[2])
+      return enable_plugin(plugin_name)
+    end
 
-  -- Disable a plugin on a chat
-  if matches[1] == 'disable' and matches[3] == 'chat' then
-    local plugin = matches[2]
-    local receiver = get_receiver(msg)
-    print("disable "..plugin..' on this chat')
-    return disable_plugin_on_chat(receiver, plugin)
-  end
+    -- Disable a plugin on a chat
+    if matches[1] == 'disable' and matches[3] == 'chat' then
+      local plugin = matches[2]
+      local receiver = get_receiver(msg)
+      print("disable "..plugin..' on this chat')
+      return disable_plugin_on_chat(receiver, plugin)
+    end
 
-  -- Disable a plugin
-  if matches[1] == 'disable' then
-    print("disable: "..matches[2])
-    return disable_plugin(matches[2])
-  end
+    -- Disable a plugin
+    if matches[1] == 'disable' then
+      print("disable: "..matches[2])
+      return disable_plugin(matches[2])
+    end
 
-  -- Reload all the plugins!
-  if matches[1] == 'reload' then
-    return reload_plugins(true)
+    -- Reload all the plugins!
+    if matches[1] == 'reload' then
+      return reload_plugins(true)
+    end
+  else
+    return '🚫 '..lang_text(msg.to.id, 'require_sudo')
   end
 end
 
@@ -196,8 +200,7 @@ return {
     "^#plugins? (enable) ([%w_%.%-]+) (chat)",
     "^#plugins? (disable) ([%w_%.%-]+) (chat)",
     "^#plugins? (reload)$" },
-  run = run,
-  privileged = true
+  run = run
 }
 
 end

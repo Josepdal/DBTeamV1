@@ -48,15 +48,17 @@ local function help_all()
 end
 
 local function run(msg, matches)
-  if matches[1] == "#commands" then
-    return help_all()
-  else 
-    local text = '© Commands for '..matches[1]..':\n'
-    local text = text..plugin_help(matches[1])
-    if not text then
-      text = telegram_help()
+  if permissions(msg.from.id, msg.to.id, "commands") then
+    if matches[1] == "#commands" then
+      return help_all()
+    else 
+      local text = '© Commands for '..matches[1]..':\n'
+      local text = text..plugin_help(matches[1])
+      if not text then
+        text = telegram_help()
+      end
+      return text
     end
-    return text
   end
 end
 

@@ -30,27 +30,7 @@ local function kick_user(msg)
 end
 
 local function run(msg, matches)
-    if matches[1] == 'settings' then
-        if matches[2] == 'spam' then
-            if matches[3] == 'enable' then
-                local hash = 'spam:'..msg.to.id
-                redis:del(hash)
-                if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'allowedSpamT'), ok_cb, true)
-                elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'allowedSpamL'), ok_cb, true)
-                end
-            elseif matches[3] == 'disable' then
-                local hash = 'spam:'..msg.to.id
-                redis:set(hash, true)
-                if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'notAllowedSpamT'), ok_cb, true)
-                elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'notAllowedSpamL'), ok_cb, true)
-                end
-            end
-        end
-    else
+    if not permissions(msg.from.id, msg.to.id, "settings") then
         local hash = 'spam:'..msg.to.id
         if redis:get(hash) then
             kick_user(msg)
