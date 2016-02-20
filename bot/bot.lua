@@ -4,6 +4,7 @@ package.cpath = package.cpath .. ';.luarocks/lib/lua/5.2/?.so'
 
 require("./bot/utils")
 require("./bot/permissions")
+require("./bot/usages")
 
 local f = assert(io.popen('/usr/bin/git describe --tags', 'r'))
 VERSION = assert(f:read('*a'))
@@ -228,29 +229,20 @@ function create_config( )
   -- A simple config with basic plugins and ourselves as privileged user
   config = {
     enabled_plugins = {
-      "9gag",
-      "eur",
-      "echo",
-      "btc",
-      "get",
-      "giphy",
-      "google",
-      "gps",
-      "help",
+      "bot",
+      "commands",
+      "english_lang",
+      "export_gban",
+      "gban_installer",
+      "giverank",
       "id",
-      "images",
-      "img_google",
-      "location",
-      "media",
+      "moderation",
       "plugins",
-      "channels",
-      "set",
-      "stats",
-      "time",
-      "version",
-      "weather",
-      "xkcd",
-      "youtube" },
+      "settings",
+      "spam",
+      "spanish_lang",
+      "version"
+     },
     sudo_users = {our_id},
     admin_users = {},
     disabled_channels = {}
