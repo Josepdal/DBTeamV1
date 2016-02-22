@@ -25,7 +25,6 @@ local function set_group_photo(msg, success, result)
         print('File downloaded to:', result)
         os.rename(result, file)
         print('File moved to:', file)
-        print(receiver)
         channel_set_photo (receiver, file, ok_cb, false)
         return 'Photo saved!'
     else
