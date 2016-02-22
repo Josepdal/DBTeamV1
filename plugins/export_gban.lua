@@ -46,8 +46,6 @@ end]]
 end
 
 return {
-  description = 'Manage admin list',
-  usage = {},
   patterns = {
     "^#(gbans) (.*)$"
   },

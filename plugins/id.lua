@@ -151,16 +151,6 @@ local function run(msg, matches)
 end
 
 return {
-  description = "Know your id or the id of a chat members.",
-  usage = {
-    "#id: Return your ID and the chat id if you are in one.",
-    "#ids chat: Return the IDs of the current chat members.",
-    "#ids channel: Return the IDs of the current channel members.",
-    "#id member @<user_name>: Return the member @<user_name> ID from the current chat.",
-    "#id members name <text>: Search for users with <text> on first_name, print_name or username on current chat.",
-    "#whois id <user_id>: Return username.",
-    "#whois user <user_name>: Returns user ID."
-  },
   patterns = {
     "^#(whois)$",
     "^#id$",

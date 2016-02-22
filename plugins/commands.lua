@@ -63,11 +63,6 @@ local function run(msg, matches)
 end
 
 return {
-  description = "Help plugin. Get info from other plugins.", 
-  usage = {
-    "#commands: Show all commands for every plugin.",
-    "#commands [plugin]: Commands for that plugin."
-  },
   patterns = {
     "^#commands$",
     "^#commands (.+)"

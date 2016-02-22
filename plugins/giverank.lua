@@ -328,18 +328,6 @@ end
 
 
 return {
-  description = 'Manage admin list',
-  usage = {
-  	'#rank admin (reply): add admin by reply.',
-  	'#rank admin id <user_id>: add admin by user ID.',
-  	'#rank admin user <user_name> : add admin by username.',
-  	'#rank guest (reply): remove admin by reply.',
-  	'#rank guest id <user_id>: remove admin by user ID.',
-  	'#rank guest user <user_name>: remove admin by username.',
-  	'#admins : list of all admin members.',
-  	'#mods',
-  	'#members'
-  },
   patterns = {
   	"^#(rank) (.*) (.*)$",
   	"^#(rank) (.*)$",

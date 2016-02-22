@@ -648,33 +648,6 @@ local function run(msg, matches)
 end
 
 return {
-    description = "Plugin to manage bans, kicks and global bans.",
-    usage = {
-        '#add: If type in old reply, you can add an old user that is out right now.',
-        '#add id <user_id>: Add a user by id into chat/channel group.',
-        '#add user <@username>: Add a user by username into chat/channel group.',
-        '#kick: If type in reply, will kick user from chat/channel group.',
-        '#kick id <user_id>: Kick user from chat/channel group',
-        '#kick user <@username>: Kick user from chat/channel group.',
-        '#ban: If type in reply, will ban user from chat/channel group.',
-        '#ban id <user_id>: Kick user from chat and kick if user joins chat/channel again.',
-        '#ban user <@username>: Kick user from chat and kick if user joins chat/channel again.',
-        '#unban: If type in reply, will unban user from chat/channel group.',
-        '#unban id <user_id>: Unban user.',
-        '#unban user <@username>: Unban user.',
-        '#gban: If type in reply, will ban user from all chats/channels groups.',
-        '#gban id <user_id> : Kick user_id from all chats/channels and kick user if he joins again.',
-        '#gban user <@username> : Kick username from all chats/channels and kick user if he joins again.',
-        '#ungban: If type in reply, will unban user globally.',
-        '#ungban id <user_id> : Unban user_id from all chats/channels.',
-        '#ungban user <@username> : Unban username from all chats/channels.',
-        '#mute: If type in reply, you can mute a user.',
-        '#mute id <user_id>: Mute a <user_id> in this chat/channel group.',
-        '#mute user <@username>: Mute a <@username> in this chat/channel group.',
-        '#unmute: If type in reply, you can mute a user.',
-        '#unmute id <user_id>: Unmute a <user_id> in this chat/channel group.',
-        '#unmute user <@username>: Unmute a <@username> in this chat/channel group.'
-    },
     patterns = {
         "^#(ban) (.*)$",
         "^#(ban)$",

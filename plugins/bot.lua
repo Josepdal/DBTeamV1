@@ -71,10 +71,6 @@ local function run(msg, matches)
 end
 
 return {
-	description = "Plugin to manage channels. Enable or disable channel.", 
-	usage = {
-		"#bot on: ",
-		"#bot off: disable bot in current channel" },
 	patterns = {
 		"^#bot? (on)",
 		"^#bot? (off)" }, 
