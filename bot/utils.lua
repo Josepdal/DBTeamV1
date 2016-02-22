@@ -609,6 +609,12 @@ end
 function gban_id(user_id)
   local hash = 'gban:'..user_id
   redis:set(hash, true)
+
+  if not is_gbanned_table(user_id) then
+    table.insert(_gbans.gbans_users, tonumber(user_id))
+    print(user_id..' added to _gbans table')
+    save_gbans()
+  end
 end
 
 function new_is_sudo(user_id)
