@@ -36,9 +36,6 @@ local mods = {
 	"lang",
 	"settings"
 }
-local guests = {
-	"id"
-}
 
 local function get_tag(plugin_tag)
 	for v,tag in pairs(sudos) do
