@@ -629,7 +629,6 @@ end
 return {
     patterns = {
         '^#(settings)$',
-        '^#(kickme)$',
         '^#(settings) (.*) (.*)$',
         '^#(rem)$',
         '^#(setname) (.*)$',
