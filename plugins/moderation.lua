@@ -28,12 +28,13 @@ local function unmute_by_reply(extra, success, result)
     local msg = result
     local chat = msg.to.id
     local user = msg.from.id
+    local name = msg.from.username
     local hash = 'muted:'..chat..':'..user
     redis:del(hash)
     if msg.to.type == 'chat' then
-        send_msg('chat#id'..chat, 'User '..user..' unmuted', ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'userUnmuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userUnmuted:2'), ok_cb,  true)
     elseif msg.to.type == 'channel' then
-        send_msg('channel#id'..chat, 'User '..user..' unmuted', ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'userUnmuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userUnmuted:2'), ok_cb,  true)
     end
 end
 
@@ -42,12 +43,13 @@ local function mute_by_reply(extra, success, result)
     local msg = result
     local chat = msg.to.id
     local user = msg.from.id
+    local name = msg.from.username
     local hash = 'muted:'..chat..':'..user
     redis:set(hash, true)
     if msg.to.type == 'chat' then
-        send_msg('chat#id'..chat, 'User '..user..' muted', ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'userMuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userUnmuted:2'), ok_cb,  true)
     elseif msg.to.type == 'channel' then
-        send_msg('channel#id'..chat, 'User '..user..' muted', ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'userMuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userUnmuted:2'), ok_cb,  true)
     end
 end
 
@@ -59,9 +61,9 @@ local function mute_by_username(cb_extra, success, result)
     local hash =  'muted:'..chat_id..':'..user_id
     redis:set(hash, true)
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') muted', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'userMuted:1')..' '..user_username..' ('..user_id..') '..lang_text(chat_id, 'userMuted:2'), ok_cb,  true)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') muted', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'userMuted:1')..' '..user_username..' ('..user_id..') '..lang_text(chat_id, 'userMuted:2'), ok_cb,  true)
     end
 end
 
@@ -73,9 +75,9 @@ local function unmute_by_username(cb_extra, success, result)
     local hash =  'muted:'..chat_id..':'..user_id
     redis:del(hash)
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') unmuted', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'userMuted:1')..' '..user_username..' ('..user_id..') '..lang_text(chat_id, 'userUnmuted:2'), ok_cb,  true)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') unmuted', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'userMuted:1')..' '..user_username..' ('..user_id..') '..lang_text(chat_id, 'userUnmuted:2'), ok_cb,  true)
     end
 end
 
@@ -94,7 +96,7 @@ end
 local function ban_user(user_id, chat_id)
     local chat = 'chat#id'..chat_id
     if user_id == tostring(our_id) then
-        send_msg(chat, "I won't kick myself!", ok_cb,  true)
+        print('I won\'t kick myself!')
     else
         -- Save to redis
         local hash =  'banned:'..chat_id..':'..user_id
@@ -121,10 +123,10 @@ local function chat_kick(extra, success, result)
     local chat_type = msg.to.type
     if chat_type == 'chat' then
         chat_del_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('chat#id'..chat, 'User '..user..' kicked out', ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'kickUser:1')..' '..user..' '..lang_text(chat, 'kickUser:2'), ok_cb,  true)
     elseif chat_type == 'channel' then
         channel_kick_user('channel#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('channel#id'..chat, 'User '..user..' kicked out', ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'kickUser:1')..' '..user..' '..lang_text(chat, 'kickUser:2'), ok_cb,  true)
     end
 end
 
@@ -136,7 +138,7 @@ local function chat_ban(extra, success, result)
     local hash =  'banned:'..chat..':'..user
     redis:set(hash, true)
     chat_del_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
-    send_msg('chat#id'..chat, 'User '..user..' banned', ok_cb,  true)
+    send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'banUser:1')..' '..user..' '..lang_text(chat, 'banUser:2'), ok_cb,  true)
 end
 
 local function gban_by_reply(extra, success, result)
@@ -153,10 +155,10 @@ local function gban_by_reply(extra, success, result)
     end
     if msg.to.type == 'chat' then
         chat_del_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('chat#id'..chat, 'User '..user..' globally banned', ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'gbanUser:1')..' '..user..' '..lang_text(chat, 'gbanUser:2'), ok_cb,  true)
     elseif msg.to.type == 'channel' then
         channel_kick_user('channel#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('channel#id'..chat, 'User '..user..' globally banned', ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'gbanUser:1')..' '..user..' '..lang_text(chat, 'gbanUser:2'), ok_cb,  true)
     end
 end
 
@@ -175,10 +177,10 @@ local function ungban_by_reply(extra, success, result)
     end
     if msg.to.type == 'chat' then
         chat_add_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('chat#id'..chat, 'User '..user..' globally unbanned', ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'gbanUser:1')..' '..user..' '..lang_text(chat, 'gbanUser:2'), ok_cb,  true)
     elseif msg.to.type == 'channel' then
         channel_invite_user('channel#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('channel#id'..chat, 'User '..user..' globally unbanned', ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'gbanUser:1')..' '..user..' '..lang_text(chat, 'gbanUser:2'), ok_cb,  true)
     end
 end
 
@@ -189,10 +191,10 @@ local function add_by_reply(extra, success, result)
     local user = msg.from.id
     if msg.to.type == 'chat' then
         chat_add_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('chat#id'..chat, 'User '..user..' added to chat', ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'addUser:1')..' '..user..' '..lang_text(chat, 'addUser:2'), ok_cb,  true)
     elseif msg.to.type == 'channel' then
         channel_invite_user('channel#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('channel#id'..chat, 'User '..user..' added to channel', ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'addUser:1')..' '..user..' '..lang_text(chat, 'addUser:3'), ok_cb,  true)
     end
 end
 
@@ -202,7 +204,7 @@ local function channel_ban(extra, success, result)
     local chat = msg.to.id
     local user = msg.from.id
     channel_kick_user('channel#id'..chat, 'user#id'..user, ok_cb, true)
-    send_msg('channel#id'..chat, 'User '..user..' banned', ok_cb,  true)
+    send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'banUser:1')..' '..user..' '..lang_text(chat, 'banUser:2'), ok_cb,  true)
     ban_user(user, chat)
 end
 
@@ -218,7 +220,7 @@ end
 
 local function channel_unban(extra, success, result)
     local msg = result
-    msg = backward_msg_format(msg)
+    local msg = backward_msg_format(msg)
     local chat = msg.to.id
     local user = msg.from.id
     unban_user(user, chat)
@@ -235,10 +237,10 @@ local function ban_by_username(cb_extra, success, result)
     local hash =  'banned:'..chat_id..':'..user_id
     redis:set(hash, true)
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') banned', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'banUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'banUser:2'), ok_cb, false)
         chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') banned', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'banUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'banUser:2'), ok_cb, false)
         channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     end
     ban_user(user_id, chat_id)
@@ -250,10 +252,10 @@ local function kick_by_username(cb_extra, success, result)
     chat_type = cb_extra.chat_type
     user_username = result.username
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') kicked out', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'kickUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'kickUser:2'), ok_cb, false)
         chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') kicked out', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'kickUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'kickUser:2'), ok_cb, false)
         channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     end
 end
@@ -271,10 +273,10 @@ local function gban_by_username(cb_extra, success, result)
         save_gbans()
     end
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') globally banned', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'gbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'gbanUser:2'), ok_cb, false)
         chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') globally banned', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'gbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'gbanUser:2'), ok_cb, false)
         channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     end
 end
@@ -293,10 +295,10 @@ local function ungban_by_username(cb_extra, success, result)
         save_gbans()
     end
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') globally unbanned', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
         chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') globally unbanned', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
         channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     end
 end
@@ -309,10 +311,10 @@ local function unban_by_username(cb_extra, success, result)
     local hash =  'banned:'..chat_id..':'..user_id
     redis:del(hash)
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') is unbanned', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
         chat_add_user('chat#id'..chat_id, 'user#id'..user_id, callback, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') is unbanned', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
         channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, callback, false)
     end
 end
@@ -323,10 +325,10 @@ local function add_by_username(cb_extra, success, result)
     local user_id = result.peer_id
     local user_username = result.username
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'User @'..user_username..' ('..user_id..') added to chat', ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'addUser:2'), ok_cb, false)
         chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'User @'..user_username..' ('..user_id..') added to channel', ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'addUser:3'), ok_cb, false)
         channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     end
 end
@@ -397,7 +399,7 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-    
+    chat_id =  msg.to.id
     if matches[1] == 'ban' then
         if permissions(msg.from.id, msg.to.id, "ban") then
             local chat_id = msg.to.id
@@ -417,10 +419,10 @@ local function run(msg, matches)
             else
                 user_id = matches[2]
                 if chat_type == 'chat' then
-                    send_msg('chat#id'..chat_id, 'User '..user_id..' banned', ok_cb, false)
+                    send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'banUser:1')..' '..user_id..' '..lang_text(chat, 'banUser:2'), ok_cb, false)
                     chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 elseif chat_type == 'channel' then
-                    send_msg('channel#id'..chat_id, 'User '..user_id..' banned', ok_cb, false)
+                    send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'banUser:1')..' '..user_id..' '..lang_text(chat, 'banUser:2'), ok_cb, false)
                     channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 end
                 ban_user(user_id, chat_id)
@@ -453,7 +455,7 @@ local function run(msg, matches)
                 elseif msg.to.type == 'channel' then
                     channel_invite_user('channel#id'..chat_id, 'user#id'..matches[2], ok_cb, false)
                 end
-                return 'User '..matches[2]..' is unbanned'
+                return 'ℹ️ '..lang_text(chat_id, 'unbanUser:1')..' '..matches[2]..' '..lang_text(chat_id, 'unbanUser:2')
             end
         else
             return '🚫 '..lang_text(msg.to.id, 'require_mod')
@@ -474,10 +476,10 @@ local function run(msg, matches)
             else
                 local user_id = matches[2]
                 if msg.to.type == 'chat' then
-                    send_msg('chat#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
+                    send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'kickUser:1')..' '..user_id..' '..lang_text(chat_id, 'kickUser:2'), ok_cb, false)
                     chat_del_user('chat#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
                 elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..chat_id, 'User '..user_id..' kicked out', ok_cb, false)
+                    send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'kickUser:1')..' '..user_id..' '..lang_text(chat_id, 'kickUser:2'), ok_cb, false)
                     channel_kick_user('channel#id'..msg.to.id, 'user#id'..matches[2], ok_cb, false)
                 end
                 return
@@ -507,10 +509,10 @@ local function run(msg, matches)
                     save_gbans()
                 end
                 if chat_type == 'chat' then
-                    send_msg('chat#id'..chat_id, 'User '..user_id..' globally banned', ok_cb, false)
+                    send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'gbanUser:1')..' '..user_id..' '..lang_text(chat_id, 'gbanUser:2'), ok_cb, false)
                     chat_del_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 elseif chat_type == 'channel' then
-                    send_msg('channel#id'..chat_id, 'User '..user_id..' globally banned', ok_cb, false)
+                    send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'gbanUser:1')..' '..user_id..' '..lang_text(chat_id, 'gbanUser:2'), ok_cb, false)
                     channel_kick_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 end
                 return
@@ -542,10 +544,10 @@ local function run(msg, matches)
                     save_gbans()
                 end
                 if chat_type == 'chat' then
-                    send_msg('chat#id'..chat_id, 'User '..user_id..' globally unbanned', ok_cb, false)
+                    send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'gbanUser:1')..' '..user_id..' '..lang_text(chat_id, 'ungbanUser:2'), ok_cb, false)
                     chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 elseif chat_type == 'channel' then
-                    send_msg('channel#id'..chat_id, 'User '..user_id..' globally unbanned', ok_cb, false)
+                    send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'gbanUser:1')..' '..user_id..' '..lang_text(chat_id, 'ungbanUser:2'), ok_cb, false)
                     channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 end
                 return
@@ -568,10 +570,10 @@ local function run(msg, matches)
             else
                 local user_id = matches[2]
                 if chat_type == 'chat' then
-                    send_msg('chat#id'..chat_id, 'User '..user_id..' added to chat', ok_cb, false)
+                    send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' '..user_id..' '..lang_text(chat_id, 'addUser:2'), ok_cb, false)
                     chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 elseif chat_type == 'channel' then
-                    send_msg('channel#id'..chat_id, 'User '..user_id..' added to channel', ok_cb, false)
+                    send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' '..user_id..' '..lang_text(chat_id, 'addUser:3'), ok_cb, false)
                     channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
                 end
                 return
@@ -590,9 +592,9 @@ local function run(msg, matches)
                     local hash = 'muted:'..msg.to.id..':'..matches[2]
                     redis:set(hash, true)
                     if msg.to.type == 'chat' then
-                        send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                        send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(chat_id, 'userMuted:1')..' '..matches[2]..' '..lang_text(chat_id, 'userMuted:2'), ok_cb, true)
                     elseif msg.to.type == 'channel' then
-                        send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                        send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(chat_id, 'userMuted:1')..' '..matches[2]..' '..lang_text(chat_id, 'userMuted:2'), ok_cb, true)
                     end
                     return
                 else
@@ -617,9 +619,9 @@ local function run(msg, matches)
                     local hash = 'muted:'..msg.to.id..':'..matches[2]
                     redis:del(hash)
                     if msg.to.type == 'chat' then
-                        send_msg('chat#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                        send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(chat_id, 'userUnmuted:1')..' '..matches[2]..' '..lang_text(chat_id, 'userUnmuted:2'), ok_cb, true)
                     elseif msg.to.type == 'channel' then
-                        send_msg('channel#id'..msg.to.id, 'User '..matches[2]..' is muted', ok_cb, true)
+                        send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(chat_id, 'userUnmuted:1')..' '..matches[2]..' '..lang_text(chat_id, 'userUnmuted:2'), ok_cb, true)
                     end
                     return
                 else
@@ -637,10 +639,10 @@ local function run(msg, matches)
         local hash = 'kickme:'..msg.to.id
         if redis:get(hash) then
             if msg.to.type == 'chat' then
-                send_msg('chat#id'..msg.to.id, '@'..msg.from.username..' ('..msg.from.id..') bye.', ok_cb, true)
+                send_msg('chat#id'..msg.to.id, '👋🏽 '..lang_text(chat_id, 'kickmeBye')..' @'..msg.from.username..' ('..msg.from.id..').', ok_cb, true)
                 chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, false)
             elseif msg.to.type == 'channel' then
-                send_msg('channel#id'..msg.to.id, '@'..msg.from.username..' ('..msg.from.id..') bye.', ok_cb, true)
+                send_msg('channel#id'..msg.to.id, '👋🏽 '..lang_text(chat_id, 'kickmeBye')..' @'..msg.from.username..' ('..msg.from.id..').', ok_cb, true)
                 channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, false)
             end
         end  
@@ -655,6 +657,7 @@ return {
         "^#(unban)$",
         "^#(kick) (.*)$",
         "^#(kick)$",
+        "^#(kickme)$",
         "^#(add) (.*)$",
         "^#(add)$",
         "^#(gban) (.*)$",
