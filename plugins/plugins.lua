@@ -13,6 +13,8 @@
 
 do
 
+to_id = ""
+
 -- Returns the key (index) in the config.enabled_plugins table
 local function plugin_enabled( name )
   for k,v in pairs(_config.enabled_plugins) do
@@ -35,7 +37,7 @@ local function plugin_exists( name )
 end
 
 local function list_plugins(only_enabled)
-  local text = 'ℹ️ Plugins:\n'
+  local text = 'ℹ️ '..lang_text(to_id, 'plugins')..':\n'
   local psum = 0
   for k, v in pairs( plugins_names( )) do
     --  ✅ enabled, ❎ disabled
@@ -55,8 +57,8 @@ local function list_plugins(only_enabled)
       text = text..status..'  '..v..'\n'
     end
   end
-  local text = text..'\n🔢 '..psum..'  plugins instalados.\n✅ '
-              ..pact..' habilitados.\n❎ '..psum-pact..' desactivados'
+  local text = text..'\n🔢 '..psum..' '..lang_text(to_id, 'installedPlugins')..'\n✅ '
+              ..pact..' '..lang_text(to_id, 'pEnabled')..'\n❎ '..psum-pact..' '..lang_text(to_id, 'pDisabled')..''
   return text
 end
 
@@ -71,7 +73,7 @@ local function enable_plugin( plugin_name )
   print('checking if '..plugin_name..' exists')
   -- Check if plugin is enabled
   if plugin_enabled(plugin_name) then
-    return 'Plugin '..plugin_name..' is enabled'
+    return 'ℹ️ '..lang_text(to_id, 'isEnabled:1')..' '..plugin_name..' '..lang_text(to_id, 'isEnabled:2')
   end
   -- Checks if plugin exists
   if plugin_exists(plugin_name) then
@@ -82,19 +84,19 @@ local function enable_plugin( plugin_name )
     -- Reload the plugins
     return reload_plugins( )
   else
-    return 'Plugin '..plugin_name..' does not exists'
+    return 'ℹ️ '..lang_text(to_id, 'notExist:1')..' '..plugin_name..' '..lang_text(to_id, 'notExist:2')
   end
 end
 
 local function disable_plugin( name, chat )
   -- Check if plugins exists
   if not plugin_exists(name) then
-    return 'Plugin '..name..' does not exists'
+    return 'ℹ️ '..lang_text(to_id, 'notExist:1')..' '..name..' '..lang_text(to_id, 'notExist:1')
   end
   local k = plugin_enabled(name)
   -- Check if plugin is enabled
   if not k then
-    return 'Plugin '..name..' not enabled'
+    return 'ℹ️ '..lang_text(to_id, 'notEnabled:1')..' '..name..' '..lang_text(to_id, 'notEnabled:2')
   end
   -- Disable and reload
   table.remove(_config.enabled_plugins, k)
@@ -104,7 +106,7 @@ end
 
 local function disable_plugin_on_chat(receiver, plugin)
   if not plugin_exists(plugin) then
-    return "Plugin doesn't exists"
+    return 'ℹ️ '..lang_text(to_id, 'pNotExists')
   end
 
   if not _config.disabled_plugin_on_chat then
@@ -118,28 +120,29 @@ local function disable_plugin_on_chat(receiver, plugin)
   _config.disabled_plugin_on_chat[receiver][plugin] = true
 
   save_config()
-  return 'Plugin '..plugin..' disabled on this chat'
+  return 'ℹ️ '..lang_text(to_id, 'pDisChat:1')..' '..plugin..' '..lang_text(to_id, 'pDisChat:2')
 end
 
 local function reenable_plugin_on_chat(receiver, plugin)
   if not _config.disabled_plugin_on_chat then
-    return 'There aren\'t any disabled plugins'
+    return 'ℹ️ '..lang_text(to_id, 'anyDisPlugin')
   end
 
   if not _config.disabled_plugin_on_chat[receiver] then
-    return 'There aren\'t any disabled plugins for this chat'
+  	return 'ℹ️ '..lang_text(to_id, 'anyDisPluginChat')
   end
 
   if not _config.disabled_plugin_on_chat[receiver][plugin] then
-    return 'This plugin is not disabled'
+    return 'ℹ️ '..lang_text(to_id, 'notDisabled')
   end
 
   _config.disabled_plugin_on_chat[receiver][plugin] = false
   save_config()
-  return 'Plugin '..plugin..' is enabled again'
+  return 'ℹ️ '..lang_text(to_id, 'enabledAgain:1')..' '..plugin..' '..lang_text(to_id, 'enabledAgain:2')
 end
 
 local function run(msg, matches)
+	to_id = msg.to.id
   -- Show the available plugins
   if permissions(msg.from.id, msg.to.id, "plugins") then
     if matches[1] == '#plugins' then
@@ -185,14 +188,6 @@ local function run(msg, matches)
 end
 
 return {
-  description = "Plugin to manage other plugins. Enable, disable or reload.",
-  usage = {
-    "#plugins: list all plugins.",
-    "#plugins enable [plugin]: enable plugin.",
-    "#plugins enable [plugin] chat: re-enable plugin only this chat.",
-    "#plugins disable [plugin]: disable plugin.",
-    "#plugins disable [plugin] chat: disable plugin only this chat.",
-    "#plugins reload: reloads all plugins." },
   patterns = {
     "^#plugins$",
     "^#plugins? (enable) ([%w_%.%-]+)$",
