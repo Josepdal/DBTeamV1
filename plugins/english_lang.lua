@@ -24,13 +24,8 @@ local function run(msg, matches)
 		set_text(LANG, 'notAllowedSpamL', 'Spam is not allowed in this supergroup')
 
 		-- bot.lua --
-		set_text(LANG, 'botOn', 'Bot Online')
-		set_text(LANG, 'botOff', 'Bot Offline')
-		set_text(LANG, 'botOnUsage', 'enable bot in current channel')
-		set_text(LANG, 'botOnUsage', 'disable bot in current channel')
-		set_text(LANG, 'botDescription', 'Plugin to manage channels. Enable or disable channel.')
-		set_text(LANG, 'botUsageOn', '#bot on: enable bot in current channel.')
-		set_text(LANG, 'botUsageOff', '#bot off: disable bot in current channel.')
+		set_text(LANG, 'botOn', 'I\'m back. Let\'s do this')
+		set_text(LANG, 'botOff', 'Nothing to do here')
 
 		-- settings.lua --
 		set_text(LANG, 'user', 'User')
@@ -98,10 +93,63 @@ local function run(msg, matches)
 
 		set_text(LANG, 'langUpdated', 'Your language has been updated to: ')
 
-		-- giverank.lua --
+		-- global plugins --
 		set_text(LANG, 'require_sudo', 'This plugin requires sudo privileges.')
 		set_text(LANG, 'require_admin', 'This plugin requires admin privileges or higher.')
 		set_text(LANG, 'require_mod', 'This plugin requires mod privileges or higher.')
+
+		-- export_gban.lua --
+		set_text(LANG, 'accountsGban', 'accounts globally banned.')
+
+		-- giverank.lua --
+		set_text(LANG, 'alreadyAdmin', 'This user is already admin.')
+		set_text(LANG, 'alreadyMod', 'This user is already mod.')
+
+		set_text(LANG, 'newAdmin', 'New admin')
+		set_text(LANG, 'newMod', 'New mod')
+		set_text(LANG, 'nowUser', 'is now an user.')
+
+		set_text(LANG, 'modList', 'Mods list')
+		set_text(LANG, 'adminList', 'Admins list')
+		set_text(LANG, 'modEmpty', 'Mod list is empty in this chat.')
+		set_text(LANG, 'adminEmpty', 'Admin list is empty.')
+
+		-- id.lua --
+		set_text(LANG, 'user', 'User')
+		set_text(LANG, 'supergroupName', 'SuperGroup Name')
+		set_text(LANG, 'chatName', 'Chat Name')
+		set_text(LANG, 'supergroup', 'SuperGroup')
+		set_text(LANG, 'chat', 'Chat')
+
+		-- moderation.lua --
+		set_text(LANG, 'userUnmuted:1', 'User')
+		set_text(LANG, 'userUnmuted:2', 'unmuted.')
+
+		set_text(LANG, 'userMuted:1', 'User')
+		set_text(LANG, 'userMuted:2', 'muted.')
+
+		set_text(LANG, 'kickUser:1', 'User')
+		set_text(LANG, 'kickUser:2', 'kicked out.')
+
+		set_text(LANG, 'banUser:1', 'User')
+		set_text(LANG, 'banUser:2', 'banned.')
+
+		set_text(LANG, 'unbanUser:1', 'User')
+		set_text(LANG, 'unbanUser:2', 'is unbanned.')
+
+		set_text(LANG, 'gbanUser:1', 'User')
+		set_text(LANG, 'gbanUser:2', 'globally banned.')
+
+		set_text(LANG, 'gbanUser:1', 'User')
+		set_text(LANG, 'gbanUser:2', 'unglobally banned.')
+
+		set_text(LANG, 'addUser:1', 'User')
+		set_text(LANG, 'addUser:2', 'added to chat.')
+		set_text(LANG, 'addUser:3', 'added to channel.')
+
+		set_text(LANG, 'kickmeBye', 'bye')
+
+
 
 		------------
 		-- Usages --
@@ -192,12 +240,12 @@ local function run(msg, matches)
 
 
 		if matches[1] == 'install' then
-			return 'English was successfully installed on your bot.'
+			return 'ℹ️ English was successfully installed on your bot.'
 		elseif matches[1] == 'update' then
-			return 'English was successfully updated on your bot.'
+			return 'ℹ️ English was successfully updated on your bot.'
 		end
 	else
-		return "This plugin requires sudo privileged user."
+		return "🚫 This plugin requires sudo privileged user."
 	end
 end
 
