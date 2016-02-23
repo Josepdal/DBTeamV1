@@ -34,7 +34,8 @@ local mods = {
 	"flood",
 	"commands",
 	"lang",
-	"settings"
+	"settings",
+	"mod_commands"
 }
 
 local function get_tag(plugin_tag)
