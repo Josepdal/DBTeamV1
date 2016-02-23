@@ -12,7 +12,7 @@
 --------------------------------------------------
 
 local function send_report(msg)
-    local text = '👤 USUARIO: '..msg.from.username..' ('..msg.from.id..')\n‼ '..lang_text(msg.to.id, 'reportReason')..': Spam\n💬 '..lang_text(msg.to.id, 'reportGroup')..': "'..msg.to.title..'" ('..msg.to.id..')\n✉ '..lang_text(msg.to.id, 'reportMessage')..': '..msg.text
+    local text = '👤 '..lang_text(msg.to.id, 'reportUser')..': '..msg.from.username..' ('..msg.from.id..')\n‼ '..lang_text(msg.to.id, 'reportReason')..': Spam\n💬 '..lang_text(msg.to.id, 'reportGroup')..': "'..msg.to.title..'" ('..msg.to.id..')\n✉ '..lang_text(msg.to.id, 'reportMessage')..': '..msg.text
     for v,user in pairs(_config.sudo_users) do
         send_msg('user#id'..user, text, ok_cb, true)
     end
@@ -41,13 +41,10 @@ local function run(msg, matches)
 end
 
 return {
-description = "Plugin to manage other plugins. Enable, disable or reload.",
-usage = "spam.lua",
 patterns = {
     -- You can add much as patterns you want to stop all spam traffic
     "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Mm][Ee]",
     "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm].[Oo][Rr][Gg]",
     "[Aa][Dd][Ff].[Ll][Yy]",
-    "[Bb][Ii][Tt].[Ll][Yy]",
-    "^#(settings) (.*) (.*)$"
+    "[Bb][Ii][Tt].[Ll][Yy]"
 }, run = run}
