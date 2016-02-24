@@ -232,7 +232,6 @@ function create_config( )
       "commands",
       "english_lang",
       "export_gban",
-      "gban_installer",
       "giverank",
       "id",
       "moderation",
