@@ -684,7 +684,6 @@ enum lua_query_type {
   lq_rename_channel,
   lq_send_photo,
   lq_chat_set_photo,
-  lq_channel_set_photo,
   lq_set_profile_photo,
   lq_set_profile_name,
   lq_send_video,
@@ -1253,10 +1252,6 @@ void lua_do_all (void) {
       tgl_do_set_chat_photo (TLS, lua_ptr[p + 1].peer_id, lua_ptr[p + 2].str, lua_empty_cb, lua_ptr[p].ptr);
       p += 3;
       break;
-    case lq_channel_set_photo:
-      tgl_do_set_channel_photo (TLS, lua_ptr[p + 1].peer_id, lua_ptr[p + 2].str, lua_empty_cb, lua_ptr[p].ptr);
-      p += 3;
-      break;
     case lq_load_photo:
     case lq_load_video:
     case lq_load_audio:
@@ -1491,7 +1486,6 @@ struct lua_function functions[] = {
   {"send_file", lq_send_file, { lfp_peer, lfp_string, lfp_none }},
   {"send_text", lq_send_text, { lfp_peer, lfp_string, lfp_none }},
   {"chat_set_photo", lq_chat_set_photo, { lfp_chat, lfp_string, lfp_none }},
-  {"channel_set_photo", lq_channel_set_photo, { lfp_peer, lfp_string, lfp_none }},
   {"load_photo", lq_load_photo, { lfp_msg, lfp_none }},
   {"load_video", lq_load_video, { lfp_msg, lfp_none }},
   {"load_video_thumb", lq_load_video_thumb, { lfp_msg, lfp_none }},
