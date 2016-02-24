@@ -34,9 +34,10 @@
 #include <assert.h>
 #include <string.h>
 #include <time.h>
+#include <zlib.h>
+#include "portable_endian.h"
 #include "tl-parser-tree.h"
 #include "tl-parser.h"
-#include "crc32.h"
 #include "tl-tl.h"
 #include "config.h"
 
@@ -62,6 +63,9 @@ int total_functions_num;
 #define talloc0(a) calloc(a,1)
 #define tstrdup(a) strdup(a)
 
+typedef char error_int_must_be_4_byte[(sizeof (int) == 4) ? 1 : -1];
+typedef char error_long_long_must_be_8_byte[(sizeof (long long) == 8) ? 1 : -1];
+
 char curch;
 struct parse parse;
 
@@ -73,6 +77,8 @@ struct tree *tree_alloc (void) {
   memset (T, 0, sizeof (*T));
   return T;
 }
+
+#define CRC32_INITIAL crc32 (0, 0, 0)
 
 void tree_add_child (struct tree *P, struct tree *C) {
   if (P->nc == P->size) {
@@ -1406,7 +1412,7 @@ int tl_count_combinator_name (struct tl_constructor *c) {
   tl_buf_add_tree (c->right, 1);
   //fprintf (stderr, "%.*s\n", buf_pos, buf);
   if (!c->name) {
-    c->name = compute_crc32 (buf, buf_pos);
+    c->name = crc32 (CRC32_INITIAL, (void *) buf, buf_pos);
   }
   return c->name;
 }
@@ -1424,7 +1430,7 @@ int tl_print_combinator (struct tl_constructor *c) {
     fprintf (stderr, "%.*s\n", buf_pos, buf);
   }
 /*  if (!c->name) {
-    c->name = compute_crc32 (buf, buf_pos);
+    c->name = crc32 (CRC32_INITIAL, (void *) bbuf, buf_pos);
   }*/
   return c->name;
 }
@@ -2721,6 +2727,7 @@ int num = 0;
 
 void wint (int a) {
 //  printf ("%d ", a);
+  a = htole32 (a);
   assert (write (__f, &a, 4) == 4);
 }
 
@@ -2731,23 +2738,20 @@ void wdata (const void *x, int len) {
 void wstr (const char *s) {
   if (s) {
 //    printf ("\"%s\" ", s);
-    if (schema_version < 1) {
-      wint (strlen (s));
-      wdata (s, strlen (s));
+    int x = strlen (s);
+    if (x <= 254) {
+      unsigned char x_c = (unsigned char)x;
+      assert (write (__f, &x_c, 1) == 1);
     } else {
-      int x = strlen (s);
-      if (x <= 254) {
-        assert (write (__f, &x, 1) == 1);        
-      } else {
-        fprintf (stderr, "String is too big...\n");
-        assert (0);
-      }
-      wdata (s, x);
-      x ++;
-      int t = 0;
-      if (x & 3) {
-        wdata (&t, 4 - (x & 3));
-      }
+      fprintf (stderr, "String is too big...\n");
+      assert (0);
+    }
+    wdata (s, x);
+    x ++; // The header, containing the length, which is 1 byte
+    int t = 0;
+    if (x & 3) {
+      // Let's hope it's truly zero on every platform
+      wdata (&t, 4 - (x & 3));
     }
   } else {
 //    printf ("<none> ");
@@ -2757,6 +2761,7 @@ void wstr (const char *s) {
 
 void wll (long long a) {
 //  printf ("%lld ", a);
+  a = htole64 (a);
   assert (write (__f, &a, 8) == 8);
 }
 
@@ -2825,25 +2830,7 @@ void write_args (struct tl_combinator_tree *T, struct tree_var_value **v, int *l
     write_args (T->right, v, last_var);
     return;
   }
-  if (schema_version == 1) {
-    wint (TLS_ARG);
-  } if (schema_version == 2) {
-    wint (TLS_ARG_V2);
-  } else {
-    wint (-3);
-  }
-  if (T->act == act_question_mark) {
-    if (schema_version >= 1) {
-      assert (0);
-    } else {
-      wint (-100);
-    }
-    return;
-  }
-  if (schema_version >= 1) {
-  } else {
-    wint (-99);
-  }
+  wint (TLS_ARG_V2);
   assert (T->act == act_field);
   assert (T->left);
   wstr (T->data && strcmp (T->data, "_") ? T->data : 0);
@@ -2858,21 +2845,12 @@ void write_args (struct tl_combinator_tree *T, struct tree_var_value **v, int *l
     tl_set_var_value_num (v, T, 0, (*last_var) - 1);
   } else {
     write_field_flags (f);
-    if (schema_version <= 1) {
-      wint (-1);
-    }
   } 
   write_tree (T->left, 0, v, last_var);
 }
 
 void write_array (struct tl_combinator_tree *T, struct tree_var_value **v, int *last_var) {
-  if (schema_version == 1) {
-    wint (TLS_TREE_ARRAY);
-  } else if (schema_version == 2) {
-    wint (TLS_ARRAY);
-  } else {
-    wint (-8);
-  }
+  wint (TLS_ARRAY);
   write_tree (T->left, 0, v, last_var);
   write_tree (T->right, 0, v, last_var);
 }
@@ -2880,36 +2858,22 @@ void write_array (struct tl_combinator_tree *T, struct tree_var_value **v, int *
 void write_type_rec (struct tl_combinator_tree *T, int cc, struct tree_var_value **v, int *last_var) {
   if (T->act == act_arg) {
     write_type_rec (T->left, cc + 1, v, last_var);
-    if (schema_version >= 2) {
-      if (T->right->type == type_num_value || T->right->type == type_num) {
-        wint (TLS_EXPR_NAT);
-      } else {
-        wint (TLS_EXPR_TYPE);
-      }
+    if (T->right->type == type_num_value || T->right->type == type_num) {
+      wint (TLS_EXPR_NAT);
+    } else {
+      wint (TLS_EXPR_TYPE);
     }
     write_tree (T->right, 0, v, last_var);
   } else {
     assert (T->act == act_var || T->act == act_type);
     if (T->act == act_var) {
       assert (!cc);
-      if (schema_version == 1) {
-        wint (TLS_TREE_TYPE_VAR);
-      } else if (schema_version == 2) {
-        wint (TLS_TYPE_VAR);
-      } else {
-        wint (-6);      
-      }
+      wint (TLS_TYPE_VAR);
       wint (tl_get_var_value_num (v, T->data));
       write_var_type_flags (T->flags);
       //wint (T->flags);
     } else {
-      if (schema_version == 1) {
-        wint (TLS_TREE_TYPE);
-      } else if (schema_version == 2) {
-        wint (TLS_TYPE_EXPR);
-      } else {
-        wint (-7);
-      }
+      wint (TLS_TYPE_EXPR);
       struct tl_type *t = T->data;
       wint (t->name);
       write_type_flags (T->flags);
@@ -2921,10 +2885,6 @@ void write_type_rec (struct tl_combinator_tree *T, int cc, struct tree_var_value
 }
 
 void write_opt_type (struct tl_combinator_tree *T, struct tree_var_value **v, int *last_var) {
-  if (schema_version >= 1) {
-  } else {
-    wint (-20);
-  }
   wint (tl_get_var_value_num (v, T->left->data));
   wint (T->left->type_flags);
 //  write_tree (T->right, 0, v, last_var);
@@ -2950,31 +2910,19 @@ void write_tree (struct tl_combinator_tree *T, int extra, struct tree_var_value 
   switch (T->type) {
   case type_list_item:
   case type_list:
-    if (schema_version >= 1) {
-      if (extra) {
-        wint (schema_version >= 2 ? TLS_COMBINATOR_RIGHT_V2 : TLS_COMBINATOR_RIGHT);
-      }
-    } else {
-      wint (extra ? -1 : -2);
+    if (extra) {
+      wint (TLS_COMBINATOR_RIGHT_V2);
     }
     wint (count_list_size (T));
     write_args (T, v, last_var);
     break;
   case type_num_value:
-    wint (schema_version >= 1 ? schema_version >= 2 ? (int)TLS_NAT_CONST : (int)TLS_TREE_NAT_CONST : -4);
-    if (schema_version >= 2) {
-      wint (T->type_flags);
-    } else {
-      wll (T->type_flags);
-    }
+    wint ((int)TLS_NAT_CONST);
+    wint (T->type_flags);
     break;
   case type_num:
-    wint (schema_version >= 1 ? schema_version >= 2 ? (int)TLS_NAT_VAR : (int)TLS_TREE_NAT_VAR : -5);
-    if (schema_version >= 2) {
-      wint (T->type_flags);
-    } else {
-      wll (T->type_flags);
-    }
+    wint ((int)TLS_NAT_VAR);
+    wint (T->type_flags);
     wint (tl_get_var_value_num (v, T->data));
     break;
   case type_type:
@@ -2993,7 +2941,7 @@ void write_tree (struct tl_combinator_tree *T, int extra, struct tree_var_value 
 }
 
 void write_type (struct tl_type *t) {
-  wint (schema_version >= 1 ? TLS_TYPE : 1);
+  wint (TLS_TYPE);
   wint (t->name);
   wstr (t->id);
   wint (t->constructors_num);
@@ -3014,36 +2962,29 @@ void write_combinator (struct tl_constructor *c) {
   int x = 0;
   assert (c->right);
   if (c->left) {
-    if (schema_version >= 1 && is_builtin_type (c->id)) {
+    if (is_builtin_type (c->id)) {
       wint (TLS_COMBINATOR_LEFT_BUILTIN);
     } else {
-      if (schema_version >= 1) {
-        wint (TLS_COMBINATOR_LEFT);
-      }
+      wint (TLS_COMBINATOR_LEFT);
+      // FIXME: What is that?
 //      wint (count_list_size (c->left));
       write_tree (c->left, 0, &T, &x);
     }
   } else {
-    if (schema_version >= 1) {
-      wint (TLS_COMBINATOR_LEFT);
-      wint (0);
-    } else {
-      wint (-11);
-    }
+    wint (TLS_COMBINATOR_LEFT);
+    wint (0);
   }
-  if (schema_version >= 1) {
-    wint (schema_version >= 2 ? TLS_COMBINATOR_RIGHT_V2 : TLS_COMBINATOR_RIGHT);
-  }
+  wint (TLS_COMBINATOR_RIGHT_V2);
   write_tree (c->right, 1, &T, &x);
 }
 
 void write_constructor (struct tl_constructor *c) {
-  wint (schema_version >= 1 ? TLS_COMBINATOR : 2);
+  wint (TLS_COMBINATOR);
   write_combinator (c);
 }
 
 void write_function (struct tl_constructor *c) {
-  wint (schema_version >= 1 ? TLS_COMBINATOR : 3);
+  wint (TLS_COMBINATOR);
   write_combinator (c);
 }
 
@@ -3054,31 +2995,21 @@ void write_type_constructors (struct tl_type *t) {
   }
 }
 
-int MAGIC = 0x850230aa;
 void write_types (int f) {
   __f = f;
-  if (schema_version == 1) {
-    wint (TLS_SCHEMA);
-  } else if (schema_version == 2) {
-    wint (TLS_SCHEMA_V2);
-  } else {
-    wint (MAGIC);
-  }
-  if (schema_version >= 1) {
-    wint (0);
-    wint (time (0));
-  }
+  wint (TLS_SCHEMA_V2);
+  wint (0);
+#ifdef TL_PARSER_NEED_TIME
+  wint (time (0));
+#else
+  /* Make the tlo reproducible by default. Rationale: https://wiki.debian.org/ReproducibleBuilds/Howto#Introduction */
+  wint (0);
+#endif
   num = 0;
-  if (schema_version >= 1) {
-    wint (total_types_num);
-  }
+  wint (total_types_num);
   tree_act_tl_type (tl_type_tree, write_type);
-  if (schema_version >= 1) {
-    wint (total_constructors_num);
-  }
+  wint (total_constructors_num);
   tree_act_tl_type (tl_type_tree, write_type_constructors);
-  if (schema_version >= 1) {
-    wint (total_functions_num);
-  }
+  wint (total_functions_num);
   tree_act_tl_constructor (tl_function_tree, write_function);
 }

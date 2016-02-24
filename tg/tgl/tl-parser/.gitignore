@@ -4,3 +4,5 @@ dep
 objs
 bin
 autom4te.cache
+config.log
+config.status

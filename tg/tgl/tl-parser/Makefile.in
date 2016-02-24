@@ -16,7 +16,7 @@ DIR_LIST=${DEP} ${EXE} ${OBJ}
 
 EXE_LIST=${EXE}/tl-parser
 
-OBJECTS=${OBJ}/tl-parser.o ${OBJ}/tlc.o ${OBJ}/crc32.o
+OBJECTS=${OBJ}/tl-parser.o ${OBJ}/tlc.o
 
 DEPENDENCE=$(subst ${OBJ}/,${DEP}/,$(patsubst %.o,%.d,${OBJECTS}))
 DEPENDENCE_LIST=${DEPENDENCE}

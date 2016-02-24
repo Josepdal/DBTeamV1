@@ -45,14 +45,12 @@
 
 int verbosity;
 int output_expressions;
-int schema_version = 2;
 void usage (void) {
   printf ("usage: tl-parser [-v] [-h] <TL-schema-file>\n"
       "\tTL compiler\n"
       "\t-v\toutput statistical and debug information into stderr\n"
       "\t-E\twhenever is possible output to stdout expressions\n"
       "\t-e <file>\texport serialized schema to file\n"
-      "\t-w\t custom version of serialized schema (0 - very old, 1 - old, 2 - current (default))\n"
        );
   exit (2);
 }
@@ -124,9 +122,6 @@ int main (int argc, char **argv) {
       return 2;
     case 'e':
       vkext_file = optarg;
-      break;
-    case 'w':
-      schema_version = atoi (optarg);
       break;
     case 'v':
       verbosity++;
