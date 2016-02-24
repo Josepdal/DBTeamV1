@@ -1,7 +1,3 @@
-#include <assert.h>
-
-#include "config.h"
-
 static int cur_token_len;
 static char *cur_token;
 static int cur_token_real_len;
@@ -251,14 +247,10 @@ void tgl_paramed_type_free (struct paramed_type *P);
 
 #ifndef IN_AUTOCOMPLETE_H
 struct paramed_type *tglf_extf_store (struct tgl_state *TLS, const char *data, int data_len) { 
-#ifdef DISABLE_EXTF
-  assert (0);
-#else
   buffer_pos = (char *)data;
   buffer_end = (char *)(data + data_len);
   local_next_token ();
   return store_function_any ();
-#endif
 }
 
 int tglf_store_type (struct tgl_state *TLS, const char *data, int data_len, struct paramed_type *P) {
