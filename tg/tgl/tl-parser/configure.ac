@@ -12,8 +12,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_PROG_CC
 
 # Checks for libraries.
-# We only need the symbol 'crc32'. Stay on the safe side by checking a more specific symbol.
-AC_CHECK_LIB([z], [crc32_combine])
+AC_CHECK_LIB([m], [sqrt])
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h mach/mach.h stdlib.h string.h sys/time.h unistd.h])

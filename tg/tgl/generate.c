@@ -36,33 +36,6 @@
 #include <fcntl.h>
 #include <assert.h>
 #include <string.h>
-#include <errno.h>
-
-#if defined(_MSC_VER) || defined(__MINGW32__)
-
-/* Find the length of STRING, but scan at most MAXLEN characters.
-   If no '\0' terminator is found in that many characters, return MAXLEN.  */
-size_t strnlen (const char *string, size_t maxlen)
-{
-  const char *end = memchr (string, '\0', maxlen);
-  return end ? (size_t)(end - string) : maxlen;
-}
-
-char *strndup (const char *s, size_t n) {
-  size_t len = strnlen (s, n);
-  char *new = malloc (len + 1);
-
-  if (new == NULL)
-    return NULL;
-
-  new[len] = '\0';
-  return memcpy (new, s, len);
-}
-
-#define INT64_PRINTF_MODIFIER "I64"
-#else
-#define INT64_PRINTF_MODIFIER "ll"
-#endif
 
 #include "tl-parser/tl-tl.h"
 #include "generate.h"
@@ -80,7 +53,7 @@ struct tree_tl_type *type_tree;
 struct tree_tl_combinator *function_tree;
 
 void tl_function_insert_by_name (struct tl_combinator *c) {
-  function_tree = tree_insert_tl_combinator (function_tree, c, rand ());
+  function_tree = tree_insert_tl_combinator (function_tree, c, lrand48 ());
 }
 
 struct tl_type *tl_type_get_by_name (int name) {
@@ -91,7 +64,7 @@ struct tl_type *tl_type_get_by_name (int name) {
 }
 
 void tl_type_insert_by_name (struct tl_type *t) {
-  type_tree = tree_insert_tl_type (type_tree, t, rand ());
+  type_tree = tree_insert_tl_type (type_tree, t, lrand48 ());
 }
 
 int is_empty (struct tl_type *t) {
@@ -345,7 +318,7 @@ int gen_uni_skip (struct tl_tree *t, char *cur_name, int *vars, int first, int f
     }
     return 0;
   case NODE_TYPE_NAT_CONST:
-    printf ("  if (EVENP(%s) || ((long)%s) != %" INT64_PRINTF_MODIFIER "d) { %s }\n", cur_name, cur_name, var_nat_const_to_int (t) * 2 + 1, fail);
+    printf ("  if (EVENP(%s) || ((long)%s) != %lld) { %s }\n", cur_name, cur_name, var_nat_const_to_int (t) * 2 + 1, fail);
     return 0;
   case NODE_TYPE_ARRAY:
     printf ("  if (ODDP(%s) || %s->type->name != TL_TYPE_ARRAY) { %s }\n", cur_name, cur_name, fail);
@@ -409,9 +382,9 @@ int gen_create (struct tl_tree *t, int *vars, int offset) {
     print_offset (offset + 2);
     t1 = (void *)t;
     if (t1->self.flags & FLAG_BARE) {
-      printf (".type = &(struct tl_type_descr) {.name = 0x%08x, .id = \"Bare_%s\", .params_num = %d, .params_types = %" INT64_PRINTF_MODIFIER "d},\n", ~t1->type->name, t1->type->id, t1->type->arity, t1->type->params_types);
+      printf (".type = &(struct tl_type_descr) {.name = 0x%08x, .id = \"Bare_%s\", .params_num = %d, .params_types = %lld},\n", ~t1->type->name, t1->type->id, t1->type->arity, t1->type->params_types);
     } else {
-      printf (".type = &(struct tl_type_descr) {.name = 0x%08x, .id = \"%s\", .params_num = %d, .params_types = %" INT64_PRINTF_MODIFIER "d},\n", t1->type->name, t1->type->id, t1->type->arity, t1->type->params_types);
+      printf (".type = &(struct tl_type_descr) {.name = 0x%08x, .id = \"%s\", .params_num = %d, .params_types = %lld},\n", t1->type->name, t1->type->id, t1->type->arity, t1->type->params_types);
     }
     if (t1->children_num) {
       print_offset (offset + 2);
@@ -1246,7 +1219,7 @@ void gen_constructor_fetch (struct tl_combinator *c) {
     return;
   } else if (c->name == NAME_LONG) {
     printf ("  if (in_remaining () < 8) { return -1;}\n");
-    printf ("  eprintf (\" %%" INT64_PRINTF_MODIFIER "d\", fetch_long ());\n");
+    printf ("  eprintf (\" %%lld\", fetch_long ());\n");
     printf ("  return 0;\n");
     printf ("}\n");
     return;
@@ -1528,7 +1501,6 @@ void gen_constructor_free_ds (struct tl_combinator *c) {
   for (i = 0; i < c->args_num; i++) if (!(c->args[i]->flags & FLAG_OPT_VAR)) {
     assert (gen_field_free_ds (c->args[i], vars, i + 1, empty) >= 0);
   }
-  printf ("  tfree (D, sizeof (*D));\n");
   free (vars);
   printf ("}\n"); 
 }
@@ -1606,7 +1578,7 @@ void gen_constructor_print_ds (struct tl_combinator *c) {
     printf ("}\n");
     return;
   } else if (c->name == NAME_LONG) {
-    printf ("  eprintf (\" %%" INT64_PRINTF_MODIFIER "d\", *DS);\n");
+    printf ("  eprintf (\" %%lld\", *DS);\n");
     printf ("  return 0;\n");
     printf ("}\n");
     return;
@@ -2595,13 +2567,13 @@ void gen_types_source (void) {
     printf ("  .name = 0x%08x,\n", tps[i]->name);
     printf ("  .id = \"%s\"\n,", tps[i]->id);
     printf ("  .params_num = %d,\n", tps[i]->arity);
-    printf ("  .params_types = %" INT64_PRINTF_MODIFIER "d\n", tps[i]->params_types);
+    printf ("  .params_types = %lld\n", tps[i]->params_types);
     printf ("};\n");
     printf ("struct tl_type_descr tl_type_bare_%s = {\n", tps[i]->print_id);
     printf ("  .name = 0x%08x,\n", ~tps[i]->name);
     printf ("  .id = \"Bare_%s\",\n", tps[i]->id);
     printf ("  .params_num = %d,\n", tps[i]->arity);
-    printf ("  .params_types = %" INT64_PRINTF_MODIFIER "d\n", tps[i]->params_types);
+    printf ("  .params_types = %lld\n", tps[i]->params_types);
     printf ("};\n");
   }
 }
@@ -2613,6 +2585,7 @@ void gen_fetch_ds_source (void) {
   printf ("#include \"auto/auto-fetch-ds.h\"\n");
   printf ("#include \"auto/auto-skip.h\"\n");
   printf ("#include \"auto/auto-types.h\"\n");
+  printf ("#include \"auto-static-fetch-ds.c\"\n");
   printf ("#include \"mtproto-common.h\"\n");
   int i, j;
   for (i = 0; i < tn; i++) {
@@ -2664,6 +2637,7 @@ void gen_free_ds_source (void) {
   printf ("#include \"auto/auto-free-ds.h\"\n");
   printf ("#include \"auto/auto-skip.h\"\n");
   printf ("#include \"auto/auto-types.h\"\n");
+  printf ("#include \"auto-static-free-ds.c\"\n");
   printf ("#include \"mtproto-common.h\"\n");
   int i, j;
   for (i = 0; i < tn; i++) {
@@ -2716,6 +2690,7 @@ void gen_store_ds_source (void) {
   printf ("#include \"auto/auto-store-ds.h\"\n");
   printf ("#include \"auto/auto-skip.h\"\n");
   printf ("#include \"auto/auto-types.h\"\n");
+  printf ("#include \"auto-static-store-ds.c\"\n");
   printf ("#include \"mtproto-common.h\"\n");
   int i, j;
   for (i = 0; i < tn; i++) {
@@ -2765,9 +2740,6 @@ void gen_store_ds_header (void) {
 }
 
 void gen_print_ds_header (void) {
-  printf ("#include \"config.h\"\n");
-  printf ("#ifndef DISABLE_EXTF\n");
-  printf ("\n");
   printf ("#include \"auto.h\"\n");
   printf ("#include \"auto-types.h\"\n");
   printf ("#include <assert.h>\n");
@@ -2793,16 +2765,12 @@ void gen_print_ds_header (void) {
     printf ("DS, struct paramed_type *T);\n");
   }
   printf ("int print_ds_type_any (void *DS, struct paramed_type *T);\n");
-  printf ("#endif\n");
 }
 
 void gen_print_ds_source (void) {
-  printf ("#include \"config.h\"\n");
-  printf ("#ifndef DISABLE_EXTF\n");
-  printf ("\n");
   printf ("#include \"auto.h\"\n");
   printf ("#include <assert.h>\n");
-  printf ("\n");
+
   printf ("#include \"auto/auto-print-ds.h\"\n");
   printf ("#include \"auto/auto-skip.h\"\n");
   printf ("#include \"auto-static-print-ds.c\"\n");
@@ -2824,7 +2792,6 @@ void gen_print_ds_source (void) {
   }
   printf ("  default: return -1; }\n");
   printf ("}\n");
-  printf ("#endif\n");
 }
 
 int parse_tlo_file (void) {
@@ -2984,26 +2951,6 @@ void sig_abrt_handler (int signum __attribute__ ((unused))) {
   exit (EXIT_FAILURE);
 }
 
-static int read_all (int fd, void *buf, size_t len) {
-	unsigned int rs = 0;
-	while(rs < len) {
-		int rval = read (fd, buf + rs, len - rs);
-		if (rval == 0) {
-			break;
-    }
-		if (rval < 0) {
-			return rval;
-    }
-
-		rs += rval;
-	}
-	return rs;
-}
-
-#ifndef O_BINARY 
-#define O_BINARY 0 
-#endif
-
 int main (int argc, char **argv) {
   signal (SIGSEGV, sig_segv_handler);
   signal (SIGABRT, sig_abrt_handler);
@@ -3030,12 +2977,12 @@ int main (int argc, char **argv) {
     usage ();
   }
 
-  int fd = open (argv[optind], O_RDONLY | O_BINARY);
+  int fd = open (argv[optind], O_RDONLY);
   if (fd < 0) {
-    fprintf (stderr, "Can not open file '%s'. Error %s\n", argv[optind], strerror(errno));
+    fprintf (stderr, "Can not open file '%s'. Error %m\n", argv[optind]);
     exit (1);
   }
-  buf_size = read_all (fd, buf, (1 << 20));
+  buf_size = read (fd, buf, (1 << 20));
   if (fd == (1 << 20)) {
     fprintf (stderr, "Too big tlo file\n");
     exit (2);

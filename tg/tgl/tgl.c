@@ -22,7 +22,6 @@
 #include "config.h"
 #endif
 
-#include "crypto/rsa_pem.h"
 #include "tgl.h"
 #include "tools.h"
 #include "mtproto-client.h"
@@ -47,9 +46,6 @@ void tgl_set_auth_file_path (struct tgl_state *TLS, const char *path) {
 }
 
 void tgl_set_download_directory (struct tgl_state *TLS, const char *path) {
-  if (TLS->downloads_directory) {
-    tfree_str (TLS->downloads_directory);
-  }
   TLS->downloads_directory = tstrdup (path);
 }
 
@@ -62,14 +58,7 @@ void tgl_set_rsa_key (struct tgl_state *TLS, const char *key) {
   TLS->rsa_key_list[TLS->rsa_key_num ++] = tstrdup (key);
 }
 
-void tgl_set_rsa_key_direct (struct tgl_state *TLS, unsigned long e, int n_bytes, const unsigned char *n) {
-  assert (TLS->rsa_key_num < TGL_MAX_RSA_KEYS_NUM);
-  TLS->rsa_key_list[TLS->rsa_key_num] = NULL;
-  TLS->rsa_key_loaded[TLS->rsa_key_num] = TGLC_rsa_new (e, n_bytes, n);
-  TLS->rsa_key_num ++;
-}
-
-int tgl_init (struct tgl_state *TLS) {
+void tgl_init (struct tgl_state *TLS) {
   assert (TLS->timer_methods);
   assert (TLS->net_methods);
   if (!TLS->callback.create_print_name) {
@@ -82,15 +71,12 @@ int tgl_init (struct tgl_state *TLS) {
   TLS->message_list.next_use = &TLS->message_list;
   TLS->message_list.prev_use = &TLS->message_list;
 
-  if (tglmp_on_start (TLS) < 0) {
-    return -1;
-  }
+  tglmp_on_start (TLS);
   
   if (!TLS->app_id) {
     TLS->app_id = TG_APP_ID;
     TLS->app_hash = tstrdup (TG_APP_HASH);
   }
-  return 0;
 }
 
 int tgl_authorized_dc (struct tgl_state *TLS, struct tgl_dc *DC) {
@@ -109,7 +95,10 @@ void tgl_register_app_id (struct tgl_state *TLS, int app_id, const char *app_has
 }
 
 struct tgl_state *tgl_state_alloc (void) {
-  return (struct tgl_state *)talloc0 (sizeof (struct tgl_state));
+  struct tgl_state *TLS = (struct tgl_state *)malloc (sizeof (*TLS));
+  if (!TLS) { return NULL; }
+  memset (TLS, 0, sizeof (*TLS));
+  return TLS;
 }
 
 void tgl_incr_verbosity (struct tgl_state *TLS) {
