@@ -1,7 +1,20 @@
 DBTeam-bot
 ============
 
-[![https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw](https://img.shields.io/badge/💬_Telegram-Bot._Group-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw) [![https://telegram.me/Yago_Perez](https://img.shields.io/badge/💬_Telegram-Yago__Perez-blue.svg)](https://telegram.me/Yago_Perez) [![https://telegram.me/Josepdal](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Josepdal-blue.svg)](https://telegram.me/Josepdal) [![https://telegram.me/MaSkAoS](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Juan-blue.svg)](https://telegram.me/MaSkAoS) [![https://gitter.im/yagop/telegram-bot](https://img.shields.io/badge/💬_Gitter-Join_Chat-green.svg)](https://gitter.im/yagop/telegram-bot]) [![Donate button](https://img.shields.io/badge/Red_Cross-donate-yellow.svg)](https://www.icrc.org/ "Donate to Red Cross Society") [![http://taligram.org](https://img.shields.io/badge/Taligram.org-Visit_us-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw)
+Yagop developer and bot development group
+-----------------------------------------
+
+[![https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw](https://img.shields.io/badge/💬_Telegram-Bot._Group-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw) [![https://telegram.me/Yago_Perez](https://img.shields.io/badge/💬_Telegram-Yago__Perez-blue.svg)](https://telegram.me/Yago_Perez) [![https://gitter.im/yagop/telegram-bot](https://img.shields.io/badge/💬_Gitter-Join_Chat-green.svg)](https://gitter.im/yagop/telegram-bot])
+
+DBTeam developers
+-----------------
+
+[![https://telegram.me/Josepdal](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Josepdal-blue.svg)](https://telegram.me/Josepdal) [![https://telegram.me/MaSkAoS](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Juan-blue.svg)](https://telegram.me/MaSkAoS) 
+
+Other interesting sites
+-----------------------
+
+[![Donate button](https://img.shields.io/badge/Red_Cross-donate-yellow.svg)](https://www.icrc.org/ "Donate to Red Cross Society") [![http://taligram.org](https://img.shields.io/badge/Taligram.org-Visit_us-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw)
 
 A Telegram Bot based on plugins using [tg](https://github.com/vysheng/tg).
 
@@ -66,57 +79,63 @@ Bot Commands
     </tbody>
 </table>
 
-#Commands Usage
+#Commands Usages
 <table>
-  <thead>
-    <tr>
-      <td><strong>Plugin</strong></td>
-      <td><strong>Usage</strong></td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-<td>[Channels] Commands for manage channels .</td>
-<td>#channel enable: enable current channel<br>
-#channel disable: disable current channel<br></td></tr>
-<tr>
-<td>[Plugins] Commands for manage plugins .</td>
-<td>#plugins: list all plugins.<br>
-#plugins enable [plugin]: enable plugin.<br>
-#plugins disable [plugin]: disable plugin.<br>
-#plugins disable [plugin] chat: disable plugin only this chat.<br>
-#plugins reload: reloads all plugins.<br></td></tr>
-</tr>
-<tr>
-<td>[Spam] Commands for manage spam .</td>
-<td>You can add patterns to use this plugin like Telegram.me/org links from adf.ly....<br></td></tr>
-</tr>
-<tr>
-<td>[Flood] Commands for manage flood .</td>
-<td>#settings flood enable : enable flood .<br>#settings flood disable : disable flood .<br>#settings maxflood [messages]: Set messages  for seconds.<br>
-#settings floodtime [seconds] Set seconds<br></td></tr>
-</tr>
-<td>[Kicks/Bans] Commands for manage kicks and bans .</td>
-<td>#kick: If type in reply, will kick user from chat/channel group.<br>
-        #kick id <user_id>: Kick user from chat/channel group.<br>
-        #kick user <@username>: Kick user from chat/channel group.<br>
-        #ban: If type in reply, will ban user from chat/channel group.<br>
-        #ban id <user_id>: Kick user from chat and kick if user joins chat/channel again.<br>
-        #ban user <@username>: Kick user from chat and kick if user joins chat/channel again.<br>
-        #unban: If type in reply, will unban user from chat/channel group.<br>
-        #unban id <user_id>: Unban user.<br>
-        #unban user <@username>: Unban user.<br>
-        #gban: If type in reply, will ban user from all chats/channels groups.<br>
-        #gban id <user_id> : Kick user_id from all chats/channels and kick user if he joins again.<br>
-        #gban user <@username> : Kick username from all chats/channels and kick user if he joins again.<br>
-        #ungban: If type in reply, will unban user globally.<br>
-        #ungban id <user_id> : Unban user_id from all chats/channels.<br>
-        #ungban user <@username> : Unban username from all chats/channels.<br>
-        #add: If type in old reply, you can add an old user that is out right now.<br>
-        #add id <user_id>: Add a user by id into chat/channel group.<br>
-        #add id <user_id>: Add a user by username into chat/channel group.'<br></td></tr>
-</tr>
-  </tbody>
+    <thead>
+        <tr>
+            <td><strong>Plugin</strong></td>
+            <td><strong>Usage</strong></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>bot.lua</td>
+            <td>#bot on: enable bot in current channel.<br>
+                #bot off: disable bot in current channel.</td>
+        </tr>
+        <tr>
+            <td>commands.lua</td>
+            <td>#commands: Show all commands for every plugin.<br>
+                #commands [plugin]: Commands for that plugin.
+            </td>
+        </tr>
+        </tr>
+        <tr>
+            <td>export_gban.lua</td>
+            <td>#gbans installer: Return a lua file installer to share gbans and add those in another bot in just one command.<br>
+                #gbans list: Return an archive with a list of gbans.
+            </td>
+        </tr>
+        </tr>
+        <tr>
+            <td>gban_installer.lua</td>
+            <td>#install gbans: add a list of gbans into your redis db.
+            </td>
+        </tr>
+        </tr>
+            <td>giverank.lua</td>
+            <td>#rank admin (reply): add admin by reply.<br>
+                #rank admin <user_id>/<user_name>: add admin by user ID/Username.<br>
+                #rank mod (reply): add mod by reply.<br>
+                #rank mod <user_id>/<user_name>: add mod by user ID/Username.<br>
+                #rank guest (reply): remove admin by reply.<br>
+                #rank guest <user_id>/<user_name>: remove admin by user ID/Username.<br>
+                #admins: list of all admin members.<br>
+                #mods: list of all mod members.<br>
+                #members: list of all channel members.
+            </td>
+        </tr>
+        </tr>
+            <td>id.lua</td>
+            <td>#id: Return your ID and the chat id if you are in one.<br>
+                #ids chat: Return the IDs of the current chat members.<br>
+                #ids channel: Return the IDs of the current channel members.<br>
+                #id <user_name>: Return the member username ID from the current chat.<br>
+                #whois <user_id>/<user_name>: Return username.<br>
+                #whois (reply): Return user id.
+            </td>
+        </tr>
+    </tbody>
 </table>
 
 [Installation](https://github.com/yagop/telegram-bot/wiki/Installation)
@@ -133,6 +152,8 @@ git clone https://github.com/Josepdal/DBTeam.git
 cd DBTeam
 ./launch.sh install
 ./launch.sh # Will ask you for a phone number & confirmation code.
+#install english_lang
+#lang en
 ```
 
 Enable more [`plugins`](https://github.com/yagop/Talibot/tree/supergroups/plugins)
