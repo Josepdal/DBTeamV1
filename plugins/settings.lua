@@ -49,7 +49,7 @@ local function pre_process(msg)
     end
 
     --Checking flood
-    local hash = 'flood:'..msg.to.id
+    local hash = 'anti-flood:'..msg.to.id
     if redis:get(hash) then
         print('anti-flood enabled')
         -- Check flood
@@ -257,7 +257,7 @@ local function run(msg, matches)
                     return
                 elseif matches[2] == 'flood' then
                     if matches[3] == 'enable' then
-                        hash = 'flood:'..msg.to.id
+                        hash = 'anti-flood:'..msg.to.id
                         redis:set(hash, true)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'floodT'), ok_cb, false)
@@ -265,7 +265,7 @@ local function run(msg, matches)
                             send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'floodL'), ok_cb, false)
                         end
                     elseif matches[3] == 'disable' then
-                        hash = 'flood:'..msg.to.id
+                        hash = 'anti-flood:'..msg.to.id
                         redis:del(hash)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noFloodT'), ok_cb, false)
@@ -440,7 +440,7 @@ local function run(msg, matches)
                 end
                 text = text..sAudioD..' '..lang_text(msg.to.id, 'audios')..': '..sAudio..'\n'
 
-                --Enable/disable autokick
+                --Enable/disable kickme
                 local hash = 'kickme:'..msg.to.id
                 if redis:get(hash) then
                     sKickme = allowed
@@ -451,7 +451,7 @@ local function run(msg, matches)
                 end
                 text = text..sKickmeD..' '..lang_text(msg.to.id, 'kickme')..': '..sKickme..'\n'
 
-                --Enable/disable autokick
+                --Enable/disable spam
                 local hash = 'spam:'..msg.to.id
                 if redis:get(hash) then
                     sSpam = noAllowed
@@ -462,7 +462,7 @@ local function run(msg, matches)
                 end
                 text = text..sSpamD..' '..lang_text(msg.to.id, 'spam')..': '..sSpam..'\n'
 
-                --Enable/disable autokick
+                --Enable/disable setphoto
                 local hash = 'setphoto:'..msg.to.id..':'..msg.from.id
                 if redis:get(hash) then
                     sSPhoto = allowed
@@ -484,7 +484,7 @@ local function run(msg, matches)
                 end
                 text = text..sNameD..' '..lang_text(msg.to.id, 'gName')..': '..sName..'\n'
 
-                --Enable/disable changing member xdxdwtf
+                --Lock/unlock numbers of channel members
                 local hash = 'lockmember:'..msg.to.id
                 if redis:get(hash) then
                     sLock = noAllowed
