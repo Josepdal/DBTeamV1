@@ -50,7 +50,7 @@ local function pre_process(msg)
 
     --Checking flood
     local hash = 'anti-flood:'..msg.to.id
-    if redis:get(hash) then
+    if not redis:get(hash) then
         print('anti-flood enabled')
         -- Check flood
         if msg.from.type == 'user' then
