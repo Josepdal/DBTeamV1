@@ -47,9 +47,9 @@ local function mute_by_reply(extra, success, result)
     local hash = 'muted:'..chat..':'..user
     redis:set(hash, true)
     if msg.to.type == 'chat' then
-        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'userMuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userUnmuted:2'), ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'userMuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userMuted:2'), ok_cb,  true)
     elseif msg.to.type == 'channel' then
-        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'userMuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userUnmuted:2'), ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'userMuted:1')..' '..name..' ('..user..') '..lang_text(chat, 'userMuted:2'), ok_cb,  true)
     end
 end
 
