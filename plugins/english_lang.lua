@@ -303,7 +303,7 @@ local function run(msg, matches)
 		set_text(LANG, 'version:0', 1)
 		set_text(LANG, 'version:1', '#version: shows bot version.')
 
-		-- version.lua --
+		-- rules.lua --
 		set_text(LANG, 'rules:0', 1)
 		set_text(LANG, 'rules:1', '#rules: shows channel rules.')
 
