@@ -1,16 +1,3 @@
---------------------------------------------------
---      ____  ____ _____                        --
---     |    \|  _ )_   _|___ ____   __  __      --
---     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
---     |____/|____/ |_|\____/\_____|_/\/\_|     --
---                                              --
---------------------------------------------------
---                                              --
---       Developers: @Josepdal & @MaSkAoS       --
---          Support: @Skneos &  @iicc1          --
---                                              --
---------------------------------------------------
-
 local LANG = 'en'
 
 local function run(msg, matches)
@@ -123,8 +110,8 @@ local function run(msg, matches)
 
 		set_text(LANG, 'chatRename', 'Now you can rename the chat.')
 		set_text(LANG, 'channelRename', 'Now you can rename the channel.')
-		set_text(LANG, 'notChatRename', 'Now you can rename the chat.')
-		set_text(LANG, 'notChannelRename', 'Now you can rename the channel.')
+		set_text(LANG, 'notChatRename', 'Now you can\'t rename the chat.')
+		set_text(LANG, 'notChannelRename', 'Now you can\'t rename the channel.')
 
 		set_text(LANG, 'lockMembersT', 'The number of members has been locked on this chat.')
 		set_text(LANG, 'lockMembersL', 'The number of members has been locked on this channel.')
@@ -265,22 +252,22 @@ local function run(msg, matches)
 		-- moderation.lua --
 		set_text(LANG, 'moderation:0', 18)
 		set_text(LANG, 'moderation:1', '#add: replying to a message, the user will be added to the current group/supergroup.')
-		set_text(LANG, 'moderation:2', '#add <id>|<username>: adds a user by its ID/Username to the current group/supergroup.')
+		set_text(LANG, 'moderation:2', '#add <id>/<username>: adds a user by its ID/Username to the current group/supergroup.')
 		set_text(LANG, 'moderation:3', '#kick: replying to a message, the user will be kicked in the current group/supergroup.')
-		set_text(LANG, 'moderation:4', '#kick <id>|<username>: the user will be kicked by its ID/Username in the current group/supergroup.')
+		set_text(LANG, 'moderation:4', '#kick <id>/<username>: the user will be kicked by its ID/Username in the current group/supergroup.')
 		set_text(LANG, 'moderation:5', '#kickme: kick yourself.')
 		set_text(LANG, 'moderation:6', '#ban: replying to a message, the user will be kicked and banned in the current group/supergroup.')
-		set_text(LANG, 'moderation:7', '#ban <id>|<username>: the user will be banned by its ID/Username in the current group/supergroup and it wont be able to return.')
+		set_text(LANG, 'moderation:7', '#ban <id>/<username>: the user will be banned by its ID/Username in the current group/supergroup and it wont be able to return.')
 		set_text(LANG, 'moderation:8', '#unban: replying to a message, the user will be unbanned in the current group/supergroup.')
-		set_text(LANG, 'moderation:9', '#unban <id>|<username>: the user will be unbanned by its ID/Username in the current group/supergroup.')
+		set_text(LANG, 'moderation:9', '#unban <id>/<username>: the user will be unbanned by its ID/Username in the current group/supergroup.')
 		set_text(LANG, 'moderation:10', '#gban: replying to a message, the user will be kicked and banned from all groups/supergroups.')
-		set_text(LANG, 'moderation:11', '#gban <id>|<username>: the user will be banned by its ID/Username from all groups/supergroups and it wont be able to enter.')
+		set_text(LANG, 'moderation:11', '#gban <id>/<username>: the user will be banned by its ID/Username from all groups/supergroups and it wont be able to enter.')
 		set_text(LANG, 'moderation:12', '#ungban: replying to a message, the user will be unbanned from all groups/supergroups.')
-		set_text(LANG, 'moderation:13', '#ungban <id>|<username>: the user will be unbanned by its ID/Username from all groups/supergroups.')
+		set_text(LANG, 'moderation:13', '#ungban <id>/<username>: the user will be unbanned by its ID/Username from all groups/supergroups.')
 		set_text(LANG, 'moderation:14', '#mute: replying to a message, the user will be silenced in the current supergroup, erasing all its messages.')
-		set_text(LANG, 'moderation:15', '#mute <id>|<username>: the user will be silenced by its ID/Username inthe current supergroup, erasing all its messages.')
+		set_text(LANG, 'moderation:15', '#mute <id>/<username>: the user will be silenced by its ID/Username inthe current supergroup, erasing all its messages.')
 		set_text(LANG, 'moderation:16', '#unmute: replying to a message, the user will be unsilenced in the current supergroup.')
-		set_text(LANG, 'moderation:17', '#unmute <id>|<username>: the user will be unsilenced by its ID/Username in the current supergroup.')
+		set_text(LANG, 'moderation:17', '#unmute <id>/<username>: the user will be unsilenced by its ID/Username in the current supergroup.')
 		set_text(LANG, 'moderation:18', '#rem: replying to a message, the message will be removed.')
 		
 		-- settings.lua --
