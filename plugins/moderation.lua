@@ -295,10 +295,10 @@ local function ungban_by_username(cb_extra, success, result)
         save_gbans()
     end
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'ungbanUser:2'), ok_cb, false)
         chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'ungbanUser:2'), ok_cb, false)
         channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     end
 end
@@ -311,10 +311,10 @@ local function unban_by_username(cb_extra, success, result)
     local hash =  'banned:'..chat_id..':'..user_id
     redis:del(hash)
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'ungbanUser:2'), ok_cb, false)
         chat_add_user('chat#id'..chat_id, 'user#id'..user_id, callback, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'ungbanUser:2'), ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'ungbanUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'ungbanUser:2'), ok_cb, false)
         channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, callback, false)
     end
 end
@@ -324,11 +324,12 @@ local function add_by_username(cb_extra, success, result)
     local chat_id = cb_extra.chat_id
     local user_id = result.peer_id
     local user_username = result.username
+    print(chat_id)
     if chat_type == 'chat' then
-        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'addUser:2'), ok_cb, false)
+        send_msg('chat#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'addUser:2'), ok_cb, false)
         chat_add_user('chat#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     elseif chat_type == 'channel' then
-        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat, 'addUser:3'), ok_cb, false)
+        send_msg('channel#id'..chat_id, 'ℹ️ '..lang_text(chat_id, 'addUser:1')..' @'..user_username..' ('..user_id..') '..lang_text(chat_id, 'addUser:3'), ok_cb, false)
         channel_invite_user('channel#id'..chat_id, 'user#id'..user_id, ok_cb, false)
     end
 end
@@ -565,6 +566,7 @@ local function run(msg, matches)
             end
             if not is_id(matches[2]) then
                 local member = string.gsub(matches[2], '@', '')
+                print(chat_id)
                 resolve_username(member, add_by_username, {chat_id=chat_id, member=member, chat_type=chat_type})
                 return
             else
