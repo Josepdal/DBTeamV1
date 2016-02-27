@@ -76,7 +76,7 @@ local function run(msg, matches)
 		set_text(LANG, 'noAudiosL', 'Audios no permitidos en este supergrupo.')
 
 		set_text(LANG, 'kickmeT', 'Autoexpulsión permitida en este grupo.')
-		set_text(LANG, 'kickmeL', 'Autoexpulsioón permitida en este supergrupo.')
+		set_text(LANG, 'kickmeL', 'Autoexpulsión permitida en este supergrupo.')
 		set_text(LANG, 'noKickmeT', 'Autoexpulsión no permitida en este grupo.')
 		set_text(LANG, 'noKickmeL', 'Autoexpulsión no permitida en este supergrupo.')
 
@@ -122,15 +122,15 @@ local function run(msg, matches)
 		set_text(LANG, 'noLinkSet', 'No hay ningún link establecido. Por favor añade uno con #setlink [Link].')
 
 		set_text(LANG, 'chatRename', 'Ahora puedes renombrar el chat.')
-		set_text(LANG, 'channelRename', 'Ahora puedes renombrar el canal.')
+		set_text(LANG, 'channelRename', 'Ahora puedes renombrar el supergrupo.')
 		set_text(LANG, 'notChatRename', 'Ahora no puedes renombrar el chat.')
-		set_text(LANG, 'notChannelRename', 'Ahora no puedes renombrar el canal.')
+		set_text(LANG, 'notChannelRename', 'Ahora no puedes renombrar el supergrupo.')
 
 		set_text(LANG, 'lockMembersT', 'El número de miembros del chat ha sido bloqueado.')
-		set_text(LANG, 'lockMembersL', 'El número de miembros del canal ha sido bloqueado.')
+		set_text(LANG, 'lockMembersL', 'El número de miembros del supergrupo ha sido bloqueado.')
 
 		set_text(LANG, 'notLockMembersT', 'El número de miembros del chat ha sido desbloqueado.')
-		set_text(LANG, 'notLockMembersL', 'El número de miembros del canal ha sido desbloqueado.')
+		set_text(LANG, 'notLockMembersL', 'El número de miembros del supergrupo ha sido desbloqueado.')
 
 		set_text(LANG, 'langUpdated', 'El idioma ha sido cambiado a: ')
 
@@ -181,7 +181,7 @@ local function run(msg, matches)
 
 		set_text(LANG, 'addUser:1', 'Usuario')
 		set_text(LANG, 'addUser:2', 'añadido al chat.')
-		set_text(LANG, 'addUser:3', 'añadido al canal.')
+		set_text(LANG, 'addUser:3', 'añadido al supergrupo.')
 
 		set_text(LANG, 'kickmeBye', 'adiós.')
 
@@ -224,8 +224,8 @@ local function run(msg, matches)
 
 		-- bot.lua --
 		set_text(LANG, 'bot:0', 2)
-		set_text(LANG, 'bot:1', '#bot on: activa el bot en el canal actual.')
-		set_text(LANG, 'bot:2', '#bot off: desactiva el bot en el canal actual.')
+		set_text(LANG, 'bot:1', '#bot on: activa el bot en el chat actual.')
+		set_text(LANG, 'bot:2', '#bot off: desactiva el bot en el chat actual.')
 
 		-- commands.lua --
 		set_text(LANG, 'commands:0', 2)
@@ -251,15 +251,15 @@ local function run(msg, matches)
 		set_text(LANG, 'giverank:6', '#rank guest <user_id>/<user_name>: borra un admin mediante su ID/Username.')
 		set_text(LANG, 'giverank:7', '#admins: lista de todos los admins.')
 		set_text(LANG, 'giverank:8', '#mods: lista de todos los mods.')
-		set_text(LANG, 'giverank:9', '#members: lista de todos los miembros del canal.')
+		set_text(LANG, 'giverank:9', '#members: lista de todos los miembros del chat.')
 
 		-- id.lua --
 		set_text(LANG, 'id:0', 6)
 		set_text(LANG, 'id:1', '#id: devuelve tu id y la del chat si estás en alguno.')
 		set_text(LANG, 'id:2', '#ids chat: devuelve las IDs de los miembros actuales en el grupo.')
-		set_text(LANG, 'id:3', '#ids channel: devuelve las IDs de los miembros actuales en el canal.')
+		set_text(LANG, 'id:3', '#ids channel: devuelve las IDs de los miembros actuales en el supergrupo.')
 		set_text(LANG, 'id:4', '#id <user_name>: devuelve la ID del usuario presente en el chat.')
-		set_text(LANG, 'id:5', '#whois <user_id>/<user_name>: Devuelve el alias del usuario.')
+		set_text(LANG, 'id:5', '#whois <user_id>/<user_name>: Devuelve el alias/id del usuario.')
 		set_text(LANG, 'id:6', '#whois (reply): Devuelve la ID del usuario.')
 
 		-- moderation.lua --
@@ -273,7 +273,7 @@ local function run(msg, matches)
 		set_text(LANG, 'moderation:7', '#ban <id>/<username>: expulsa a un usuario, por su ID/alias, e impide que éste vuelva a entrar al grupo o supergrupo.')
 		set_text(LANG, 'moderation:8', '#unban: respondiendo a un mensaje, desbanea a ese usuario del grupo o supergrupo.')
 		set_text(LANG, 'moderation:9', '#unban <id>/<username>: desbanea al usuario por su ID/alias del grupo o supergrupo.')
-		set_text(LANG, 'moderation:10', '#gban: respondiendo a un mensaje, el usuario será baneado de todos los grupos y/o supergrupos.')
+		set_text(LANG, 'moderation:10', '#gban: respondiendo a un mensaje, el usuario será baneado de todos los grupos y supergrupos.')
 		set_text(LANG, 'moderation:11', '#gban <id>/<username>: expulsa y banea al usuario, por su ID/alias, de todos los grupos o supergrupos e impide que éste vuelva a entrar en todos los grupos y/o supergrupos.')
 		set_text(LANG, 'moderation:12', '#ungban: respondiendo a un mensaje, quita el baneo de todos los grupos y/o supergrupos.')
 		set_text(LANG, 'moderation:13', '#ungban <id>/<username>: quita el baneo al usuario, por su ID/alias, de todos los grupos y/o supergrupos.')
@@ -287,10 +287,10 @@ local function run(msg, matches)
 	    set_text(LANG, 'settings:0', 19)
 	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: cuando esté activo, todos los stickers serán borrados.')
 	    set_text(LANG, 'settings:2', '#settings links enable/disable: cuando esté activo, todos los links serán borrados.')
-	    set_text(LANG, 'settings:3', '#settings arabic enable/disabl: cuando esté activo, todos mensajes con árabe/persa serán borrados.')
+	    set_text(LANG, 'settings:3', '#settings arabic enable/disable: cuando esté activo, todos mensajes con árabe/persa serán borrados.')
 	    set_text(LANG, 'settings:4', '#settings bots enable/disable: cuando esté activo, si alguien añade algún bot será expulsado.')
 	    set_text(LANG, 'settings:5', '#settings gifs enable/disable: cuando esté activo, todos los gifs serán borrados.')
-	    set_text(LANG, 'settings:6', '#settings photos enable/disable: cuando esté activo, todos las fotos serán borradas.')
+	    set_text(LANG, 'settings:6', '#settings photos enable/disable: cuando esté activo, todas las fotos serán borradas.')
 	    set_text(LANG, 'settings:7', '#settings audios enable/disable: cuando esté activo, todos los audios serán borrados.')
 	    set_text(LANG, 'settings:8', '#settings kickme enable/disable: cuando esté activo, los usuarios podrán autoexpulsarse.')
 	    set_text(LANG, 'settings:9', '#settings spam enable/disable: cuando esté activo, todos los enlaces de spam serán borrados')
@@ -299,8 +299,8 @@ local function run(msg, matches)
 	    set_text(LANG, 'settings:12', '#settings lockmember enable/disable: cuando esté activo, el bot expulsará a toda la gente que entre al grupo.')
 	    set_text(LANG, 'settings:13', '#settings floodtime <secs>: establece el tiempo de medición del flood.')
 	    set_text(LANG, 'settings:14', '#settings maxflood <secs>: establece el máximo de mensajes en un floodtime para ser considerado flood.')
-	    set_text(LANG, 'settings:15', '#setname <group title>: el bot cambiará el nombre del grupo.')
-	    set_text(LANG, 'settings:16', '#setphoto <then send photo>: el bot cambiará la foto del grupo.')
+	    set_text(LANG, 'settings:15', '#setname <título del grupo>: el bot cambiará el nombre del grupo.')
+	    set_text(LANG, 'settings:16', '#setphoto <después envía la foto>: el bot cambiará la foto del grupo.')
 	    set_text(LANG, 'settings:17', '#lang <language (en, es...)>: cambia el idioma del bot.')
 	    set_text(LANG, 'settings:18', '#setlink <link>: guarda el link del grupo.')
 	    set_text(LANG, 'settings:19', '#link: muestra el link del grupo.')
@@ -318,7 +318,7 @@ local function run(msg, matches)
 
 		-- version.lua --
 		set_text(LANG, 'rules:0', 1)
-		set_text(LANG, 'rules:1', '#rules: muestra las reglas del canal.')
+		set_text(LANG, 'rules:1', '#rules: muestra las reglas del chat.')
 		
 		if matches[1] == 'install' then
 			return 'ℹ️ El lenguaje español ha sido instalado en su base de datos.'
