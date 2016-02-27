@@ -7,7 +7,9 @@
 --------------------------------------------------
 --                                              --
 --       Developers: @Josepdal & @MaSkAoS       --
---          Support: @Skneos &  @iicc1          --
+--     Support: @Skneos,  @iicc1 & @serx666     --
+--                                              --
+--            Translated by: @iicc1             --
 --                                              --
 --------------------------------------------------
 
