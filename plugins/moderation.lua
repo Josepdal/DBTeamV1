@@ -177,10 +177,10 @@ local function ungban_by_reply(extra, success, result)
     end
     if msg.to.type == 'chat' then
         chat_add_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'gbanUser:1')..' '..user..' '..lang_text(chat, 'gbanUser:2'), ok_cb,  true)
+        send_msg('chat#id'..chat, 'ℹ️ '..lang_text(chat, 'ungbanUser:1')..' '..user..' '..lang_text(chat, 'ungbanUser:2'), ok_cb,  true)
     elseif msg.to.type == 'channel' then
         channel_invite_user('channel#id'..chat, 'user#id'..user, ok_cb, false)
-        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'gbanUser:1')..' '..user..' '..lang_text(chat, 'gbanUser:2'), ok_cb,  true)
+        send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'ungbanUser:1')..' '..user..' '..lang_text(chat, 'ungbanUser:2'), ok_cb,  true)
     end
 end
 
