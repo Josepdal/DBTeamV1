@@ -187,7 +187,9 @@ local function members_chat(cb_extra, success, result)
 	local chat_id = cb_extra.chat_id
 	local text = ""
 	for k,v in pairs(result.members) do
-		text = text..'@'..v.username..' '
+		if v.username then
+			text = text..'@'..v.username..' '
+		end
 	end
 	return send_large_msg('chat#id'..chat_id, text, ok_cb, true)
 end
@@ -196,7 +198,9 @@ local function members_channel(extra, success, result)
 	local chat_id = extra.chat_id
 	local text = ""
 	for k,user in ipairs(result) do
-		text = text..'@'..user.username..' '
+		if user.username then
+			text = text..'@'..user.username..' '
+		end
 	end
 	return send_large_msg('channel#id'..chat_id, text, ok_cb, true)
 end
