@@ -589,11 +589,11 @@ local function run(msg, matches)
                 -- #CALLBACK FOR NEWLINK IN SUPERGROUP  ##END
                 
             if msg.to.type == 'chat' then
-                send_msg('chat#id'..msg.to.id, 'Created a newlink for #GROUP'), ok_cb, true)
+                send_msg('chat#id'..msg.to.id, 'Created a newlink for #GROUP', ok_cb, true)
                 local receiver = 'chat#'..msg.to.id
                 return export_chat_link(receiver, callback_g, true)
             elseif msg.to.type == 'channel' then
-                send_msg('channel#id'..msg.to.id, 'Created a newlink for #SUPER_GROUP'), ok_cb, true)
+                send_msg('channel#id'..msg.to.id, 'Created a newlink for #SUPER_GROUP', ok_cb, true)
                 local receiver = 'channel#'..msg.to.id
                 return export_channel_link(receiver, callback_sg, true)
             end
