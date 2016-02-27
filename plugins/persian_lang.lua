@@ -1,4 +1,11 @@
-print("سلام دنیا!")
+--------------------------------------------------
+--                                              --
+--       Developers: @Josepdal & @MaSkAoS       --
+--     Support: @Skneos,  @iicc1 & @serx666     --
+--                                              --
+--           Translated by: @NimaGame           --
+--                                              --
+--------------------------------------------------
 local LANG = 'fa'
 
 local function run(msg, matches)
