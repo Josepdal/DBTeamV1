@@ -21,15 +21,15 @@ local function run(msg, matches)
 		-------------------------
 		-- Translation version --
 		-------------------------
-		set_text(LANG, 'version', '0.1')
-		set_text(LANG, 'versionExtended', 'Traducción versión 0.1')
+		set_text(LANG, 'version', '0.2')
+		set_text(LANG, 'versionExtended', 'Traducción versión 0.2')
 
 		-------------
 		-- Plugins --
 		-------------
 
 		-- global plugins --
-		set_text(LANG, 'require_sudo', 'Este plugin requiere privilegios sudo o superior')
+		set_text(LANG, 'require_sudo', 'Este plugin requiere privilegios sudo')
 		set_text(LANG, 'require_admin', 'Este plugin requiere privilegios admin o superior')
 		set_text(LANG, 'require_mod', 'Este plugin requiere privilegios mod o superior')
 		
@@ -67,8 +67,8 @@ local function run(msg, matches)
 		set_text(LANG, 'noPhotosT', 'Fotos no permitidas en este grupo.')
 		set_text(LANG, 'noPhotosL', 'Fotos no permitidas en este supergrupo.')
 
-		set_text(LANG, 'arabicT', 'El árabe está ahora permitido en este grupo.')
-		set_text(LANG, 'arabicL', 'El árabe está ahora permitido en este supergrupo.')
+		set_text(LANG, 'arabicT', 'El árabe está permitido en este grupo.')
+		set_text(LANG, 'arabicL', 'El árabe está permitido en este supergrupo.')
 		set_text(LANG, 'noArabicT', 'El árabe no está permitido en este grupo.')
 		set_text(LANG, 'noArabicL', 'El árabe no está permitido en este supergrupo.')
 
@@ -116,9 +116,9 @@ local function run(msg, matches)
 		set_text(LANG, 'photoSaved', 'Foto guardada!')
 		set_text(LANG, 'photoFailed', 'Error, intenta de nuevo!')
 		set_text(LANG, 'setPhotoAborted', 'Parando el proceso de establecer foto...')
-		set_text(LANG, 'sendPhoto', 'Envia una foto por favor')
+		set_text(LANG, 'sendPhoto', 'Envía una foto por favor')
 
-		set_text(LANG, 'linkSaved', 'Nuevo link guardado')
+		set_text(LANG, 'linkSaved', 'El enlace ha sido guardado')
 		set_text(LANG, 'groupLink', 'Link del grupo')
 		set_text(LANG, 'sGroupLink', 'Link del supergrupo')
 		set_text(LANG, 'noLinkSet', 'No hay ningún link establecido. Por favor añade uno con #setlink [Link].')
@@ -160,11 +160,11 @@ local function run(msg, matches)
 		set_text(LANG, 'chat', 'Chat')
 
 		-- moderation.lua --
-		set_text(LANG, 'userUnmuted:1', 'Usuario')
-		set_text(LANG, 'userUnmuted:2', 'No silenciado.')
+		set_text(LANG, 'userUnmuted:1', 'El usuario')
+		set_text(LANG, 'userUnmuted:2', 'ahora puede hablar.')
 
-		set_text(LANG, 'userMuted:1', 'Usuario.')
-		set_text(LANG, 'userMuted:2', 'silenciado.')
+		set_text(LANG, 'userMuted:1', 'El usuario')
+		set_text(LANG, 'userMuted:2', 'está silenciado.')
 
 		set_text(LANG, 'kickUser:1', 'Usuario')
 		set_text(LANG, 'kickUser:2', 'expulsado.')
@@ -190,8 +190,8 @@ local function run(msg, matches)
 		-- plugins.lua --
 		set_text(LANG, 'plugins', 'Plugins')
 		set_text(LANG, 'installedPlugins', 'plugins instalados.')
-		set_text(LANG, 'pEnabled', 'activado.')
-		set_text(LANG, 'pDisabled', 'desactivado.')
+		set_text(LANG, 'pEnabled', 'activados.')
+		set_text(LANG, 'pDisabled', 'desactivados.')
 
 		set_text(LANG, 'isEnabled:1', 'Plugin')
 		set_text(LANG, 'isEnabled:2', 'está activado.')
@@ -287,18 +287,18 @@ local function run(msg, matches)
 		
 		-- settings.lua --
 	    set_text(LANG, 'settings:0', 19)
-	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: cuando esté activo, todos los stickers serán borrados.')
-	    set_text(LANG, 'settings:2', '#settings links enable/disable: cuando esté activo, todos los links serán borrados.')
-	    set_text(LANG, 'settings:3', '#settings arabic enable/disable: cuando esté activo, todos mensajes con árabe/persa serán borrados.')
-	    set_text(LANG, 'settings:4', '#settings bots enable/disable: cuando esté activo, si alguien añade algún bot será expulsado.')
-	    set_text(LANG, 'settings:5', '#settings gifs enable/disable: cuando esté activo, todos los gifs serán borrados.')
-	    set_text(LANG, 'settings:6', '#settings photos enable/disable: cuando esté activo, todas las fotos serán borradas.')
-	    set_text(LANG, 'settings:7', '#settings audios enable/disable: cuando esté activo, todos los audios serán borrados.')
-	    set_text(LANG, 'settings:8', '#settings kickme enable/disable: cuando esté activo, los usuarios podrán autoexpulsarse.')
-	    set_text(LANG, 'settings:9', '#settings spam enable/disable: cuando esté activo, todos los enlaces de spam serán borrados')
-	    set_text(LANG, 'settings:10', '#settings setphoto enable/disable: cuando esté activo, si un usuario cambia la foto del grupo, el bot la cambiará por la foto guardada.')
-	    set_text(LANG, 'settings:11', '#settings setname enable/disable: cuando esté activo, si un usuario cambia el nombre del grupo, el bot lo cambiará por el nombre guardado.')
-	    set_text(LANG, 'settings:12', '#settings lockmember enable/disable: cuando esté activo, el bot expulsará a toda la gente que entre al grupo.')
+	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: podrás mandar stickers cuando esté activo.')
+	    set_text(LANG, 'settings:2', '#settings links enable/disable: podrás mandar links cuando esté activo.')
+	    set_text(LANG, 'settings:3', '#settings arabic enable/disable: podrás hablar en árabe/persa cuando esté activo.')
+	    set_text(LANG, 'settings:4', '#settings bots enable/disable: podrás invitar bots al chat cuando esté activo.')
+	    set_text(LANG, 'settings:5', '#settings gifs enable/disable: podrás mandar gifs cuando esté activo.')
+	    set_text(LANG, 'settings:6', '#settings photos enable/disable: podrás mandar fotos cuando esté activo.')
+	    set_text(LANG, 'settings:7', '#settings audios enable/disable: podrás mandar audios cuando esté activo.')
+	    set_text(LANG, 'settings:8', '#settings kickme enable/disable: los usuarios podrán autoexpulsarse cuando esté activo.')
+	    set_text(LANG, 'settings:9', '#settings spam enable/disable: podrás mandar enlaces de spam cuando esté activo.')
+	    set_text(LANG, 'settings:10', '#settings setphoto enable/disable: si un usuario cambia la foto del grupo, el bot la cambiará por la foto guardada cuando esté activo.')
+	    set_text(LANG, 'settings:11', '#settings setname enable/disable: si un usuario cambia el nombre del grupo, el bot lo cambiará por el nombre guardado cuando esté activo.')
+	    set_text(LANG, 'settings:12', '#settings lockmember enable/disable: el bot expulsará a toda la gente que entre al grupo cuando esté activo.')
 	    set_text(LANG, 'settings:13', '#settings floodtime <secs>: establece el tiempo de medición del flood.')
 	    set_text(LANG, 'settings:14', '#settings maxflood <secs>: establece el máximo de mensajes en un floodtime para ser considerado flood.')
 	    set_text(LANG, 'settings:15', '#setname <título del grupo>: el bot cambiará el nombre del grupo.')
