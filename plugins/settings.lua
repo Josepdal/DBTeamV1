@@ -140,18 +140,6 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-    local hash = 'arabic:'..msg.to.id
-    if redis:get(hash) then
-        delete_msg(msg.id, ok_cb, false)
-        if msg.to.type == 'chat' then
-            send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'noArabicT'), ok_cb, true)
-            chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-        elseif msg.to.type == 'channel' then
-            send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'noArabicL'), ok_cb, true)
-            channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-        end
-        return
-    end
     if matches[1] == 'settings' then
         if permissions(msg.from.id, msg.to.id, "settings") then
             if matches[2] ~= nil then
@@ -645,6 +633,18 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
+    end
+    local hash = 'arabic:'..msg.to.id
+    if redis:get(hash) then
+        delete_msg(msg.id, ok_cb, false)
+        if msg.to.type == 'chat' then
+            send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'noArabicT'), ok_cb, true)
+            chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+        elseif msg.to.type == 'channel' then
+            send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'noArabicL'), ok_cb, true)
+            channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+        end
+        return
     end
 end
 
