@@ -49,30 +49,32 @@ local function pre_process(msg)
     end
 
     --Checking flood
-    local hash = 'anti-flood:'..msg.to.id
-    if not redis:get(hash) then
+    local hashse = 'anti-flood:'..msg.to.id
+    if not redis:get(hashse) then
         print('anti-flood enabled')
         -- Check flood
         if msg.from.type == 'user' then
-            -- Increase the number of messages from the user on the chat
-            local hash = 'flood:'..msg.from.id..':'..msg.to.id..':msg-num'
-            local msgs = tonumber(redis:get(hash) or 0)
-            if msgs > floodMax then
-                local receiver = get_receiver(msg)
-                local user = msg.from.id
-                local chat = msg.to.id
-                local channel = msg.to.id
-                local bhash = 'banned:'..msg.to.id..':'..msg.from.id
-                redis:set(bhash, true)
-                if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
-                    chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-                elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
-                    channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+            if not permissions(msg.from.id, msg.to.id, "no_flood_ban") then
+                -- Increase the number of messages from the user on the chat
+                local hash = 'flood:'..msg.from.id..':'..msg.to.id..':msg-num'
+                local msgs = tonumber(redis:get(hash) or 0)
+                if msgs > floodMax then
+                    local receiver = get_receiver(msg)
+                    local user = msg.from.id
+                    local chat = msg.to.id
+                    local channel = msg.to.id
+                    local bhash = 'banned:'..msg.to.id..':'..msg.from.id
+                    redis:set(bhash, true)
+                    if msg.to.type == 'chat' then
+                        send_msg('chat#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
+                        chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+                    elseif msg.to.type == 'channel' then
+                        send_msg('channel#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
+                        channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+                    end
                 end
+                redis:setex(hash, floodTime, msgs+1)
             end
-            redis:setex(hash, floodTime, msgs+1)
         end
     end
 
