@@ -144,7 +144,7 @@ Bot Commands
             <td>settings.lua</td>
             <td>#settings stickers enable/disable: when enabled, all stickers will be cleared.<br>
                 #settings links enable/disable: when enabled, all links will be cleared.<br>
-                #settings arabic enable/disabl: when enabled, all messages with arabic/persian will be cleared.<br>
+                #settings arabic enable/disable: when enabled, all messages with arabic/persian will be cleared.<br>
                 #settings bots enable/disable: when enabled, if someone adds a bot, it will be kicked.<br>
                 #settings gifs enable/disable: when enabled, all gifs will be cleared.<br>
                 #settings photos enable/disable: when enabled, all photos will be cleared.<br>
