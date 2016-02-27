@@ -21,7 +21,7 @@ local function run(msg, matches)
 		-------------------------
 		-- Translation version --
 		-------------------------
-		set_text(LANG, 'version', '0.1')
+		set_text(LANG, 'version', '0.2')
 		set_text(LANG, 'versionExtended', 'Traducción versión 0.2')
 
 		-------------
