@@ -140,8 +140,20 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-    if permissions(msg.from.id, msg.to.id, "settings") then
-        if matches[1] == 'settings' then
+    local hash = 'arabic:'..msg.to.id
+    if redis:get(hash) then
+        delete_msg(msg.id, ok_cb, false)
+        if msg.to.type == 'chat' then
+            send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'noArabicT'), ok_cb, true)
+            chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+        elseif msg.to.type == 'channel' then
+            send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'noArabicL'), ok_cb, true)
+            channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+        end
+        return
+    end
+    if matches[1] == 'settings' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             if matches[2] ~= nil then
                 if matches[2] == 'stickers' then
                     if matches[3] == 'enable' then
@@ -540,23 +552,30 @@ local function run(msg, matches)
                 elseif msg.to.type == 'channel' then
                     send_msg('channel#id'..msg.to.id, text, ok_cb, false)
                 end
+                return
             end
-            return
-        elseif matches[1] == 'rem' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'rem' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             if msg.reply_id then
-                print(1)
                 get_message(msg.reply_id, remove_message, false)
             end
             return
-        elseif matches[1] == 'lang' then
-            if permissions(msg.from.id, msg.to.id, "set_lang") then
-                hash = 'langset:'..msg.to.id
-                redis:set(hash, matches[2])
-                return lang_text(msg.to.id, 'langUpdated')..string.upper(matches[2])
-            else
-                return '🚫 '..lang_text(msg.to.id, 'require_sudo')
-            end
-        elseif matches[1] == 'setname' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'lang' then
+        if permissions(msg.from.id, msg.to.id, "set_lang") then
+            hash = 'langset:'..msg.to.id
+            redis:set(hash, matches[2])
+            return lang_text(msg.to.id, 'langUpdated')..string.upper(matches[2])
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_sudo')
+        end
+    elseif matches[1] == 'setname' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             local hash = 'name:enabled:'..msg.to.id
             if redis:get(hash) then
                 if msg.to.type == 'chat' then
@@ -566,7 +585,11 @@ local function run(msg, matches)
                 end
             end
             return
-        elseif matches[1] == 'setlink' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'setlink' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             hash = 'link:'..msg.to.id
             redis:set(hash, matches[2])
             if msg.to.type == 'chat' then
@@ -575,7 +598,11 @@ local function run(msg, matches)
                 send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
             end
             return
-        elseif matches[1] == 'link' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'link' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             hash = 'link:'..msg.to.id
             local linktext = redis:get(hash)
             if linktext then
@@ -592,7 +619,11 @@ local function run(msg, matches)
                 end
             end
             return
-        elseif matches[1] == 'setphoto' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'setphoto' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             if matches[2] == 'stop' then
                 hash = 'setphoto:'..msg.to.id..':'..msg.from.id
                 redis:del(hash)
@@ -611,20 +642,9 @@ local function run(msg, matches)
                 end
             end
             return
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
-        local hash = 'arabic:'..msg.to.id
-        if redis:get(hash) then
-            delete_msg(msg.id, ok_cb, false)
-            if msg.to.type == 'chat' then
-                send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'noArabicT'), ok_cb, true)
-                chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-            elseif msg.to.type == 'channel' then
-                send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'noArabicL'), ok_cb, true)
-                channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-            end
-        end
-    else
-        return '🚫 '..lang_text(msg.to.id, 'require_mod')
     end
 end
 
