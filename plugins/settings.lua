@@ -566,13 +566,36 @@ local function run(msg, matches)
                 end
             end
             return
-        elseif matches[1] == 'setlink' then
+        elseif matches[1] == 'newlink' then
             hash = 'link:'..msg.to.id
-            redis:set(hash, matches[2])
+                -- #CALLBACK FOR NEWLINK IN GROUP
+                local function callback_g (extra , success, result)
+                    local receiver = 'chat#'..msg.to.id
+                        if success == 0 then
+                            return send_large_msg(receiver, '*Error: Invite link failed* \nReason: Not creator.')
+                        end
+                    redis:set(hash, result)
+                end
+                -- #CALLBACK FOR NEWLINK IN GROUP  ##END
+                
+                -- #CALLBACK FOR NEWLINK IN SUPERGROUP
+                local function callback_sg (extra , success, result)
+                    local receiver = 'channel#'..msg.to.id
+                        if success == 0 then
+                            return send_large_msg(receiver, '*Error: Invite link failed* \nReason: Not creator.')
+                        end
+                    redis:set(hash, result)
+                end
+                -- #CALLBACK FOR NEWLINK IN SUPERGROUP  ##END
+                
             if msg.to.type == 'chat' then
-                send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
+                send_msg('chat#id'..msg.to.id, 'Created a newlink for #GROUP'), ok_cb, true)
+                local receiver = 'chat#'..msg.to.id
+                return export_chat_link(receiver, callback_g, true)
             elseif msg.to.type == 'channel' then
-                send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
+                send_msg('channel#id'..msg.to.id, 'Created a newlink for #SUPER_GROUP'), ok_cb, true)
+                local receiver = 'channel#'..msg.to.id
+                return export_channel_link(receiver, callback_sg, true)
             end
             return
         elseif matches[1] == 'link' then
@@ -637,7 +660,7 @@ return {
         '^#(setphoto)$',
         '^#(setphoto) (.*)$',
         '^#(link)$',
-        '^#(setlink) (.*)$',
+        '^#(newlink)$',
         '^#(lang) (.*)$',
         '([\216-\219][\128-\191])'
     },
