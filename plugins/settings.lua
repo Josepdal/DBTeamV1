@@ -13,6 +13,14 @@
 
 do
 
+
+local function create_group_chat(msg, group_name)
+    local group_creator = msg.from.print_name
+    create_group_chat (group_creator, group_name, ok_cb, false)
+    return 'Group # '..string.gsub(group_name, '_', ' ')..' # has been created.' 
+end		
+
+
 local function remove_message(extra, success, result)
     msg = backward_msg_format(result)
     delete_msg(msg.id, ok_cb, false)
@@ -692,8 +700,14 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_admin')
         end
+    elseif matches[1] == 'creategroup' and matches[2] then
+	if permissions(msg.from.id, msg.to.id, "creategroup") then
+            group_name = matches[2]
+	    return create_group_chat(msg, group_name)
+	end
+    elseif matches[1] == 'chat_created' and msg.from.id == 0 then
+        return "Welcome to your group"
     end
-end
 
 return {
     patterns = {
@@ -710,9 +724,12 @@ return {
         "^#(tosupergroup)$",
         "^#(setdescription) (.*)$",
         '^#(setlink) (.*)$',
-        '^#(lang) (.*)$'
+	'^#(creategroup) (.*)$',
+        '^#(lang) (.*)$',
+	"^!!tgservice (.+)$",
     },
     pre_process = pre_process,
     run = run
 }
+end
 end
