@@ -141,11 +141,7 @@ local function pre_process(msg)
     if not permissions(msg.from.id, msg.to.id, "muteall") then
 	    local hash = 'muteall:'..msg.to.id
 	    if redis:get(hash) then
-	        if msg.to.type == 'chat' then
-	            delete_msg(msg.id, ok_cb, true)
-	        elseif msg.to.type == 'channel' then
-	            delete_msg(msg.id, ok_cb, true)
-	        end
+	        delete_msg(msg.id, ok_cb, false)
 	    end
 	end
 
