@@ -135,6 +135,11 @@ local function run(msg, matches)
 		set_text(LANG, 'notLockMembersL', 'El número de miembros del supergrupo ha sido desbloqueado.')
 
 		set_text(LANG, 'langUpdated', 'El idioma ha sido cambiado a: ')
+		
+		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
+		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
+		set_text(LANG, 'desChanged', 'Channel description has been changed.')
+		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
 
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'cuentas globalmente baneadas.')
