@@ -5,7 +5,7 @@ local sudos = {
     "lang_install",
     "set_lang",
     "tosupergroup",
- 	"gban_installer"
+    "gban_installer"
   }
  local admins = {
  	"rank_mod",
@@ -18,6 +18,7 @@ local sudos = {
  	"setlink",
  	"rank_guest",
  	"description",
+ 	"creategroup",
  	"export_gban"
 }
 local mods = {
