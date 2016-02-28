@@ -633,18 +633,30 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
-    end
-    local hash = 'arabic:'..msg.to.id
-    if not redis:get(hash) then
-        delete_msg(msg.id, ok_cb, false)
+    elseif matches[1] == 'tosupergroup' then
         if msg.to.type == 'chat' then
-            send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'noArabicT'), ok_cb, true)
-            chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-        elseif msg.to.type == 'channel' then
-            send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'noArabicL'), ok_cb, true)
-            channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+            if permissions(msg.from.id, msg.to.id, "tosupergroup") then
+                chat_upgrade('chat#id'..msg.to.id, ok_cb, false)
+                return 'ℹ️ '..lang_text(msg.to.id, 'chatUpgrade')
+            else
+                return '🚫 '..lang_text(msg.to.id, 'require_sudo')
+            end
+        else
+            return 'ℹ️ '..lang_text(msg.to.id, 'notInChann')
         end
-        return
+    elseif matches[1] == 'setdescription' then
+        if permissions(msg.from.id, msg.to.id, "description") then
+            local text = matches[2]
+            local chat = 'channel#id'..msg.to.id
+            if msg.to.type == 'channel' then
+                channel_set_about(chat, text, ok_cb, false)
+                return 'ℹ️ '..lang_text(msg.to.id, 'desChanged')
+            else
+                return 'ℹ️ '..lang_text(msg.to.id, 'desOnlyChannels')
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
     end
 end
 
@@ -657,9 +669,10 @@ return {
         '^#(setphoto)$',
         '^#(setphoto) (.*)$',
         '^#(link)$',
+        "^#(tosupergroup)$",
+        "^#(setdescription) (.*)$",
         '^#(setlink) (.*)$',
-        '^#(lang) (.*)$',
-        '([\216-\219][\128-\191])'
+        '^#(lang) (.*)$'
     },
     pre_process = pre_process,
     run = run
