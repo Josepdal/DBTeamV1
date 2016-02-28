@@ -10,8 +10,16 @@
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
 --------------------------------------------------
+-- #@Iamjavid  ###################################
 
 do
+
+
+local function create_group_chat(msg)
+    local group_creator = msg.from.print_name
+    create_group_chat (group_creator, group_name, ok_cb, false)
+    return 'Group [ '..string.gsub(group_name, '_', ' ')..' ] has been created.' 
+end		
 
 local function remove_message(extra, success, result)
     msg = backward_msg_format(result)
@@ -657,7 +665,13 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_admin')
         end
-    end
+    elseif matches[1] == 'creategroup' and matches[2] then     
+	   if permissions(msg.from.id, msg.to.id, "XXXXXX") then  -- ##Please Edit this part and add new permissions
+	        group_name = matches[2]
+			return create_group_chat(msg)
+		end
+	end
+	   
 end
 
 return {
@@ -672,6 +686,7 @@ return {
         "^#(tosupergroup)$",
         "^#(setdescription) (.*)$",
         '^#(setlink) (.*)$',
+		"#(creategroup) (.*)$",
         '^#(lang) (.*)$'
     },
     pre_process = pre_process,
