@@ -20,8 +20,8 @@ local function run(msg, matches)
         -------------------------
         -- Translation version --
         -------------------------
-        set_text(LANG, 'version', '0.1')
-        set_text(LANG, 'versionExtended', 'نسخه ترجمه : نسخه 0.1')
+        set_text(LANG, 'version', '0.11')
+        set_text(LANG, 'versionExtended', 'نسخه ترجمه : 0.11')
 
         -------------
         -- Plugins --
@@ -38,9 +38,9 @@ local function run(msg, matches)
         set_text(LANG, 'reportGroup', 'گروه')
         set_text(LANG, 'reportMessage', 'پیام')
 
-        set_text(LANG, 'allowedSpamT', 'از حالا اسپم دادن در این چت آزاد است.')
+        set_text(LANG, 'allowedSpamT', 'از حالا اسپم دادن در این گروه آزاد است.')
         set_text(LANG, 'allowedSpamL', 'از حالا اسپم دادن در این سوپرگروه ازاد است.')
-        set_text(LANG, 'notAllowedSpamT', 'اسپم دادن در این چت ممنوع می باشد.')
+        set_text(LANG, 'notAllowedSpamT', 'اسپم دادن در این گروه ممنوع می باشد.')
         set_text(LANG, 'notAllowedSpamL', 'اسپم دادن در این سوپرگروه ممنوع می باشد.')
 
         -- bot.lua --
@@ -51,40 +51,40 @@ local function run(msg, matches)
         set_text(LANG, 'user', 'کاربر')
         set_text(LANG, 'isFlooding', 'در حال فلود کردن است.')
 
-        set_text(LANG, 'noStickersT', 'استفاده از هرگونه استیکر در این چت ممنوع می باشد.')
+        set_text(LANG, 'noStickersT', 'استفاده از هرگونه استیکر در این گروه ممنوع می باشد.')
         set_text(LANG, 'noStickersL', 'استفاده از هرگونه استیکر در این سوپرگروه ممنوع می باشد.')
-        set_text(LANG, 'stickersT', 'از حالا استفاده از استیکر در این چت آزاد می باشد .')
+        set_text(LANG, 'stickersT', 'از حالا استفاده از استیکر در این گروه آزاد می باشد .')
         set_text(LANG, 'stickersL', 'از حالا استفاده از استیکر در این سوپرگروه آزاد می باشد.')
 
-        set_text(LANG, 'noGiftT', 'استفاده از تصاویر متحرک در این چت ممنوع می باشد.')
+        set_text(LANG, 'noGiftT', 'استفاده از تصاویر متحرک در این گروه ممنوع می باشد.')
         set_text(LANG, 'noGiftL', 'استفاده از تصاویر متحرک در این سوپر گروه ممنوع می باشد.')
-        set_text(LANG, 'GiftT','از حالا فرستادن تصاویر متحرک در این چت آزاد می باشد.')
+        set_text(LANG, 'GiftT','از حالا فرستادن تصاویر متحرک در این گروه آزاد می باشد.')
         set_text(LANG, 'GiftL', 'از حالا فرستادن تصاویر متحرک در این سوپرگروه آزاد می باشد.')
 
 
-        set_text(LANG, 'PhotosT', 'از حالا فرستادن تصاویر در این چت آزاد می باشد.')
+        set_text(LANG, 'PhotosT', 'از حالا فرستادن تصاویر در این گروه آزاد می باشد.')
         set_text(LANG, 'PhotosL', 'از حالا فرستادن تصاویر در این سوپرگروه آزاد می باشد.')
-        set_text(LANG, 'noPhotos،', 'شما نمی توانید در این چت عکسی ارسال کنید.')
+        set_text(LANG, 'noPhotos،', 'شما نمی توانید در این گروه عکسی ارسال کنید.')
         set_text(LANG, 'noPhotosL', 'شما نمی توانید در این سوپرگروه عکسی ارسال کنید.')
 
-        set_text(LANG, 'noArabicT', 'در این چت ، شما نمی توانید به زبان هایی مثل زبان عربی یا . . . صحبت کنید.')
+        set_text(LANG, 'noArabicT', 'در این گروه ، شما نمی توانید به زبان هایی مثل زبان عربی یا . . . صحبت کنید.')
         set_text(LANG, 'noArabicL', 'در این سوپرگروه، شما نمی توانید به زبان هایی مثل زبان عربی یا . . . صحبت کنید.')
-        set_text(LANG, 'ArabicT', 'از حالا استفاده از زبان هایی همچون زبان عربی در این چت آزاد است.')
+        set_text(LANG, 'ArabicT', 'از حالا استفاده از زبان هایی همچون زبان عربی در این گروه آزاد است.')
         set_text(LANG, 'ArabicL', 'از حالا استفاده از زبان هایی همچون زبان عربی در این سوپرگروه آزاد است.')
 
-        set_text(LANG, 'audiosT', 'از حالا فرستادن فایل های صوتی در این چت آزاد است.')
+        set_text(LANG, 'audiosT', 'از حالا فرستادن فایل های صوتی در این گروه آزاد است.')
         set_text(LANG, 'audiosL', 'از حالا فرستادن فایل های صوتی در این سوپرگروه آزاد است.')
-        set_text(LANG, 'noAudiosT', 'فرستادن هرگونه فایل صوتی در این چت ممنوع می باشد.')
+        set_text(LANG, 'noAudiosT', 'فرستادن هرگونه فایل صوتی در این گروه ممنوع می باشد.')
         set_text(LANG, 'noAudiosL', 'فرستادن هرگونه فایل صوتی در این سوپرگروه ممنوع می باشد.')
 
-        set_text(LANG, 'kickmeT', 'از حالا استفاده از دستور kickme در این چت آزاد است.')
+        set_text(LANG, 'kickmeT', 'از حالا استفاده از دستور kickme در این گروه آزاد است.')
         set_text(LANG, 'kickmeL', 'از حالا استفاده از دستور kickme در این سوپر گروه آزاد است.')
-        set_text(LANG, 'noKickmeT', 'شما نمی توانید از این دستور در این چت استفاده کنید.')
-        set_text(LANG, 'noKickmeL', 'شما نمی توانید از این دستور در سوپرگروه چت استفاده کنید.')
+        set_text(LANG, 'noKickmeT', 'شما نمی توانید از این دستور در این گروه استفاده کنید.')
+        set_text(LANG, 'noKickmeL', 'شما نمی توانید از این دستور در سوپرگروه گروه استفاده کنید.')
 
-        set_text(LANG, 'floodT', 'از حالا فلود کردن در این چت آزاد است.')
+        set_text(LANG, 'floodT', 'از حالا فلود کردن در این گروه آزاد است.')
         set_text(LANG, 'floodL', 'از حالا فلود کردن در این سوپرگروه آزاد است.')
-        set_text(LANG, 'noFloodT', 'شما نمی توانید در این چت فلود کنید.')
+        set_text(LANG, 'noFloodT', 'شما نمی توانید در این گروه فلود کنید.')
         set_text(LANG, 'noFloodL', 'شما نمی توانید در این  سوپرگروه فلود کنید.')
 
         set_text(LANG, 'floodTime', 'زمان چک کردن فلود تنظیم شد به هر : ')
@@ -128,23 +128,23 @@ local function run(msg, matches)
         set_text(LANG, 'notChatRename', 'دیگر نمی توان نام گروه را تغییر داد.')
         set_text(LANG, 'notChannelRename', 'دیگر نمی توان نام چنل را تغییر داد.')
 
-        set_text(LANG, 'lockMembersT', 'تعداد اعضا در این چت قفل شده است.')
+        set_text(LANG, 'lockMembersT', 'تعداد اعضا در این گروه قفل شده است.')
         set_text(LANG, 'lockMembersL', 'تعداد اعضا در این چنل قفل شده است.')
 
-        set_text(LANG, 'notLockMembersT', 'قفل تعداد اعضا در این چت باز شد.')
+        set_text(LANG, 'notLockMembersT', 'قفل تعداد اعضا در این گروه باز شد.')
         set_text(LANG, 'notLockMembersL', 'قفل تعداد اعضا در این چنل باز شد.')
 
         set_text(LANG, 'langUpdated', 'زبان شما تغییر کرد به :')
         
-        set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
-		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
-		set_text(LANG, 'desChanged', 'Channel description has been changed.')
-		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
+        set_text(LANG, 'chatUpgrade', '')
+		set_text(LANG, 'notInChann', 'شما نمی توانید این کار را در یک سوپرگروه انجام دهید.')
+		set_text(LANG, 'desChanged', 'توضیحات چنل با موفقیت بروز شد.')
+		set_text(LANG, 'desOnlyChannels', 'توضیجات فقط در چنل ها قابل ارائه است.')
 
-        set_text(LANG, 'muteAll', 'Everyone is muted now.')
-        set_text(LANG, 'unmuteAll', 'Everyone can talk now.')
-        set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
-        set_text(LANG, 'muteAllX:2', 'seconds.')
+        set_text(LANG, 'muteAll', 'توانایی صحبت از همه گرفته شد.')
+        set_text(LANG, 'unmuteAll', 'توانایی صحبت به همه بازپس داده شد.')
+        set_text(LANG, 'muteAllX:1', 'شما نمی توانید به مدت')
+        set_text(LANG, 'muteAllX:2', 'ثانیه در این چنل چت کنید..')
 
         -- export_gban.lua --
         set_text(LANG, 'accountsGban', 'اکانت به صورت سراسری بن شد.')
@@ -159,22 +159,22 @@ local function run(msg, matches)
 
         set_text(LANG, 'modList', 'لیست مدیران')
         set_text(LANG, 'adminList', 'لیست ادامین')
-        set_text(LANG, 'modEmpty', 'این چت هیچ مدیری ندارد.')
+        set_text(LANG, 'modEmpty', 'این گروه هیچ مدیری ندارد.')
         set_text(LANG, 'adminEmpty', 'درحال حاضر هیچ شخصی ادمین نیست')
 
         -- id.lua --
         set_text(LANG, 'user', 'کاربر')
         set_text(LANG, 'supergroupName', 'نام سوپرگروه')
-        set_text(LANG, 'chatName', 'نام چت')
+        set_text(LANG, 'chatName', 'نام گروه')
         set_text(LANG, 'supergroup', 'سوپرگروه')
-        set_text(LANG, 'chat', 'چت')
+        set_text(LANG, 'chat', 'گروه')
 
         -- moderation.lua --
         set_text(LANG, 'userUnmuted:1', 'کاربر')
-        set_text(LANG, 'userUnmuted:2', 'توانایی چت کردن را دوباره بدست آورد.')
+        set_text(LANG, 'userUnmuted:2', 'توانایی گروه کردن را دوباره بدست آورد.')
 
         set_text(LANG, 'userMuted:1', 'کاربر')
-        set_text(LANG, 'userMuted:2', 'توانایی چت کردن را از دست داد.')
+        set_text(LANG, 'userMuted:2', 'توانایی گروه کردن را از دست داد.')
 
         set_text(LANG, 'kickUser:1', 'کاربر')
         set_text(LANG, 'kickUser:2', 'اخراج شد.')
@@ -192,7 +192,7 @@ local function run(msg, matches)
         set_text(LANG, 'ungbanUser:2', 'به صورت سراسری رفع بن شد.')
 
         set_text(LANG, 'addUser:1', 'کاربر')
-        set_text(LANG, 'addUser:2', 'به چت افزوده شد.')
+        set_text(LANG, 'addUser:2', 'به گروه افزوده شد.')
         set_text(LANG, 'addUser:3', 'به چنل افزوده شد.')
 
         set_text(LANG, 'kickmeBye', 'بدرود.')
@@ -215,10 +215,10 @@ local function run(msg, matches)
         set_text(LANG, 'pNotExists', 'این پلاگین وجود ندارد.')
 
         set_text(LANG, 'pDisChat:1', 'پلاگین')
-        set_text(LANG, 'pDisChat:2', 'در این چت غیرفعال است.')
+        set_text(LANG, 'pDisChat:2', 'در این گروه غیرفعال است.')
 
         set_text(LANG, 'anyDisPlugin', 'هیچ پلاگینی غیر فعال تیست.')
-        set_text(LANG, 'anyDisPluginChat', 'هیچ پلاگینی در این چت غیر فعال نیست.')
+        set_text(LANG, 'anyDisPluginChat', 'هیچ پلاگینی در این گروه غیر فعال نیست.')
         set_text(LANG, 'notDisabled', 'این پلاگین غیرفعال نیست.')
 
         set_text(LANG, 'enabledAgain:1', 'پلاگین')
@@ -268,7 +268,7 @@ local function run(msg, matches)
         -- id.lua --
         set_text(LANG, 'id:0', 6)
         set_text(LANG, 'id:1', '#id: نشان دادن ای دی شما و یا آی دی چنلی که در حال حاضر در آن هستید.')
-        set_text(LANG, 'id:2', '#ids chat: نشان دادن آی دی چتی که در حال حاضر در آن هستید.')
+        set_text(LANG, 'id:2', '#ids chat: نشان دادن آی دی گروهی که در حال حاضر در آن هستید.')
         set_text(LANG, 'id:3', '#ids channel: نشان دادن آی دی چنلی که در حال حاضر در آن هستید.')
         set_text(LANG, 'id:4', '#id <user_name>: نشان دادن آی دی شخص مورد نظر شما.')
         set_text(LANG, 'id:5', '#whois <user_id>/<user_name>: نشان دادن یوزرنیم شخص مورد نظر شما.')
