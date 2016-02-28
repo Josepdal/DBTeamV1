@@ -91,7 +91,7 @@ end
 local function disable_plugin( name, chat )
   -- Check if plugins exists
   if not plugin_exists(name) then
-    return 'ℹ️ '..lang_text(to_id, 'notExist:1')..' '..name..' '..lang_text(to_id, 'notExist:1')
+    return 'ℹ️ '..lang_text(to_id, 'notExist:1')..' '..name..' '..lang_text(to_id, 'notExist:2')
   end
   local k = plugin_enabled(name)
   -- Check if plugin is enabled
