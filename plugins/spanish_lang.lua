@@ -136,15 +136,15 @@ local function run(msg, matches)
 
 		set_text(LANG, 'langUpdated', 'El idioma ha sido cambiado a: ')
 		
-		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
-		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
-		set_text(LANG, 'desChanged', 'Channel description has been changed.')
-		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
+		set_text(LANG, 'chatUpgrade', 'Chat convertido a supergrupo con éxito.')
+		set_text(LANG, 'notInChann', 'Este chat ya es supergrupo')
+		set_text(LANG, 'desChanged', 'La descripción del supergrupo ha sido cambiada.')
+		set_text(LANG, 'desOnlyChannels', 'La descripción solo puede ser cambiada en supergrupos.')
 
-		set_text(LANG, 'muteAll', 'Everyone is muted now.')
-		set_text(LANG, 'unmuteAll', 'Everyone can talk now.')
-		set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
-		set_text(LANG, 'muteAllX:2', 'seconds.')
+		set_text(LANG, 'muteAll', 'Todos los miembros están silenciados.')
+		set_text(LANG, 'unmuteAll', 'Todos los miembros pueden hablar ahora.')
+		set_text(LANG, 'muteAllX:1', 'Este grupo ha sido silenciado durante')
+		set_text(LANG, 'muteAllX:2', 'segundos.')
 
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'cuentas globalmente baneadas.')
