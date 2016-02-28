@@ -141,6 +141,11 @@ local function run(msg, matches)
 		set_text(LANG, 'desChanged', 'Channel description has been changed.')
 		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
 
+		set_text(LANG, 'muteAll', 'Everyone is muted now.')
+		set_text(LANG, 'unmuteAll', 'Everyone can talk now.')
+		set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
+		set_text(LANG, 'muteAllX:2', 'seconds.')
+
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'cuentas globalmente baneadas.')
 

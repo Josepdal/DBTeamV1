@@ -15,7 +15,7 @@ local sudos = {
  	"setphoto",
  	"setname",
  	"addbots",
- 	"newlink",
+ 	"setlink",
  	"rank_guest",
  	"description",
  	"export_gban"
@@ -38,7 +38,8 @@ local mods = {
 	"lang",
 	"settings",
 	"mod_commands",
-	"no_flood_ban"
+	"no_flood_ban",
+	"muteall"
 }
 
 local function get_tag(plugin_tag)

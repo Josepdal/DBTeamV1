@@ -136,6 +136,19 @@ local function pre_process(msg)
             end
         end
     end
+
+    --Checking muteall
+    if not permissions(msg.from.id, msg.to.id, "muteall") then
+	    local hash = 'muteall:'..msg.to.id
+	    if redis:get(hash) then
+	        if msg.to.type == 'chat' then
+	            delete_msg(msg.id, ok_cb, true)
+	        elseif msg.to.type == 'channel' then
+	            delete_msg(msg.id, ok_cb, true)
+	        end
+	    end
+	end
+
   return msg
 end
 
@@ -339,7 +352,7 @@ local function run(msg, matches)
                 elseif matches[2] == 'setname' then
                     if matches[3] == 'enable' then
                         local hash = 'name:enabled:'..msg.to.id
-                        redis:set(hash, true)
+                        redis:del(hash)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'chatRename'), ok_cb, false)
                         elseif msg.to.type == 'channel' then
@@ -347,7 +360,7 @@ local function run(msg, matches)
                         end
                     elseif matches[3] == 'disable' then
                         local hash = 'name:enabled:'..msg.to.id
-                        redis:del(hash)
+                        redis:set(hash, true)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notChatRename'), ok_cb, false)
                         elseif msg.to.type == 'channel' then
@@ -478,11 +491,11 @@ local function run(msg, matches)
                 --Enable/disable changing group name
                 local hash = 'name:enabled:'..msg.to.id
                 if redis:get(hash) then
-                    sName = allowed
-                    sNameD = '🔸'
-                else
                     sName = noAllowed
                     sNameD = '🔹'
+                else
+                    sName = allowed
+                    sNameD = '🔸'
                 end
                 text = text..sNameD..' '..lang_text(msg.to.id, 'gName')..': '..sName..'\n'
 
@@ -565,7 +578,7 @@ local function run(msg, matches)
     elseif matches[1] == 'setname' then
         if permissions(msg.from.id, msg.to.id, "settings") then
             local hash = 'name:enabled:'..msg.to.id
-            if redis:get(hash) then
+            if not redis:get(hash) then
                 if msg.to.type == 'chat' then
                     rename_chat(msg.to.peer_id, matches[2], ok_cb, false)
                 elseif msg.to.type == 'channel' then
@@ -577,7 +590,7 @@ local function run(msg, matches)
             return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
     elseif matches[1] == 'setlink' then
-        if permissions(msg.from.id, msg.to.id, "settings") then
+        if permissions(msg.from.id, msg.to.id, "setlink") then
             hash = 'link:'..msg.to.id
             redis:set(hash, matches[2])
             if msg.to.type == 'chat' then
@@ -587,10 +600,10 @@ local function run(msg, matches)
             end
             return
         else
-            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
         end
     elseif matches[1] == 'link' then
-        if permissions(msg.from.id, msg.to.id, "settings") then
+        if permissions(msg.from.id, msg.to.id, "link") then
             hash = 'link:'..msg.to.id
             local linktext = redis:get(hash)
             if linktext then
@@ -657,6 +670,32 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_admin')
         end
+    elseif matches[1] == 'muteall' and matches[2] then
+    	if permissions(msg.from.id, msg.to.id, "muteall") then
+    		print(1)
+    		local hash = 'muteall:'..msg.to.id
+    		redis:setex(hash, tonumber(matches[2]), true)
+    		print(2)
+            return 'ℹ️ '..lang_text(msg.to.id, 'muteAllX:1')..' '..matches[2]..' '..lang_text(msg.to.id, 'muteAllX:2')
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'muteall' then
+    	if permissions(msg.from.id, msg.to.id, "muteall") then
+    		local hash = 'muteall:'..msg.to.id
+    		redis:set(hash, true)
+            return 'ℹ️ '..lang_text(msg.to.id, 'muteAll')
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'unmuteall' then
+    	if permissions(msg.from.id, msg.to.id, "muteall") then
+    		local hash = 'muteall:'..msg.to.id
+    		redis:del(hash)
+            return 'ℹ️ '..lang_text(msg.to.id, 'unmuteAll')
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
     end
 end
 
@@ -668,6 +707,9 @@ return {
         '^#(setname) (.*)$',
         '^#(setphoto)$',
         '^#(setphoto) (.*)$',
+        '^#(muteall)$',
+        '^#(muteall) (.*)$',
+        '^#(unmuteall)$',
         '^#(link)$',
         "^#(tosupergroup)$",
         "^#(setdescription) (.*)$",
