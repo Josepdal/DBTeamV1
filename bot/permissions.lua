@@ -4,7 +4,7 @@ local sudos = {
     "bot",
     "lang_install",
     "set_lang",
-    "tosuper",
+    "tosupergroup",
  	"gban_installer"
   }
  local admins = {
@@ -17,6 +17,7 @@ local sudos = {
  	"addbots",
  	"newlink",
  	"rank_guest",
+ 	"description",
  	"export_gban"
 }
 local mods = {
@@ -37,7 +38,6 @@ local mods = {
 	"lang",
 	"settings",
 	"mod_commands",
-	"mod_pro",
 	"no_flood_ban"
 }
 
