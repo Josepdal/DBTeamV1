@@ -21,7 +21,7 @@ local function run(msg, matches)
         -- Translation version --
         -------------------------
         set_text(LANG, 'version', '0.2')
-        set_text(LANG, 'versionExtended', 'نس2 ترجمه : 0.11')
+        set_text(LANG, 'versionExtended', 'نسخه ترجمه : 0.2')
 
         -------------
         -- Plugins --
