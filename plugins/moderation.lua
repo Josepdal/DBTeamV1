@@ -143,14 +143,14 @@ end
 
 local function gban_by_reply(extra, success, result)
     result = backward_msg_format(result)
-    local msg = resultq
+    local msg = result
     local chat = msg.to.id
     local user = msg.from.id
     local hash = 'gban:'..user
     redis:set(hash, true)
     if not is_gbanned_table(msg.to.id) then
-        table.insert(_gbans.gbans_users, tonumber(user_id))
-        print(user_id..' added to _gbans table')
+        table.insert(_gbans.gbans_users, tonumber(msg.to.id))
+        print(msg.to.id..' added to _gbans table')
         save_gbans()
     end
     if msg.to.type == 'chat' then
