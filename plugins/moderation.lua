@@ -149,7 +149,7 @@ local function gban_by_reply(extra, success, result)
     local hash = 'gban:'..user
     redis:set(hash, true)
     if not is_gbanned_table(msg.to.id) then
-        table.insert(_gbans.gbans_users, tonumber(user_id))
+        table.insert(_gbans.gbans_users, tonumber(msg.to.id))
         print(msg.to.id..' added to _gbans table')
         save_gbans()
     end
