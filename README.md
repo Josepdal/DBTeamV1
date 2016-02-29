@@ -144,7 +144,7 @@ Bot Commands
             <td>settings.lua</td>
             <td>#settings stickers enable/disable: when enabled, all stickers will be cleared.<br>
                 #settings links enable/disable: when enabled, all links will be cleared.<br>
-                #settings arabic enable/disable: when enabled, all messages with arabic/persian will be cleared.<br>
+                #settings arabic enable/disabl: when enabled, all messages with arabic/persian will be cleared.<br>
                 #settings bots enable/disable: when enabled, if someone adds a bot, it will be kicked.<br>
                 #settings gifs enable/disable: when enabled, all gifs will be cleared.<br>
                 #settings photos enable/disable: when enabled, all photos will be cleared.<br>
@@ -187,17 +187,12 @@ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-d
 
 ```bash
 # After those dependencies, lets install the bot
-cd $HOME
+cd $HOME #Do not write this if you are using c9 or not root accounts
 git clone https://github.com/Josepdal/DBTeam.git
 cd DBTeam
 ./launch.sh install
 ./launch.sh # Will ask you for a phone number & confirmation code.
 ```
-You can also use this command to install the bot in just one step.
-```bash
-sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev -y && cd $HOME && rm -rf DBTeam && rm -rf .telegram-cli && git clone https://github.com/Josepdal/DBTeam.git && cd DBTeam && ./launch.sh install && ./launch.sh
-```
-
 Then, you have to install a bot language like this:
 ```
 #install english_lang
@@ -239,7 +234,7 @@ DBTeam developers
 DBTeam support channels
 -----------------------
 
-[![https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Support_EN-blue.svg)](https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g) [![https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Soporte_ES-blue.svg)](https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw) 
+[![https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Support_EN-blue.svg)](https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw) [![https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Soporte_ES-blue.svg)](https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g) 
 
 Other interesting sites
 -----------------------
