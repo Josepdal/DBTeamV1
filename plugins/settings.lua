@@ -9,17 +9,9 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
---    #creategroup by @lamjavid &  @Josepdal	--
---												--
 --------------------------------------------------
 
 do
-
-local function create_group(msg, group_name)
-    local group_creator = msg.from.print_name
-    create_group_chat(group_creator, group_name, ok_cb, false)
-    return 'ℹ️ '..lang_text(msg.to.id, 'createGroup:1')..' "'..string.gsub(group_name, '_', ' ')..'" '..lang_text(msg.to.id, 'createGroup:2')
-end
 
 local function remove_message(extra, success, result)
     msg = backward_msg_format(result)
@@ -700,13 +692,6 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_admin')
         end
-    elseif matches[1] == 'creategroup' and matches[2] then
-		if permissions(msg.from.id, msg.to.id, "creategroup") then
-	            group_name = matches[2]
-		    return create_group(msg, group_name)
-		end
-    elseif matches[1] == 'chat_created' and msg.from.id == 0 then
-        return '🆕 '..lang_text(msg.to.id, 'newGroupWelcome')
     end
 end
 
@@ -725,9 +710,7 @@ return {
         "^#(tosupergroup)$",
         "^#(setdescription) (.*)$",
         '^#(setlink) (.*)$',
-        '^#(lang) (.*)$',
-        '^#(creategroup) (.*)$',
- 		'^!!tgservice (.+)$'
+        '^#(lang) (.*)$'
     },
     pre_process = pre_process,
     run = run
