@@ -407,7 +407,7 @@ local function run(msg, matches)
             local chat_type = msg.to.type
             if msg.reply_id then
                 if msg.to.type == 'chat' then
-                    get_message(replyId, chat_ban, false)
+                    get_message(msg.reply_id, chat_ban, false)
                 elseif msg.to.type == 'channel' then
                     get_message(msg.reply_id, channel_ban, {receiver=get_receiver(msg)})
                 end
