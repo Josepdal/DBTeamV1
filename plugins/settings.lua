@@ -566,6 +566,7 @@ local function run(msg, matches)
         if permissions(msg.from.id, msg.to.id, "settings") then
             if msg.reply_id then
                 get_message(msg.reply_id, remove_message, false)
+                get_message(msg.id, remove_message, false)
             end
             return
         else
