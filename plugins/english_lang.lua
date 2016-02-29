@@ -147,6 +147,10 @@ local function run(msg, matches)
 		set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
 		set_text(LANG, 'muteAllX:2', 'seconds.')
 
+		set_text(LANG, 'createGroup:1', 'Group')
+		set_text(LANG, 'createGroup:2', 'created.')
+		set_text(LANG, 'newGroupWelcome', 'Welcome to your new group.')
+
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'accounts globally banned.')
 
