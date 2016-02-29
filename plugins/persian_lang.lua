@@ -9,7 +9,7 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
---           Translated by : @Iamjavid          --
+--           Translated by: @NimaGame           --
 --                                              --
 --------------------------------------------------
 local LANG = 'fa'
