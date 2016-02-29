@@ -242,6 +242,7 @@ function create_config( )
       "spanish_lang",
       "version",
       "italian_lang",
+      "portuguese_lang",
       "arabic"
      },
     sudo_users = {our_id},
