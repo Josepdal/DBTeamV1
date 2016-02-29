@@ -146,6 +146,10 @@ local function run(msg, matches)
         set_text(LANG, 'muteAllX:1', 'شما نمی توانید به مدت')
         set_text(LANG, 'muteAllX:2', 'ثانیه در این چنل چت کنید..')
 
+        set_text(LANG, 'createGroup:1', 'Group')
+        set_text(LANG, 'createGroup:2', 'created.')
+        set_text(LANG, 'newGroupWelcome', 'Welcome to your new group.')
+
         -- export_gban.lua --
         set_text(LANG, 'accountsGban', 'اکانت به صورت سراسری بن شد.')
 
