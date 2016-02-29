@@ -20,8 +20,8 @@ local function run(msg, matches)
         -------------------------
         -- Translation version --
         -------------------------
-        set_text(LANG, 'version', '0.11')
-        set_text(LANG, 'versionExtended', 'نسخه ترجمه : 0.11')
+        set_text(LANG, 'version', '0.2')
+        set_text(LANG, 'versionExtended', 'نسخه ترجمه : 0.2')
 
         -------------
         -- Plugins --
@@ -297,18 +297,18 @@ local function run(msg, matches)
         
         -- settings.lua --
         set_text(LANG, 'settings:0', 19)
-        set_text(LANG, 'settings:1', '#settings stickers enable/disable: وقتی فعال باشد ، ربات تمامی استکیر هارا پاک خواهد کرد.')
-        set_text(LANG, 'settings:2', '#settings links enable/disable: وقتی فعال باشد ، ربات  تمامی لینک هارا پاک خواهد کرد.')
-        set_text(LANG, 'settings:3', '#settings arabic enable/disabl: وقتی فعال باشد ، ربات  تمامی پیام های فارسی و یا عربی را پاک خواهد کرد..')
-        set_text(LANG, 'settings:4', '#settings bots enable/disable: وقتی فعال باشد ، ربات  اگر کسی رباتی را به گروه بیفزاید ، ربات را اخراج خواهد کرد.')
-        set_text(LANG, 'settings:5', '#settings gifs enable/disable: وقتی فعال باشد ، ربات  تمامی تصاویر متحرک را پاک خواهد کرد.')
-        set_text(LANG, 'settings:6', '#settings photos enable/disable: وقتی فعال باشد ، ربات  تمامی تصاویر را پاک خواهد کرد.')
-        set_text(LANG, 'settings:7', '#settings audios enable/disable: وقتی فعال باشد ، ربات  تمامی فایل های صوتی را پاک خواهد کرد.')
-        set_text(LANG, 'settings:8', '#settings kickme enable/disable: وقتی فعال باشد ، ربات  کاربران دیگر نمی توانند خودشان خودشان را اخراج کنند.')
-        set_text(LANG, 'settings:9', '#settings spam enable/disable: وقتی فعال باشد ، ربات  تمامی اسپم هارا پاک خواهد کرد.')
-        set_text(LANG, 'settings:10', '#settings setphoto enable/disable: وقتی فعال باشد ، ربات  اگر شخصی عکس گروه را تغییر دهد ، عکس قبلی گروه را بازگردانی و تنظیم می کند.')
-        set_text(LANG, 'settings:11', '#settings setname enable/disable: وقتی فعال باشد ، ربات  اگر کسی نام گروه را تغییر دهد ، نام گروه را بازگردانی و تنظیم خواهد کرد..')
-        set_text(LANG, 'settings:12', '#settings lockmember enable/disable: وقتی فعال باشد ، ربات  ربات هر شخصی را که وارد گروه شود را اخراج خواهد کرد.')
+        set_text(LANG, 'settings:1', '#settings stickers enable/disable: وقتی غیرفعال باشد ، ربات تمامی استکیر هارا پاک خواهد کرد.')
+        set_text(LANG, 'settings:2', '#settings links enable/disable: وقتی غیرفعال باشد ، ربات  تمامی لینک هارا پاک خواهد کرد.')
+        set_text(LANG, 'settings:3', '#settings arabic enable/disabl: وقتی غیرفعال باشد ، ربات  تمامی پیام های فارسی و یا عربی را پاک خواهد کرد..')
+        set_text(LANG, 'settings:4', '#settings bots enable/disable: وقتی غیرفعال باشد ، ربات  اگر کسی رباتی را به گروه بیفزاید ، ربات را اخراج خواهد کرد.')
+        set_text(LANG, 'settings:5', '#settings gifs enable/disable: وقتی غیرفعال باشد ، ربات  تمامی تصاویر متحرک را پاک خواهد کرد.')
+        set_text(LANG, 'settings:6', '#settings photos enable/disable: وقتی غیرفعال باشد ، ربات  تمامی تصاویر را پاک خواهد کرد.')
+        set_text(LANG, 'settings:7', '#settings audios enable/disable: وقتی غیرفعال باشد ، ربات  تمامی فایل های صوتی را پاک خواهد کرد.')
+        set_text(LANG, 'settings:8', '#settings kickme enable/disable: وقتی غیرفعال باشد ، ربات  کاربران دیگر نمی توانند خودشان خودشان را اخراج کنند.')
+        set_text(LANG, 'settings:9', '#settings spam enable/disable: وقتی غیرفعال باشد ، ربات  تمامی اسپم هارا پاک خواهد کرد.')
+        set_text(LANG, 'settings:10', '#settings setphoto enable/disable: وقتی غیرفعال باشد ، ربات  اگر شخصی عکس گروه را تغییر دهد ، عکس قبلی گروه را بازگردانی و تنظیم می کند.')
+        set_text(LANG, 'settings:11', '#settings setname enable/disable: وقتی غیرفعال باشد ، ربات  اگر کسی نام گروه را تغییر دهد ، نام گروه را بازگردانی و تنظیم خواهد کرد..')
+        set_text(LANG, 'settings:12', '#settings lockmember enable/disable: وقتی غیرفعال باشد ، ربات  ربات هر شخصی را که وارد گروه شود را اخراج خواهد کرد.')
         set_text(LANG, 'settings:13', '#settings floodtime <ثانیه>: تنظیم مقدار زمانی که بات فلود را بررسی می کند.')
         set_text(LANG, 'settings:14', '#settings maxflood <ثانیه>: حداثکر تعداد فلود را تنظیم می کند.')
         set_text(LANG, 'settings:15', '#setname <group title>: نام گروه را تغییر می دهد.')
