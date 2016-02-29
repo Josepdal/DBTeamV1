@@ -5,7 +5,7 @@ local sudos = {
     "lang_install",
     "set_lang",
     "tosupergroup",
-    "gban_installer"
+ 	"gban_installer"
   }
  local admins = {
  	"rank_mod",
@@ -13,12 +13,12 @@ local sudos = {
  	"ungban",
  	"setrules",
  	"setphoto",
+ 	"creategroup",
  	"setname",
  	"addbots",
  	"setlink",
  	"rank_guest",
  	"description",
- 	"creategroup",
  	"export_gban"
 }
 local mods = {
@@ -27,7 +27,6 @@ local mods = {
 	"add",
 	"ban",
 	"unban",
-	"link",
 	"lockmember",
 	"mute",
 	"unmute",
@@ -37,6 +36,7 @@ local mods = {
 	"flood",
 	"commands",
 	"lang",
+	"link",
 	"settings",
 	"mod_commands",
 	"no_flood_ban",
