@@ -9,7 +9,7 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @iicc1, @serx666 & @Skneos      --
 --                                              --
---   Translated by: TiagoDamin & @Wesley_Henr   --
+--   Translated by: @TiagoDanin & @Wesley_Henr   --
 --                                              --
 --------------------------------------------------
 
