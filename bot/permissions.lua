@@ -40,8 +40,7 @@ local mods = {
 	"settings",
 	"mod_commands",
 	"no_flood_ban",
-	"muteall",
-	"rules"
+	"muteall"
 }
 
 local function get_tag(plugin_tag)
