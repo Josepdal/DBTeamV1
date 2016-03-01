@@ -9,8 +9,10 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
+--  Translated by Wathiq Al-Qajar { @Wathiqq }  --
+--                                              --
 --------------------------------------------------
---     file by Wathiq Al-Qajar { @Wathiqq }     --
+
 
 local LANG = 'ar'
 
@@ -135,6 +137,23 @@ local function run(msg, matches)
 
 		set_text(LANG, 'langUpdated', 'تم تحديث اللغة لـ: ')
 
+		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
+		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
+
+		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
+		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
+		set_text(LANG, 'desChanged', 'Channel description has been changed.')
+		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
+
+		set_text(LANG, 'muteAll', 'Everyone is muted now.')
+		set_text(LANG, 'unmuteAll', 'Everyone can talk now.')
+		set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
+		set_text(LANG, 'muteAllX:2', 'seconds.')
+
+		set_text(LANG, 'createGroup:1', 'Group')
+		set_text(LANG, 'createGroup:2', 'created.')
+		set_text(LANG, 'newGroupWelcome', 'Welcome to your new group.')
+
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'حسابات المحظورة عام.')
 
@@ -217,7 +236,9 @@ local function run(msg, matches)
 		set_text(LANG, 'commandsT', 'الاوامر')
 		set_text(LANG, 'errorNoPlug', 'الاضافات ليسة موجودة في الاستخدام.')
 
-
+		-- rules.lua --
+		set_text(LANG, 'setRules', 'Chat rules have been updated.')
+		set_text(LANG, 'remRules', 'Chat rules have been removed.')
 
 		------------
 		-- Usages --
