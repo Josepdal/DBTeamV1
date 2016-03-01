@@ -233,7 +233,9 @@ local function run(msg, matches)
         set_text(LANG, 'commandsT', 'دستورات')
         set_text(LANG, 'errorNoPlug', 'این پلاگین وجود ندارد و یا فعال نیست.')
 
-
+        -- rules.lua --
+        set_text(LANG, 'setRules', 'Chat rules have been updated.')
+        set_text(LANG, 'remRules', 'Chat rules have been removed.')
 
         ------------
         -- Usages --
