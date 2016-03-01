@@ -119,6 +119,12 @@ Bot Commands
             </td>
         </tr>
         <tr>
+            <td>rules.lua</td>
+            <td>#rules: shows chat rules you set before or send default rules.<br>
+                #setrules <rules_text>: set chat rules.
+                #remrules: remove chat rules and return to default ones.
+        </tr>
+        <tr>
             <td>moderation.lua</td>
             <td>#add: replying to a message, the user will be added to the current group/supergroup.<br>
                 #add <id>/<username>: adds a user by its ID/Username to the current group/supergroup.<br>
@@ -160,7 +166,13 @@ Bot Commands
                 #setphoto <then send photo>: the bot will change group photo.<br>
                 #lang <language (en, es...)>: it changes the language of the bot.<br>
                 #setlink <link>: saves the link of the group.<br>
-                #link: to get the link of the group.
+                #link: to get the link of the group.<br>
+                #muteall: mute all chat members.<br>
+                #muteall <secs>: mute all chat members for <secs> time.<br>
+                #unmuteall: remove mute restriction.<br>
+                #creategroup: create a group with your bot in a command.<br>
+                #tosupergroup: upgrade your chat to a channel.<br>
+                #setdescription: change your channel description.
             </td>
         </tr>
         <tr>
@@ -243,7 +255,7 @@ Yagop developer and bot development group
 Other interesting sites
 -----------------------
 
-[![Donate button](https://img.shields.io/badge/Red_Cross-donate-yellow.svg)](https://www.icrc.org/ "Donate to Red Cross Society") [![http://taligram.org](https://img.shields.io/badge/Taligram.org-Visit_us-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw)
+[![Donate button](https://img.shields.io/badge/Red_Cross-donate-yellow.svg)](https://www.icrc.org/ "Donate to Red Cross Society") [![http://taligram.org](https://img.shields.io/badge/Taligram.org-Visit_us-blue.svg)](http://taligram.org)
 
 Contact us
 ------------
