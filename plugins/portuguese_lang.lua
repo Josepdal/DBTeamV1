@@ -218,6 +218,10 @@ local function run(msg, matches)
 		set_text(LANG, 'commandsT', 'Comandos')
 		set_text(LANG, 'errorNoPlug', 'Este plugin não existe ou não está em uso.')
 
+		-- rules.lua --
+		set_text(LANG, 'setRules', 'Chat rules have been updated.')
+		set_text(LANG, 'remRules', 'Chat rules have been removed.')
+
     	------------
 		-- Usages --
 		------------
