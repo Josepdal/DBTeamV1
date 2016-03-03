@@ -33,7 +33,11 @@ local function set_group_photo(msg, success, result)
         print('File downloaded to:', result)
         os.rename(result, file)
         print('File moved to:', file)
-        channel_set_photo (receiver, file, ok_cb, false)
+        if msg.to.type == 'channel' then
+        	channel_set_photo (receiver, file, ok_cb, false)
+	elseif msg.to.type == 'chat' then
+		chat_set_photo(receiver, file, ok_cb, false)
+	end
         return 'ℹ️ '..lang_text(msg.to.id, 'photoSaved')
     else
         print('Error downloading: '..msg.id)

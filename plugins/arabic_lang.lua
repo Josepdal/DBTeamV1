@@ -78,10 +78,10 @@ local function run(msg, matches)
 		set_text(LANG, 'noAudiosT', '.لا يسمح للصوتيات في هذه الدردشة')
 		set_text(LANG, 'noAudiosL', '.لا يسمح للصوتيات في هذا اسوبر كروب')
 
-		set_text(LANG, 'kickmeT', 'Autokick is now allowed in this chat.')
-		set_text(LANG, 'kickmeL', 'Autokick is now allowed in this supergroup.')
-		set_text(LANG, 'noKickmeT', 'Autokick is not allowed in this chat.')
-		set_text(LANG, 'noKickmeL', 'Autokick is not allowed in this supergroup.')
+		set_text(LANG, 'kickmeT', 'خاصية الخروج من المجموعة مسموحة الان.')
+		set_text(LANG, 'kickmeL', 'خاصية الخروج من المجموعة الخارقة مسموحة الان.')
+		set_text(LANG, 'noKickmeT', 'خاصية الخروج من المجموعة ممنوعة الان.')
+		set_text(LANG, 'noKickmeL', 'خاصية الخروج من المجموعة الخارقة ممنوعة الان.')
 
 		set_text(LANG, 'floodT', 'الفلود مفعل في الكروب.')
 		set_text(LANG, 'floodL', 'الفلود مفعل في السوبر كروب.')
@@ -137,22 +137,22 @@ local function run(msg, matches)
 
 		set_text(LANG, 'langUpdated', 'تم تحديث اللغة لـ: ')
 
-		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
-		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
+		set_text(LANG, 'chatUpgrade', 'تم ترقية المجموعة بنجاح.')
+		set_text(LANG, 'notInChann', 'المجموعة خارقة بالفعل.')
 
-		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
-		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
-		set_text(LANG, 'desChanged', 'Channel description has been changed.')
-		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
+		set_text(LANG, 'chatUpgrade', 'تم ترقية المجموعة بنجاح.')
+		set_text(LANG, 'notInChann', 'المجموعة خارقة بالفعل.')
+		set_text(LANG, 'desChanged', 'تم تغيير وصف المجموعة الخارقة.')
+		set_text(LANG, 'desOnlyChannels', 'هذه الخاصية للمجموعات الخارقة فقط.')
 
-		set_text(LANG, 'muteAll', 'Everyone is muted now.')
-		set_text(LANG, 'unmuteAll', 'Everyone can talk now.')
-		set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
-		set_text(LANG, 'muteAllX:2', 'seconds.')
+		set_text(LANG, 'muteAll', 'تم كتم المجموعة.')
+		set_text(LANG, 'unmuteAll', 'تم الغاء الكتم عن المجموعة.')
+		set_text(LANG, 'muteAllX:1', 'تم كتم المجموعة لـ ')
+		set_text(LANG, 'muteAllX:2', 'ثواني.')
 
-		set_text(LANG, 'createGroup:1', 'Group')
-		set_text(LANG, 'createGroup:2', 'created.')
-		set_text(LANG, 'newGroupWelcome', 'Welcome to your new group.')
+		set_text(LANG, 'createGroup:1', 'المجموعة')
+		set_text(LANG, 'createGroup:2', 'تم صنعها.')
+		set_text(LANG, 'newGroupWelcome', 'مرحبا بك في مجموعتك الجديدة .')
 
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'حسابات المحظورة عام.')
@@ -237,8 +237,8 @@ local function run(msg, matches)
 		set_text(LANG, 'errorNoPlug', 'الاضافات ليسة موجودة في الاستخدام.')
 
 		-- rules.lua --
-		set_text(LANG, 'setRules', 'Chat rules have been updated.')
-		set_text(LANG, 'remRules', 'Chat rules have been removed.')
+		set_text(LANG, 'setRules', 'تم تحديث قوانين المجموعة.')
+		set_text(LANG, 'remRules', 'تم ازالة قوانين المجموعة.')
 
 		------------
 		-- Usages --
