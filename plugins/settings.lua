@@ -10,7 +10,7 @@
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
 --    #creategroup by @lamjavid &  @Josepdal	--
---												--
+--						--
 --------------------------------------------------
 
 do
@@ -567,6 +567,7 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
+		
     elseif matches[1] == 'rem' then
         if permissions(msg.from.id, msg.to.id, "settings") then
             if msg.reply_id then
@@ -598,6 +599,33 @@ local function run(msg, matches)
             return
         else
             return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+	elseif matches[1] == 'newlink' then
+        if permissions(msg.from.id, msg.to.id, "setlink") then              
+                local function callback (extra , success, result)
+                    local receiver = 'chat#'..msg.to.id
+                    local hash = receiver:gsub("chat#","")
+                    local hash = hash:gsub("channel#","")
+                    local hash = 'link:'..hash
+					if success == 0 then
+						return send_large_msg(receiver, 'Generate link failed \nReason: Im not creator of this group\n\nUse #setlink [link] command to save your group link on me')
+					end
+                    send_large_msg(receiver, "Created a new link")
+                    redis:set(hash, result)
+                    return 
+                end	
+            if msg.to.type == 'chat' then
+                local receiver = 'chat#'..msg.to.id
+                send_msg('chat#id'..msg.to.id, '?? '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
+                return export_chat_link(receiver, callback, true)
+            elseif msg.to.type == 'channel' then
+                local receiver = 'channel#'..msg.to.id
+                send_msg('channel#id'..msg.to.id, '?? '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
+                return export_channel_link(receiver, callback, true)
+            end
+            return
+        else
+            return '?? '..lang_text(msg.to.id, 'require_admin')
         end
     elseif matches[1] == 'setlink' then
         if permissions(msg.from.id, msg.to.id, "setlink") then
@@ -731,9 +759,10 @@ return {
         "^#(tosupergroup)$",
         "^#(setdescription) (.*)$",
         '^#(setlink) (.*)$',
+	'^#(newlink)$',
         '^#(lang) (.*)$',
         '^#(creategroup) (.*)$',
- 		'^!!tgservice (.+)$'
+ 	'^!!tgservice (.+)$'
     },
     pre_process = pre_process,
     run = run
