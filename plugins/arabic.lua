@@ -1,6 +1,6 @@
 local function run(msg)
     local hash = 'arabic:'..msg.to.id
-    if not redis:get(hash) then
+    if redis:get(hash) then
         delete_msg(msg.id, ok_cb, false)
         if msg.to.type == 'chat' then
             send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'noArabicT'), ok_cb, true)
