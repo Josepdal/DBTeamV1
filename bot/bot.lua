@@ -205,7 +205,7 @@ function load_config( )
   end
   local config = loadfile ("./data/config.lua")()
   for v,user in pairs(config.sudo_users) do
-    print("Allowed user: " .. user)
+    print('\27[93mAllowed user:\27[39m ' .. user)
   end
   return config
 end
@@ -284,7 +284,7 @@ end
 -- Enable plugins in config.json
 function load_plugins()
   for k, v in pairs(_config.enabled_plugins) do
-    print("Loading plugin", v)
+    print('\27[92mLoading plugin '.. v..'\27[39m')
 
     local ok, err =  pcall(function()
       local t = loadfile("plugins/"..v..'.lua')()
