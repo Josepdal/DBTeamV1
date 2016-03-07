@@ -23,6 +23,8 @@ local sudos = {
 }
 local mods = {
 	"whois",
+	"save",
+	"cancel",
 	"kick",
 	"add",
 	"ban",
