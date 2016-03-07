@@ -1,3 +1,16 @@
+--------------------------------------------------
+--      ____  ____ _____                        --
+--     |    \|  _ )_   _|___ ____   __  __      --
+--     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
+--     |____/|____/ |_|\____/\_____|_/\/\_|     --
+--                                              --
+--------------------------------------------------
+--                                              --
+--       Developers: @Josepdal & @MaSkAoS       --
+--     Support: @Skneos,  @iicc1 & @serx666     --
+--                                              --
+--------------------------------------------------
+
 local LANG = 'en'
 
 local function run(msg, matches)
@@ -6,8 +19,8 @@ local function run(msg, matches)
 		-------------------------
 		-- Translation version --
 		-------------------------
-		set_text(LANG, 'version', '0.1')
-		set_text(LANG, 'versionExtended', 'Translation version 0.1')
+		set_text(LANG, 'version', '0.2')
+		set_text(LANG, 'versionExtended', 'Translation version 0.2')
 
 		-------------
 		-- Plugins --
@@ -121,6 +134,23 @@ local function run(msg, matches)
 
 		set_text(LANG, 'langUpdated', 'Your language has been updated to: ')
 
+		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
+		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
+
+		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
+		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
+		set_text(LANG, 'desChanged', 'Channel description has been changed.')
+		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
+
+		set_text(LANG, 'muteAll', 'Everyone is muted now.')
+		set_text(LANG, 'unmuteAll', 'Everyone can talk now.')
+		set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
+		set_text(LANG, 'muteAllX:2', 'seconds.')
+
+		set_text(LANG, 'createGroup:1', 'Group')
+		set_text(LANG, 'createGroup:2', 'created.')
+		set_text(LANG, 'newGroupWelcome', 'Welcome to your new group.')
+
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'accounts globally banned.')
 
@@ -203,7 +233,9 @@ local function run(msg, matches)
 		set_text(LANG, 'commandsT', 'Commands')
 		set_text(LANG, 'errorNoPlug', 'This plugin does not exists or has not usages.')
 
-
+		-- rules.lua --
+		set_text(LANG, 'setRules', 'Chat rules have been updated.')
+		set_text(LANG, 'remRules', 'Chat rules have been removed.')
 
 		------------
 		-- Usages --
@@ -272,20 +304,20 @@ local function run(msg, matches)
 		
 		-- settings.lua --
 	    set_text(LANG, 'settings:0', 19)
-	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: when enabled, all stickers will be cleared.')
-	    set_text(LANG, 'settings:2', '#settings links enable/disable: when enabled, all links will be cleared.')
-	    set_text(LANG, 'settings:3', '#settings arabic enable/disabl: when enabled, all messages with arabic/persian will be cleared.')
-	    set_text(LANG, 'settings:4', '#settings bots enable/disable: when enabled, if someone adds a bot, it will be kicked.')
-	    set_text(LANG, 'settings:5', '#settings gifs enable/disable: when enabled, all gifs will be cleared.')
-	    set_text(LANG, 'settings:6', '#settings photos enable/disable: when enabled, all photos will be cleared.')
-	    set_text(LANG, 'settings:7', '#settings audios enable/disable: when enabled, all audios will be cleared.')
-	    set_text(LANG, 'settings:8', '#settings kickme enable/disable: when enabled, people can kick out itself.')
-	    set_text(LANG, 'settings:9', '#settings spam enable/disable: when enabled, all spam links will be cleared.')
+	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: when disabled, all stickers will be cleared.')
+	    set_text(LANG, 'settings:2', '#settings links enable/disable: when disabled, all links will be cleared.')
+	    set_text(LANG, 'settings:3', '#settings arabic enable/disabl: when disabled, all messages with arabic/persian will be cleared.')
+	    set_text(LANG, 'settings:4', '#settings bots enable/disable: when disabled, if someone adds a bot, it will be kicked.')
+	    set_text(LANG, 'settings:5', '#settings gifs enable/disable: when disabled, all gifs will be cleared.')
+	    set_text(LANG, 'settings:6', '#settings photos enable/disable: when disabled, all photos will be cleared.')
+	    set_text(LANG, 'settings:7', '#settings audios enable/disable: when disabled, all audios will be cleared.')
+	    set_text(LANG, 'settings:8', '#settings kickme enable/disable: when disabled, people can kick out itself.')
+	    set_text(LANG, 'settings:9', '#settings spam enable/disable: when disabled, all spam links will be cleared.')
 	    set_text(LANG, 'settings:10', '#settings setphoto enable/disable: when enabled, if a user changes the group photo, the bot will revert to the saved photo.')
 	    set_text(LANG, 'settings:11', '#settings setname enable/disable: when enabled, if a user changes the group name, the bot will revert to the saved name.')
 	    set_text(LANG, 'settings:12', '#settings lockmember enable/disable: when enabled, the bot will kick all people that enters to the group.')
 	    set_text(LANG, 'settings:13', '#settings floodtime <secs>: set the time that bot uses to check flood.')
-	    set_text(LANG, 'settings:14', '#settings maxflood <secs>: set the maximum messages in a floodtime to be considered as flood.')
+	    set_text(LANG, 'settings:14', '#settings maxflood <msgs>: set the maximum messages in a floodtime to be considered as flood.')
 	    set_text(LANG, 'settings:15', '#setname <group title>: the bot will change group title.')
 	    set_text(LANG, 'settings:16', '#setphoto <then send photo>: the bot will change group photo.')
 	    set_text(LANG, 'settings:17', '#lang <language (en, es...)>: it changes the language of the bot.')

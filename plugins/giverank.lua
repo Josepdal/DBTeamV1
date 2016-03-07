@@ -7,7 +7,7 @@
 --------------------------------------------------
 --                                              --
 --       Developers: @Josepdal & @MaSkAoS       --
---         Support: @Skneos & @Thef7HD          --
+--     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
 --------------------------------------------------
 
@@ -187,7 +187,9 @@ local function members_chat(cb_extra, success, result)
 	local chat_id = cb_extra.chat_id
 	local text = ""
 	for k,v in pairs(result.members) do
-		text = text..'@'..v.username..' '
+		if v.username then
+			text = text..'@'..v.username..' '
+		end
 	end
 	return send_large_msg('chat#id'..chat_id, text, ok_cb, true)
 end
@@ -196,7 +198,9 @@ local function members_channel(extra, success, result)
 	local chat_id = extra.chat_id
 	local text = ""
 	for k,user in ipairs(result) do
-		text = text..'@'..user.username..' '
+		if user.username then
+			text = text..'@'..user.username..' '
+		end
 	end
 	return send_large_msg('channel#id'..chat_id, text, ok_cb, true)
 end
@@ -215,6 +219,24 @@ local function mods_channel(extra, success, result)
 		text = text..'🔅 '..lang_text(chat_id, 'modEmpty')
 	end
 	return send_large_msg('channel#id'..chat_id, text, ok_cb, true)
+end
+
+local function mods_chat(extra, success, result)
+	local chat_id = extra.chat_id
+	local text = '🔆 '..lang_text(chat_id, 'modList')..':\n'
+	local compare = text
+	for k,user in ipairs(result.members) do
+		if user.username then
+			hash = 'mod:'..chat_id..':'..user.peer_id
+			if redis:get(hash) then
+				text = text..'🔅 '..user.username..'\n'
+			end
+		end
+	end
+	if text == compare then
+		text = text..'🔅 '..lang_text(chat_id, 'modEmpty')
+	end
+	return send_large_msg('chat#id'..chat_id, text, ok_cb, true)
 end
 
 local function run(msg, matches)
@@ -314,7 +336,7 @@ local function run(msg, matches)
 			local chat_id = msg.to.id
 		 	if msg.to.type == 'chat' then
 		 		local receiver = 'chat#id'..msg.to.id
-			    chat_info(receiver, members_chat, {chat_id=chat_id})
+			    chat_info(receiver, mods_chat, {chat_id=chat_id})
 			else
 				local chan = ("%s#id%s"):format(msg.to.type, msg.to.id)
 			    channel_get_users(chan, mods_channel, {chat_id=chat_id})

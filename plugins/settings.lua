@@ -7,11 +7,19 @@
 --------------------------------------------------
 --                                              --
 --       Developers: @Josepdal & @MaSkAoS       --
---         Support: @Skneos & @Thef7HD          --
+--     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
+--    #creategroup by @lamjavid &  @Josepdal	--
+--												--
 --------------------------------------------------
 
 do
+
+local function create_group(msg, group_name)
+    local group_creator = msg.from.print_name
+    create_group_chat(group_creator, group_name, ok_cb, false)
+    return 'ℹ️ '..lang_text(msg.to.id, 'createGroup:1')..' "'..string.gsub(group_name, '_', ' ')..'" '..lang_text(msg.to.id, 'createGroup:2')
+end
 
 local function remove_message(extra, success, result)
     msg = backward_msg_format(result)
@@ -25,7 +33,11 @@ local function set_group_photo(msg, success, result)
         print('File downloaded to:', result)
         os.rename(result, file)
         print('File moved to:', file)
-        channel_set_photo (receiver, file, ok_cb, false)
+        if msg.to.type == 'channel' then
+        	channel_set_photo (receiver, file, ok_cb, false)
+	elseif msg.to.type == 'chat' then
+		chat_set_photo(receiver, file, ok_cb, false)
+	end
         return 'ℹ️ '..lang_text(msg.to.id, 'photoSaved')
     else
         print('Error downloading: '..msg.id)
@@ -48,98 +60,110 @@ local function pre_process(msg)
         floodTime = tonumber(redis:get(hash))
     end
 
-    --Checking flood
-    local hash = 'anti-flood:'..msg.to.id
-    if not redis:get(hash) then
-        print('anti-flood enabled')
-        -- Check flood
-        if msg.from.type == 'user' then
-            -- Increase the number of messages from the user on the chat
-            local hash = 'flood:'..msg.from.id..':'..msg.to.id..':msg-num'
-            local msgs = tonumber(redis:get(hash) or 0)
-            if msgs > floodMax then
-                local receiver = get_receiver(msg)
-                local user = msg.from.id
-                local chat = msg.to.id
-                local channel = msg.to.id
-                local bhash = 'banned:'..msg.to.id..':'..msg.from.id
-                redis:set(bhash, true)
-                if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
-                    chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-                elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
-                    channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-                end
-            end
-            redis:setex(hash, floodTime, msgs+1)
-        end
-    end
+    if not permissions(msg.from.id, msg.to.id, "pre_process") then
 
-    --Checking stickers
-    if not msg.media then
-        webp = 'nothing'
-    else
-        webp = msg.media.caption
-    end
-    if webp == 'sticker.webp' then
-        hash = 'stickers:'..msg.to.id
-        if redis:get(hash) then
-            delete_msg(msg.id, ok_cb, false)
-        end
-    end
-    if not msg.media then
-        mp4 = 'nothing'
-    else
-        if msg.media.type == 'document' then
-            mp4 = msg.media.caption or 'audio'
-        end
-    end
-    --Checking GIFs and MP4 files
-    if mp4 == 'giphy.mp4' then
-        hash = 'gifs:'..msg.to.id
-        if redis:get(hash) then
-            delete_msg(msg.id, ok_cb, false)
-        end
-    else
-        if msg.media then
-            if msg.media.type == 'document' then
-                gifytpe = string.find(mp4, 'gif.mp4') or 'audio'
-                if gifytpe == 'audio' then
-                    hash = 'audio:'..msg.to.id
-                    if redis:get(hash) then
-                        delete_msg(msg.id, ok_cb, false)
+        --Checking flood
+        local hashse = 'anti-flood:'..msg.to.id
+        print(1)
+        if not redis:get(hashse) then
+            print('anti-flood enabled')
+            -- Check flood
+            if msg.from.type == 'user' then
+                if not permissions(msg.from.id, msg.to.id, "no_flood_ban") then
+                    -- Increase the number of messages from the user on the chat
+                    local hash = 'flood:'..msg.from.id..':'..msg.to.id..':msg-num'
+                    local msgs = tonumber(redis:get(hash) or 0)
+                    if msgs > floodMax then
+                        local receiver = get_receiver(msg)
+                        local user = msg.from.id
+                        local chat = msg.to.id
+                        local channel = msg.to.id
+                        local bhash = 'banned:'..msg.to.id..':'..msg.from.id
+                        redis:set(bhash, true)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
+                            chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, lang_text(chat, 'user')..' @'..msg.from.username..' ('..msg.from.id..') '..lang_text(chat, 'isFlooding'), ok_cb, true)
+                            channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+                        end
                     end
-                else
-                    hash = 'gifs:'..msg.to.id
-                    if redis:get(hash) then
-                        delete_msg(msg.id, ok_cb, false)
-                    end
+                    redis:setex(hash, floodTime, msgs+1)
                 end
             end
         end
-    end
-    --Checking photos
-    if msg.media then
-        if msg.media.type == 'photo' then
-            local hash = 'setphoto:'..msg.to.id..':'..msg.from.id
-                if redis:get(hash) then
-                    redis:del(hash)
-                    load_photo(msg.id, set_group_photo, msg)
-                    delete_msg(msg.id, ok_cb, false)
-                end
-            local hash = 'photo:'..msg.to.id
+
+        --Checking stickers
+        if not msg.media then
+            webp = 'nothing'
+        else
+            webp = msg.media.caption
+        end
+        if webp == 'sticker.webp' then
+            hash = 'stickers:'..msg.to.id
             if redis:get(hash) then
                 delete_msg(msg.id, ok_cb, false)
             end
         end
+        if not msg.media then
+            mp4 = 'nothing'
+        else
+            if msg.media.type == 'document' then
+                mp4 = msg.media.caption or 'audio'
+            end
+        end
+        --Checking GIFs and MP4 files
+        if mp4 == 'giphy.mp4' then
+            hash = 'gifs:'..msg.to.id
+            if redis:get(hash) then
+                delete_msg(msg.id, ok_cb, false)
+            end
+        else
+            if msg.media then
+                if msg.media.type == 'document' then
+                    gifytpe = string.find(mp4, 'gif.mp4') or 'audio'
+                    if gifytpe == 'audio' then
+                        hash = 'audio:'..msg.to.id
+                        if redis:get(hash) then
+                            delete_msg(msg.id, ok_cb, false)
+                        end
+                    else
+                        hash = 'gifs:'..msg.to.id
+                        if redis:get(hash) then
+                            delete_msg(msg.id, ok_cb, false)
+                        end
+                    end
+                end
+            end
+        end
+        --Checking photos
+        if msg.media then
+            if msg.media.type == 'photo' then
+                local hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+                    if redis:get(hash) then
+                        redis:del(hash)
+                        load_photo(msg.id, set_group_photo, msg)
+                        delete_msg(msg.id, ok_cb, false)
+                    end
+                local hash = 'photo:'..msg.to.id
+                if redis:get(hash) then
+                    delete_msg(msg.id, ok_cb, false)
+                end
+            end
+        end
+
+        --Checking muteall
+        local hash = 'muteall:'..msg.to.id
+        if redis:get(hash) then
+            delete_msg(msg.id, ok_cb, false)
+        end
     end
-  return msg
+    return msg
 end
 
 local function run(msg, matches)
-    if permissions(msg.from.id, msg.to.id, "settings") then
-        if matches[1] == 'settings' then
+    if matches[1] == 'settings' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             if matches[2] ~= nil then
                 if matches[2] == 'stickers' then
                     if matches[3] == 'enable' then
@@ -337,7 +361,7 @@ local function run(msg, matches)
                 elseif matches[2] == 'setname' then
                     if matches[3] == 'enable' then
                         local hash = 'name:enabled:'..msg.to.id
-                        redis:set(hash, true)
+                        redis:del(hash)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'chatRename'), ok_cb, false)
                         elseif msg.to.type == 'channel' then
@@ -345,7 +369,7 @@ local function run(msg, matches)
                         end
                     elseif matches[3] == 'disable' then
                         local hash = 'name:enabled:'..msg.to.id
-                        redis:del(hash)
+                        redis:set(hash, true)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notChatRename'), ok_cb, false)
                         elseif msg.to.type == 'channel' then
@@ -386,8 +410,8 @@ local function run(msg, matches)
                 text = text..sLinkD..' '..lang_text(msg.to.id, 'links')..': '..sLink..'\n'
 
                 --Enable/disable arabic messages
-                local hash = 'antiarabe:'..msg.to.id
-                if redis:get(hash) then
+                local hash = 'arabic:'..msg.to.id
+                if not redis:get(hash) then
                     sArabe = allowed
                     sArabeD = '🔸'              
                 else
@@ -476,11 +500,11 @@ local function run(msg, matches)
                 --Enable/disable changing group name
                 local hash = 'name:enabled:'..msg.to.id
                 if redis:get(hash) then
-                    sName = allowed
-                    sNameD = '🔸'
-                else
                     sName = noAllowed
                     sNameD = '🔹'
+                else
+                    sName = allowed
+                    sNameD = '🔸'
                 end
                 text = text..sNameD..' '..lang_text(msg.to.id, 'gName')..': '..sName..'\n'
 
@@ -538,25 +562,33 @@ local function run(msg, matches)
                 elseif msg.to.type == 'channel' then
                     send_msg('channel#id'..msg.to.id, text, ok_cb, false)
                 end
+                return
             end
-            return
-        elseif matches[1] == 'rem' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'rem' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             if msg.reply_id then
-                print(1)
                 get_message(msg.reply_id, remove_message, false)
+                get_message(msg.id, remove_message, false)
             end
             return
-        elseif matches[1] == 'lang' then
-            if permissions(msg.from.id, msg.to.id, "set_lang") then
-                hash = 'langset:'..msg.to.id
-                redis:set(hash, matches[2])
-                return lang_text(msg.to.id, 'langUpdated')..string.upper(matches[2])
-            else
-                return '🚫 '..lang_text(msg.to.id, 'require_sudo')
-            end
-        elseif matches[1] == 'setname' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'lang' then
+        if permissions(msg.from.id, msg.to.id, "set_lang") then
+            hash = 'langset:'..msg.to.id
+            redis:set(hash, matches[2])
+            return lang_text(msg.to.id, 'langUpdated')..string.upper(matches[2])
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_sudo')
+        end
+    elseif matches[1] == 'setname' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             local hash = 'name:enabled:'..msg.to.id
-            if redis:get(hash) then
+            if not redis:get(hash) then
                 if msg.to.type == 'chat' then
                     rename_chat(msg.to.peer_id, matches[2], ok_cb, false)
                 elseif msg.to.type == 'channel' then
@@ -564,7 +596,11 @@ local function run(msg, matches)
                 end
             end
             return
-        elseif matches[1] == 'setlink' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'setlink' then
+        if permissions(msg.from.id, msg.to.id, "setlink") then
             hash = 'link:'..msg.to.id
             redis:set(hash, matches[2])
             if msg.to.type == 'chat' then
@@ -573,7 +609,11 @@ local function run(msg, matches)
                 send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
             end
             return
-        elseif matches[1] == 'link' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'link' then
+        if permissions(msg.from.id, msg.to.id, "link") then
             hash = 'link:'..msg.to.id
             local linktext = redis:get(hash)
             if linktext then
@@ -590,7 +630,11 @@ local function run(msg, matches)
                 end
             end
             return
-        elseif matches[1] == 'setphoto' then
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
+        end
+    elseif matches[1] == 'setphoto' then
+        if permissions(msg.from.id, msg.to.id, "settings") then
             if matches[2] == 'stop' then
                 hash = 'setphoto:'..msg.to.id..':'..msg.from.id
                 redis:del(hash)
@@ -609,20 +653,66 @@ local function run(msg, matches)
                 end
             end
             return
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
-        local hash = 'arabic:'..msg.to.id
-        if redis:get(hash) then
-            delete_msg(msg.id, ok_cb, false)
-            if msg.to.type == 'chat' then
-                send_msg('chat#id'..msg.to.id, lang_text(msg.to.id, 'noArabicT'), ok_cb, true)
-                chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
-            elseif msg.to.type == 'channel' then
-                send_msg('channel#id'..msg.to.id, lang_text(msg.to.id, 'noArabicL'), ok_cb, true)
-                channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+    elseif matches[1] == 'tosupergroup' then
+        if msg.to.type == 'chat' then
+            if permissions(msg.from.id, msg.to.id, "tosupergroup") then
+                chat_upgrade('chat#id'..msg.to.id, ok_cb, false)
+                return 'ℹ️ '..lang_text(msg.to.id, 'chatUpgrade')
+            else
+                return '🚫 '..lang_text(msg.to.id, 'require_sudo')
             end
+        else
+            return 'ℹ️ '..lang_text(msg.to.id, 'notInChann')
         end
-    else
-        return '🚫 '..lang_text(msg.to.id, 'require_mod')
+    elseif matches[1] == 'setdescription' then
+        if permissions(msg.from.id, msg.to.id, "description") then
+            local text = matches[2]
+            local chat = 'channel#id'..msg.to.id
+            if msg.to.type == 'channel' then
+                channel_set_about(chat, text, ok_cb, false)
+                return 'ℹ️ '..lang_text(msg.to.id, 'desChanged')
+            else
+                return 'ℹ️ '..lang_text(msg.to.id, 'desOnlyChannels')
+            end
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'muteall' and matches[2] then
+    	if permissions(msg.from.id, msg.to.id, "muteall") then
+    		print(1)
+    		local hash = 'muteall:'..msg.to.id
+    		redis:setex(hash, tonumber(matches[2]), true)
+    		print(2)
+            return 'ℹ️ '..lang_text(msg.to.id, 'muteAllX:1')..' '..matches[2]..' '..lang_text(msg.to.id, 'muteAllX:2')
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'muteall' then
+    	if permissions(msg.from.id, msg.to.id, "muteall") then
+    		local hash = 'muteall:'..msg.to.id
+    		redis:set(hash, true)
+            return 'ℹ️ '..lang_text(msg.to.id, 'muteAll')
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'unmuteall' then
+    	if permissions(msg.from.id, msg.to.id, "muteall") then
+    		local hash = 'muteall:'..msg.to.id
+    		redis:del(hash)
+            return 'ℹ️ '..lang_text(msg.to.id, 'unmuteAll')
+        else
+            return '🚫 '..lang_text(msg.to.id, 'require_admin')
+        end
+    elseif matches[1] == 'creategroup' and matches[2] then
+		if permissions(msg.from.id, msg.to.id, "creategroup") then
+	            group_name = matches[2]
+		    return create_group(msg, group_name)
+		end
+    elseif matches[1] == 'chat_created' and msg.from.id == 0 then
+        return '🆕 '..lang_text(msg.to.id, 'newGroupWelcome')
     end
 end
 
@@ -634,10 +724,16 @@ return {
         '^#(setname) (.*)$',
         '^#(setphoto)$',
         '^#(setphoto) (.*)$',
+        '^#(muteall)$',
+        '^#(muteall) (.*)$',
+        '^#(unmuteall)$',
         '^#(link)$',
+        "^#(tosupergroup)$",
+        "^#(setdescription) (.*)$",
         '^#(setlink) (.*)$',
         '^#(lang) (.*)$',
-        '([\216-\219][\128-\191])'
+        '^#(creategroup) (.*)$',
+ 		'^!!tgservice (.+)$'
     },
     pre_process = pre_process,
     run = run

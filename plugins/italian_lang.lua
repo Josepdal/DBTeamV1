@@ -1,13 +1,15 @@
 --------------------------------------------------
 --      ____  ____ _____                        --
 --     |    \|  _ )_   _|___ ____   __  __      --
---     | |_  )  _ \ | |/ Â·__|  _ \_|  \/  |     --
+--     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
 --     |____/|____/ |_|\____/\_____|_/\/\_|     --
 --                                              --
 --------------------------------------------------
 --                                              --
 --       Developers: @Josepdal & @MaSkAoS       --
---          Support: @Skneos &  @iicc1          --
+--     Support: @Skneos,  @iicc1 & @serx666     --
+--                                              --
+--           Translated by: @baconnn            --
 --                                              --
 --------------------------------------------------
 
@@ -133,6 +135,20 @@ local function run(msg, matches)
 		set_text(LANG, 'notLockMembersL', 'Il numero di membri è stato sbloccato in questo supergruppo.')
 
 		set_text(LANG, 'langUpdated', 'La lingua del bot è stata aggiornata a: ')
+		
+		set_text(LANG, 'chatUpgrade', 'Chat Upgraded Successfully.')
+		set_text(LANG, 'notInChann', 'You can\'t do this in a supergroup.')
+		set_text(LANG, 'desChanged', 'Channel description has been changed.')
+		set_text(LANG, 'desOnlyChannels', 'Description only can be changed in channels.')
+
+		set_text(LANG, 'muteAll', 'Everyone is muted now.')
+		set_text(LANG, 'unmuteAll', 'Everyone can talk now.')
+		set_text(LANG, 'muteAllX:1', 'This channel has been muted for')
+		set_text(LANG, 'muteAllX:2', 'seconds.')
+
+		set_text(LANG, 'createGroup:1', 'Group')
+		set_text(LANG, 'createGroup:2', 'created.')
+		set_text(LANG, 'newGroupWelcome', 'Welcome to your new group.')
 
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'Utenti bannati globalmente.')
@@ -216,7 +232,9 @@ local function run(msg, matches)
 		set_text(LANG, 'commandsT', 'Comandi')
 		set_text(LANG, 'errorNoPlug', 'Questo plugin non esiste o non ha una descrizione.')
 
-
+		-- rules.lua --
+		set_text(LANG, 'setRules', 'Chat rules have been updated.')
+		set_text(LANG, 'remRules', 'Chat rules have been removed.')
 
 		------------
 		-- Usages --

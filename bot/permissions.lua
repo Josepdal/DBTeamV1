@@ -4,6 +4,7 @@ local sudos = {
     "bot",
     "lang_install",
     "set_lang",
+    "tosupergroup",
  	"gban_installer"
   }
  local admins = {
@@ -12,10 +13,12 @@ local sudos = {
  	"ungban",
  	"setrules",
  	"setphoto",
+ 	"creategroup",
  	"setname",
  	"addbots",
- 	"newlink",
+ 	"setlink",
  	"rank_guest",
+ 	"description",
  	"export_gban"
 }
 local mods = {
@@ -24,7 +27,6 @@ local mods = {
 	"add",
 	"ban",
 	"unban",
-	"link",
 	"lockmember",
 	"mute",
 	"unmute",
@@ -35,7 +37,11 @@ local mods = {
 	"commands",
 	"lang",
 	"settings",
-	"mod_commands"
+	"mod_commands",
+	"no_flood_ban",
+	"muteall",
+	"rules",
+	"pre_process"
 }
 
 local function get_tag(plugin_tag)

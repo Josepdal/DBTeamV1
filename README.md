@@ -119,6 +119,12 @@ Bot Commands
             </td>
         </tr>
         <tr>
+            <td>rules.lua</td>
+            <td>#rules: shows chat rules you set before or send default rules.<br>
+                #setrules <rules_text>: set chat rules.
+                #remrules: remove chat rules and return to default ones.
+        </tr>
+        <tr>
             <td>moderation.lua</td>
             <td>#add: replying to a message, the user will be added to the current group/supergroup.<br>
                 #add <id>/<username>: adds a user by its ID/Username to the current group/supergroup.<br>
@@ -144,7 +150,7 @@ Bot Commands
             <td>settings.lua</td>
             <td>#settings stickers enable/disable: when enabled, all stickers will be cleared.<br>
                 #settings links enable/disable: when enabled, all links will be cleared.<br>
-                #settings arabic enable/disabl: when enabled, all messages with arabic/persian will be cleared.<br>
+                #settings arabic enable/disable: when enabled, all messages with arabic/persian will be cleared.<br>
                 #settings bots enable/disable: when enabled, if someone adds a bot, it will be kicked.<br>
                 #settings gifs enable/disable: when enabled, all gifs will be cleared.<br>
                 #settings photos enable/disable: when enabled, all photos will be cleared.<br>
@@ -160,7 +166,13 @@ Bot Commands
                 #setphoto <then send photo>: the bot will change group photo.<br>
                 #lang <language (en, es...)>: it changes the language of the bot.<br>
                 #setlink <link>: saves the link of the group.<br>
-                #link: to get the link of the group.
+                #link: to get the link of the group.<br>
+                #muteall: mute all chat members.<br>
+                #muteall <secs>: mute all chat members for <secs> time.<br>
+                #unmuteall: remove mute restriction.<br>
+                #creategroup: create a group with your bot in a command.<br>
+                #tosupergroup: upgrade your chat to a channel.<br>
+                #setdescription: change your channel description.
             </td>
         </tr>
         <tr>
@@ -187,11 +199,15 @@ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-d
 
 ```bash
 # After those dependencies, lets install the bot
-cd $HOME
+cd $HOME #Do not write this if you are using c9 or not root accounts
 git clone https://github.com/Josepdal/DBTeam.git
 cd DBTeam
 ./launch.sh install
 ./launch.sh # Will ask you for a phone number & confirmation code.
+```
+You can also use this command to install the bot in just one step.
+```bash
+sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove && sudo apt-get autoclean && sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev -y && cd $HOME && rm -rf DBTeam && rm -rf .telegram-cli && git clone https://github.com/Josepdal/DBTeam.git && cd DBTeam && ./launch.sh install && ./launch.sh
 ```
 Then, you have to install a bot language like this:
 ```
@@ -221,25 +237,25 @@ $ sudo start telegram # To start it
 $ sudo stop telegram # To stop it
 ```
 
-Yagop developer and bot development group
------------------------------------------
+DBTeam support and development groups
+-------------------------------------
 
-[![https://telegram.me/Yago_Perez](https://img.shields.io/badge/💬_Telegram-Yago__Perez-blue.svg)](https://telegram.me/Yago_Perez) [![https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw](https://img.shields.io/badge/💬_Telegram-Bot._Group-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw) [![https://gitter.im/yagop/telegram-bot](https://img.shields.io/badge/💬_Gitter-Join_Chat-green.svg)](https://gitter.im/yagop/telegram-bot])
+[![https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Support_EN-blue.svg)](https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g) [![https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Soporte_ES-blue.svg)](https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw) [![https://telegram.me/joinchat/BbkmWz2Ozu7EakNpixOJ5A](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Support_FA-blue.svg)](https://telegram.me/joinchat/BbkmWz2Ozu7EakNpixOJ5A)
 
 DBTeam developers
 -----------------
 
 [![https://telegram.me/Josepdal](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Josepdal-blue.svg)](https://telegram.me/Josepdal) [![https://telegram.me/MaSkAoS](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Juan-blue.svg)](https://telegram.me/MaSkAoS)
 
-DBTeam support channels
------------------------
+Yagop developer and bot development group
+-----------------------------------------
 
-[![https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Support_EN-blue.svg)](https://telegram.me/joinchat/C142CD3GT-26EFdxu_lW0g) [![https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Soporte_ES-blue.svg)](https://telegram.me/joinchat/C142CD5wPizyWWg4R3TJLw) 
+[![https://telegram.me/Yago_Perez](https://img.shields.io/badge/💬_Telegram-Yago__Perez-blue.svg)](https://telegram.me/Yago_Perez) [![https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw](https://img.shields.io/badge/💬_Telegram-Bot._Group-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw) [![https://gitter.im/yagop/telegram-bot](https://img.shields.io/badge/💬_Gitter-Join_Chat-green.svg)](https://gitter.im/yagop/telegram-bot])
 
 Other interesting sites
 -----------------------
 
-[![Donate button](https://img.shields.io/badge/Red_Cross-donate-yellow.svg)](https://www.icrc.org/ "Donate to Red Cross Society") [![http://taligram.org](https://img.shields.io/badge/Taligram.org-Visit_us-blue.svg)](https://telegram.me/joinchat/ALJ3izwBCNXSswCHOKMwGw)
+[![Donate button](https://img.shields.io/badge/Red_Cross-donate-yellow.svg)](https://www.icrc.org/ "Donate to Red Cross Society") [![http://taligram.org](https://img.shields.io/badge/Taligram.org-Visit_us-blue.svg)](http://taligram.org)
 
 Contact us
 ------------

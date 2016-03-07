@@ -1,3 +1,16 @@
+--------------------------------------------------
+--      ____  ____ _____                        --
+--     |    \|  _ )_   _|___ ____   __  __      --
+--     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
+--     |____/|____/ |_|\____/\_____|_/\/\_|     --
+--                                              --
+--------------------------------------------------
+--                                              --
+--       Developers: @Josepdal & @MaSkAoS       --
+--     Support: @Skneos,  @iicc1 & @serx666     --
+--                                              --
+--------------------------------------------------
+
 -- Checks if bot was disabled on specific chat
 local function is_channel_disabled( receiver )
 	if not _config.disabled_channels then
