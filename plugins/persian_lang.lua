@@ -119,6 +119,12 @@ local function run(msg, matches)
         set_text(LANG, 'setPhotoAborted', 'متوقف کردن عملیات تنظیم عکس...')
         set_text(LANG, 'sendPhoto', 'لطفا عکسی را ارسال کنید.')
 
+        set_text(LANG, 'chatSetphoto', 'Now you can setphoto in this chat.')
+        set_text(LANG, 'channelSetphoto', 'Now you can setphoto in this channel.')
+        set_text(LANG, 'notChatSetphoto', 'Now you can\'t setphoto in this chat.')
+        set_text(LANG, 'notChannelSetphoto', 'Now you can\'t setphoto in this channel.')
+        set_text(LANG, 'setPhotoError', 'Please, enable setphoto settings.')
+
         set_text(LANG, 'linkSaved', 'لینک جدید با موفقیت ذخیره شد')
         set_text(LANG, 'groupLink', 'لینک گروه :')
         set_text(LANG, 'sGroupLink', 'لینک سوپرگروه :')

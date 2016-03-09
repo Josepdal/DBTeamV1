@@ -59,12 +59,11 @@ local function pre_process(msg)
     else
         floodTime = tonumber(redis:get(hash))
     end
-
+    print('preprueba')
     if not permissions(msg.from.id, msg.to.id, "pre_process") then
-
+        print('prueba')
         --Checking flood
         local hashse = 'anti-flood:'..msg.to.id
-        print(1)
         if not redis:get(hashse) then
             print('anti-flood enabled')
             -- Check flood
@@ -139,12 +138,6 @@ local function pre_process(msg)
         --Checking photos
         if msg.media then
             if msg.media.type == 'photo' then
-                local hash = 'setphoto:'..msg.to.id..':'..msg.from.id
-                    if redis:get(hash) then
-                        redis:del(hash)
-                        load_photo(msg.id, set_group_photo, msg)
-                        delete_msg(msg.id, ok_cb, false)
-                    end
                 local hash = 'photo:'..msg.to.id
                 if redis:get(hash) then
                     delete_msg(msg.id, ok_cb, false)
@@ -156,6 +149,18 @@ local function pre_process(msg)
         local hash = 'muteall:'..msg.to.id
         if redis:get(hash) then
             delete_msg(msg.id, ok_cb, false)
+        end
+    else
+        if msg.media then
+            if msg.media.type == 'photo' then
+                local hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+                if redis:get(hash) then
+                    redis:del(hash)
+                    load_photo(msg.id, set_group_photo, msg)
+                    print('setphoto')
+                    delete_msg(msg.id, ok_cb, false)
+                end
+            end
         end
     end
     return msg
@@ -374,6 +379,24 @@ local function run(msg, matches)
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notChatRename'), ok_cb, false)
                         elseif msg.to.type == 'channel' then
                             send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notChannelRename'), ok_cb, false)
+                        end
+                    end
+                    elseif matches[2] == 'setphoto' then
+                    if matches[3] == 'enable' then
+                        local hash = 'setphoto:'..msg.to.id
+                        redis:set(hash, true)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'chatSetphoto'), ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'channelSetphoto'), ok_cb, false)
+                        end
+                    elseif matches[3] == 'disable' then
+                        local hash = 'setphoto:'..msg.to.id
+                        redis:del(hash)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notChatSetphoto'), ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notChannelSetphoto'), ok_cb, false)
                         end
                     end
                 end
@@ -635,22 +658,27 @@ local function run(msg, matches)
         end
     elseif matches[1] == 'setphoto' then
         if permissions(msg.from.id, msg.to.id, "settings") then
-            if matches[2] == 'stop' then
-                hash = 'setphoto:'..msg.to.id..':'..msg.from.id
-                redis:del(hash)
-                if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'setPhotoAborted'), ok_cb, true)
-                elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'setPhotoAborted'), ok_cb, true)
+            hash = 'setphoto:'..msg.to.id
+            if redis:get(hash) then
+                if matches[2] == 'stop' then
+                    hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+                    redis:del(hash)
+                    if msg.to.type == 'chat' then
+                        send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'setPhotoAborted'), ok_cb, true)
+                    elseif msg.to.type == 'channel' then
+                        send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'setPhotoAborted'), ok_cb, true)
+                    end
+                else
+                    hash = 'setphoto:'..msg.to.id..':'..msg.from.id
+                    redis:set(hash, true)
+                    if msg.to.type == 'chat' then
+                        send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'sendPhoto'), ok_cb, true)
+                    elseif msg.to.type == 'channel' then
+                        send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'sendPhoto'), ok_cb, true)
+                    end
                 end
             else
-                hash = 'setphoto:'..msg.to.id..':'..msg.from.id
-                redis:set(hash, true)
-                if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'sendPhoto'), ok_cb, true)
-                elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'sendPhoto'), ok_cb, true)
-                end
+                return 'ℹ️ '..lang_text(msg.to.id, 'setPhotoError')
             end
             return
         else

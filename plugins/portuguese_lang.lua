@@ -118,6 +118,12 @@ local function run(msg, matches)
 		set_text(LANG, 'setPhotoAborted', 'Parando processo de definir a foto...')
 		set_text(LANG, 'sendPhoto', 'Por favor, envie uma foto')
 
+		set_text(LANG, 'chatSetphoto', 'Now you can setphoto in this chat.')
+		set_text(LANG, 'channelSetphoto', 'Now you can setphoto in this channel.')
+		set_text(LANG, 'notChatSetphoto', 'Now you can\'t setphoto in this chat.')
+		set_text(LANG, 'notChannelSetphoto', 'Now you can\'t setphoto in this channel.')
+		set_text(LANG, 'setPhotoError', 'Please, enable setphoto settings.')
+
 		set_text(LANG, 'linkSaved', 'Novo Link salvo')
 		set_text(LANG, 'groupLink', 'Link do grupo')
 		set_text(LANG, 'sGroupLink', 'Link do supergrupo')

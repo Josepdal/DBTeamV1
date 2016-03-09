@@ -119,6 +119,12 @@ local function run(msg, matches)
 		set_text(LANG, 'setPhotoAborted', 'وقف وضع عملية الصور...')
 		set_text(LANG, 'sendPhoto', 'الرجاء,ارسالة الصورة هنا')
 
+		set_text(LANG, 'chatSetphoto', 'Now you can setphoto in this chat.')
+		set_text(LANG, 'channelSetphoto', 'Now you can setphoto in this channel.')
+		set_text(LANG, 'notChatSetphoto', 'Now you can\'t setphoto in this chat.')
+		set_text(LANG, 'notChannelSetphoto', 'Now you can\'t setphoto in this channel.')
+		set_text(LANG, 'setPhotoError', 'Please, enable setphoto settings.')
+
 		set_text(LANG, 'linkSaved', 'تم حفض الرابط الجديد.')
 		set_text(LANG, 'groupLink', 'رابط الكروب')
 		set_text(LANG, 'sGroupLink', 'رابط السوبر كروب')
