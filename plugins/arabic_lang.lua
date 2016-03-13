@@ -68,6 +68,11 @@ local function run(msg, matches)
 		set_text(LANG, 'noPhotosT', '.لا يسمح بلصور في هذه الدردشة')
 		set_text(LANG, 'noPhotosL', '.لا يسمح للصور في هذا السوبر كروب')
 
+		set_text(LANG, 'botsT', 'Bots are now allowed in this chat.')
+		set_text(LANG, 'botsL', 'Bots are now allowed in this supergroup.')
+		set_text(LANG, 'noBotsT', 'Bots are not allowed in this chat.')
+		set_text(LANG, 'noBotsL', 'Bots are not allowed in this supergroup.')
+
 		set_text(LANG, 'arabicT', '.لا يسمح تكلم العربية في هذه الدردشة')
 		set_text(LANG, 'arabicL', '.لا يسمح تكلم العربية في هذا السوبر كروب')
 		set_text(LANG, 'noArabicT', '.لا يسمح تكلم العربية في هذه الدردشة')

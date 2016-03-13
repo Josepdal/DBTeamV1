@@ -341,7 +341,6 @@ local function is_gbanned(user_id)
 end
 
 local function pre_process(msg)
-    
     --Checking mute
     local hash = 'muted:'..msg.to.id..':'..msg.from.id
     if redis:get(hash) then
@@ -394,6 +393,9 @@ local function pre_process(msg)
             ban_user(user_id, chat_id)
             kick_user(user_id, chat_id)
             msg.text = ''
+        end
+        if string.sub(msg.from.username, (string.len(msg.from.username)-2), string.len(msg.from.username)) == 'bot' then
+            kick_user(user_id, chat_id)
         end
     end
     return msg

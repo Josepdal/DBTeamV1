@@ -67,6 +67,11 @@ local function run(msg, matches)
 		set_text(LANG, 'noPhotosT', 'Le immagini non sono consentite in questo gruppo.')
 		set_text(LANG, 'noPhotosL', 'Le immagini non sono consentite in questo supergruppo.')
 
+		set_text(LANG, 'botsT', 'Bots are now allowed in this chat.')
+		set_text(LANG, 'botsL', 'Bots are now allowed in this supergroup.')
+		set_text(LANG, 'noBotsT', 'Bots are not allowed in this chat.')
+		set_text(LANG, 'noBotsL', 'Bots are not allowed in this supergroup.')
+
 		set_text(LANG, 'arabicT', 'I caratteri arabi sono ora consentiti in questo gruppo.')
 		set_text(LANG, 'arabicL', 'I caratteri arabi sono ora consentiti in questo supergruppo.')
 		set_text(LANG, 'noArabicT', 'I caratteri arabi non sono consentiti in questo gruppo.')
