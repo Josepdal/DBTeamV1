@@ -667,15 +667,42 @@ local function run(msg, matches)
         else
             return '🚫 '..lang_text(msg.to.id, 'require_admin')
         end
+	elseif matches[1] == 'newlink' then
+        if permissions(msg.from.id, msg.to.id, "setlink") then              
+                local function callback (extra , success, result)
+                    local receiver = 'chat#'..msg.to.id
+                    local hash = receiver:gsub("chat#","")
+                    local hash = hash:gsub("channel#","")
+                    local hash = 'link:'..hash
+		    if success == 0 then
+			return send_large_msg(receiver, 'Generate link failed \nReason: Im not creator of this group\n\nUse #setlink [link] command to save your group link on me')
+		    end
+                    send_large_msg(receiver, "Created a new link")
+                    redis:set(hash, result)
+                    return 
+                end	
+            if msg.to.type == 'chat' then
+                local receiver = 'chat#'..msg.to.id
+                send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
+                return export_chat_link(receiver, callback, true)
+            elseif msg.to.type == 'channel' then
+                local receiver = 'channel#'..msg.to.id
+                send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
+                return export_channel_link(receiver, callback, true)
+            end
+            return
+        else
+            return '?? '..lang_text(msg.to.id, 'require_admin')
+        end
     elseif matches[1] == 'link' then
         if permissions(msg.from.id, msg.to.id, "link") then
             hash = 'link:'..msg.to.id
             local linktext = redis:get(hash)
             if linktext then
                 if msg.to.type == 'chat' then
-                    send_msg('chat#id'..msg.to.id, '🌐 '..lang_text(msg.to.id, 'groupLink')..': '..linktext, ok_cb, true)
+                    send_msg('chat#id'..msg.to.id, ' '..lang_text(msg.to.id, 'groupLink')..': '..linktext, ok_cb, true)
                 elseif msg.to.type == 'channel' then
-                    send_msg('channel#id'..msg.to.id, '🌐 '..lang_text(msg.to.id, 'sGroupLink')..': '..linktext, ok_cb, true)
+                    send_msg('channel#id'..msg.to.id, ' '..lang_text(msg.to.id, 'sGroupLink')..': '..linktext, ok_cb, true)
                 end
             else
                 if msg.to.type == 'chat' then
@@ -788,12 +815,13 @@ return {
         '^#(muteall) (.*)$',
         '^#(unmuteall)$',
         '^#(link)$',
+	'^#(newlink)$',
         "^#(tosupergroup)$",
         "^#(setdescription) (.*)$",
         '^#(setlink) (.*)$',
         '^#(lang) (.*)$',
         '^#(creategroup) (.*)$',
- 		'^!!tgservice (.+)$'
+ 	'^!!tgservice (.+)$'
     },
     pre_process = pre_process,
     run = run
