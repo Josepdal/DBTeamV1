@@ -680,7 +680,11 @@ local function run(msg, matches)
 	                return send_large_msg(receiver, 'I can\'t create a newlink.', ok_cb, true)
 	            end
     		end
-    		result = export_chat_link(receiver, cb, true)
+    		if msg.to.type == 'chat' then
+                result = export_chat_link(receiver, cb, true)
+            elseif msg.to.type == 'channel' then
+                result = export_channel_link(receiver, cb, true)
+            end
     		if result then
 	            if msg.to.type == 'chat' then
 	                send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'linkSaved'), ok_cb, true)
