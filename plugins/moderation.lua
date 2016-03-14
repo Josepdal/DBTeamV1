@@ -394,8 +394,11 @@ local function pre_process(msg)
             kick_user(user_id, chat_id)
             msg.text = ''
         end
-        if string.sub(msg.from.username, (string.len(msg.from.username)-2), string.len(msg.from.username)) == 'bot' then
-            kick_user(user_id, chat_id)
+        hash = 'antibot:'..msg.to.id
+        if redis:get(hash) then
+            if string.sub(msg.from.username, (string.len(msg.from.username)-2), string.len(msg.from.username)) == 'bot' then
+                kick_user(user_id, chat_id)
+            end
         end
     end
     return msg
