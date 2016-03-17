@@ -15,7 +15,6 @@ local function run(msg, matches)
         if redis:get(hash) then
             kick_user(msg)
             delete_msg(msg.id, ok_cb, false)
-            send_report(msg)
         end
     end
 end
