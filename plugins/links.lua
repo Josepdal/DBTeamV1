@@ -22,6 +22,6 @@ end
 return {
 patterns = {
     -- Agrega mas links si es necesario
-    "https://",
-    "http://"
+    "[Hh][Tt][Tt][Pp][Ss]://",
+    "[Hh][Tt][Tt][Pp]://"
 }, run = run}
