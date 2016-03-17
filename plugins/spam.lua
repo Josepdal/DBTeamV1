@@ -43,8 +43,8 @@ end
 return {
 patterns = {
     -- You can add much as patterns you want to stop all spam traffic
-    "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Mm][Ee]",
-    "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Oo][Rr][Gg]",
-    "[Aa][Dd][Ff]%.[Ll][Yy]",
-    "[Bb][Ii][Tt]%.[Ll][Yy]"
+    "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Mm][Ee]://",
+    "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Oo][Rr][Gg]://",
+    "[Aa][Dd][Ff]%.[Ll][Yy]://",
+    "[Bb][Ii][Tt]%.[Ll][Yy]://"
 }, run = run}
