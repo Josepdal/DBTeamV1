@@ -56,6 +56,11 @@ local function run(msg, matches)
 		set_text(LANG, 'noStickersL', 'Stickers no permitidos en este supergrupo.')
 		set_text(LANG, 'stickersT', 'Stickers permitidos en este grupo.')
 		set_text(LANG, 'stickersL', 'Stickers permitidos en este supergrupo.')
+		
+		set_text(LANG, 'LinksT', 'Links permitidos en este grupo.')
+		set_text(LANG, 'LinksL', 'Links no permitidos en este supergrupo.')
+		set_text(LANG, 'noLinksT', 'Links no permitidos en este grupo.')
+		set_text(LANG, 'noLinksL', 'Links no permitidos en este supergrupo.')
 
 		set_text(LANG, 'gifsT', 'Gifs permitidos en este grupo.')
 		set_text(LANG, 'gifsL', 'Gifs permitidos en este supergrupo.')
