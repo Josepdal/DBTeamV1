@@ -57,6 +57,11 @@ local function run(msg, matches)
         set_text(LANG, 'stickersT', 'از این به بعد استفاده از استیکر در این گروه آزاد است.')
         set_text(LANG, 'stickersL', 'از این به بعد استفاده از استیکر در این سوپر گروه آزاد است.')
 
+        set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
+        set_text(LANG, 'LinksL', 'Links are now allowed in this supergroup.')
+        set_text(LANG, 'noLinksT', 'Links are not allowed in this chat.')
+        set_text(LANG, 'noLinksL', 'Links are not allowed in this supergroup.')
+
         set_text(LANG, 'noGiftT', 'استفاده از عکس متحرک در این گروه ممنوع میباشد.')
         set_text(LANG, 'noGiftL', 'استفاده از عکس متحرک در این سوپر گروه ممنوع میباشد.')
         set_text(LANG, 'GiftT','از این به بعد استفاده از عکس متحرک در این گروه آزاد است.')

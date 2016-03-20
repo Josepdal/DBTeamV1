@@ -57,6 +57,11 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'Gli stickers sono ora consentiti in questo gruppo.')
 		set_text(LANG, 'stickersL', 'Gli stickers non sono consentiti in questo supegruppo.')
 
+		set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
+		set_text(LANG, 'LinksL', 'Links are now allowed in this supergroup.')
+		set_text(LANG, 'noLinksT', 'Links are not allowed in this chat.')
+		set_text(LANG, 'noLinksL', 'Links are not allowed in this supergroup.')
+
 		set_text(LANG, 'gifsT', 'Le gif sono ora consentite in questo gruppo.')
 		set_text(LANG, 'gifsL', 'Le gif sono ora consentite in questo supergruppo.')
 		set_text(LANG, 'noGifsT', 'Le gif non sono consentite in questo gruppo.')

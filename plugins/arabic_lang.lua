@@ -58,6 +58,11 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'لا يسمح للملصقات في هذه الدردشة.')
 		set_text(LANG, 'stickersL', '.لا يسمح للملصقات في هذا السوبر كروب')
 
+		set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
+		set_text(LANG, 'LinksL', 'Links are now allowed in this supergroup.')
+		set_text(LANG, 'noLinksT', 'Links are not allowed in this chat.')
+		set_text(LANG, 'noLinksL', 'Links are not allowed in this supergroup.')
+
 		set_text(LANG, 'gifsT', '.لا يسمح بلصور المتحركة في هذه الدردشة')
 		set_text(LANG, 'gifsL', '.لا يسمح بلصور المتحركة في هذا السوبر كروب')
 		set_text(LANG, 'noGifsT', '.لا يسمح بلصور المتحركة في هذه الدردشة')
