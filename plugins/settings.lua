@@ -95,11 +95,11 @@ local function pre_process(msg)
             if action == 'chat_add_user' or action == 'chat_add_user_link' then
             	hash = 'antibot:'..msg.to.id
             	if redis:get(hash) then
-	                if string.sub(msg.from.username, (string.len(msg.from.username)-2), string.len(msg.from.username)) == 'bot' then
+	                if string.sub(msg.action.user.username:lower(), -3) == 'bot' then
 	                    if msg.to.type == 'chat' then
-	                        chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+	                        chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.action.user.id, ok_cb, true)
 	                    elseif msg.to.type == 'channel' then
-	                        channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+	                        channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.action.user.id, ok_cb, true)
 	                    end
 	                end
 	            end
