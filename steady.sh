@@ -36,7 +36,7 @@ VOLUNTARYCHECK=0
 I=1
 # Time between checking cpu calls of the cli process. No message received by the bot will
 # result in a reload of setup. So set the value high if your bot does not receive lots of messages.
-RELOADTIME=20
+RELOADTIME=15
 
 
 
