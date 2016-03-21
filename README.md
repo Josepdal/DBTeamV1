@@ -244,12 +244,21 @@ Then you have to launch the script (you need to be in DBTeam folder):
 screen bash steady.sh
 ```          
 The script will launch and it will show you if there is any error.       
-Bot status is checked every 20 seconds (default) and printed on the screen. You can change this value in the script ($RELOADTIME).       
+Bot status is checked every 15 seconds (default) and printed on the screen. You can change this value in the script ($RELOADTIME).       
 
-Now you can close the SSH session and it will be running in the background. You can also simply to deatach the screen by typing _Control+a_ and _Control+d_           
+Now you can close the SSH session and it will be running in the background. You can also just detach the screen by typing _Control+a_ and _Control+d_           
 
-If you want to get inside the session again, just type:
-`screen -x`             
+If you want to get inside the session again, type:
+`screen -x`                      
+You will be shown a message saying "_There are several suitable screens on:_" and two lines similar to this ones:
+```
+12345.xxxxxxx  (Date)  (Detached)                 
+67890.pts.xxx  (Date)  (Detached)           
+```
+If you write: `screen -x 12345` (the number above), you will be in the telegram session of the bot reading the messages.
+Writing: `screen -x 67890` (the number below), you will be in the script screen. Remember that you can go back with _Control+a_ and _Control+d_.
+
+
 
 You can stop the script by pressing _Control+C_ in the running script. To stop all the processes related to the bot, type:
 ```bash
