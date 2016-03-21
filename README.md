@@ -244,7 +244,7 @@ Then you have to launch the script (you need to be in DBTeam folder):
 screen bash steady.sh
 ```          
 The script will launch and it will show you if there is any error.       
-Bot status is checked every 15 seconds (default) and printed on the screen. You can change this value in the script ($RELOADTIME).       
+Bot status is checked every 10 seconds (default) and printed on the screen. You can change this value in the script ($RELOADTIME).       
 
 Now you can close the SSH session and it will be running in the background. You can also just detach the screen by typing _Control+a_ and _Control+d_           
 
