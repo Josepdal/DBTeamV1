@@ -148,11 +148,11 @@ CLINUM=`ps -e | grep -c telegram-cli`
 if [ $SCREENNUM -ge 3 ]; then
   echo -e "$f1 ERROR: MORE THAN 2 PROCESS OF SCREEN RUNNING.$rst"
   echo -e "$f1 THESE PROCESSES HAVE BE KILLED. THEN RESTART THE SCRIPT$rst"
-  echo -e 'RUN: "killall screen" two times'
+  echo -e '$f1 RUN: "killall screen" $rst'
   if [ $CLINUM -ge 2 ]; then
     echo -e "$f1 ERROR: MORE THAN 1 PROCESS OF TELEGRAM-CLI RUNNING.$rst"
     echo -e "$f1 THESE PROCESSES WILL BE KILLED. THEN RESTART THE SCRIPT$rst"
-	echo -e "RUN: killall telegram-cli"
+	echo -e "$f1 RUN: killall telegram-cli $rst"
   fi
   sleep 4
   exit 1
@@ -181,7 +181,7 @@ SCREENPID2=`cat SC2`
 rm SC1 SC2 >/dev/null
 
 sleep 0.7
-CLIPID1=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
+CLIPID=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
 if [ $CLINUM -eq 1 ]; then
   echo -e "$f2 RUNNING ONE PROCESS OF TELEGRAM-CLI: $CLIPID1$rst"
   echo -e "$bld$f4 KILLING TELEGRAM-CLI PROCESS. NOT NEEDED NOW$rst"
@@ -204,7 +204,7 @@ sleep 1
 # Opening new screen in a daemon
 echo -e "$bld$f4 ATTACHING SCREEN AS DAEMON...$rst"
 # Better to clear cli status before
-rm ../.telegram-cli/state
+rm ../.telegram-cli/state  > /dev/null 
 # Using tmux background maybe is a better option
 screen -d -m bash launch.sh
 
@@ -232,29 +232,18 @@ echo -e "$bld$f4 RELOADING TELEGRAM-CLI INFO...$rst"
 sleep 0.7
 
 # Getting new telegram-cli PID
-CLIPID=`ps -e | grep telegram-cli | grep -v $CLIPID1 | sed 's/^[[:space:]]*//' |cut -f 1 -d" "`
+CLIPID=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' |cut -f 1 -d" "`
 echo -e "$f2 NEW TELEGRAM-CLI PID: $CLIPID$rst"
-if [ $? != 0 ]; then
+if [ -z "${CLIPID}" ]; then
   echo -e "$f1 ERROR: TELEGRAM-CLI PROCESS NOT RUNNING$rst"
+  sleep 3
   exit 1
 fi
+
 
 # Locating telegram-cli status
 cat /proc/$CLIPID/task/$CLIPID/status > STATUS
 NONVOLUNTARY=`grep nonvoluntary STATUS | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
-
-#Maybe in the future...
-#VOLUNTARY=`grep voluntary_ctxt_switches: STATUS`
-#NONVOLUNTARYVALUE=`echo ${VOLUNTARY//[[:space:]]} | cut -f 2 -d":"`
-
-#State=`grep State STATUS`
-#StateVALUE=`echo ${State//[[:space:]]} | cut -f 2 -d":"`
-
-#VMSIZE=`grep VmSize STATUS`
-#VMSIZEVALUE=`echo ${VMSIZE//[[:space:]]} | cut -f 2 -d":"`
-
-#VMPEAK=`grep VmPeak STATUS`
-#VMPEAKVALUE=`echo ${VMPEAK//[[:space:]]} | cut -f 2 -d":"`
 
 
 sleep 5
@@ -271,7 +260,7 @@ sleep 5
 	
 	cat /proc/$CLIPID/task/$CLIPID/status > CHECK
 	VOLUNTARYCHECK=`grep voluntary CHECK | head -1 | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
-    NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
+	NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
 	#echo -e "NONVOLUNTARYCHECK CTXT SWITCHES: $NONVOLUNTARYCHECK"
 	#echo -e "NONVOLUNTARY CTXT SWITCHES: $NONVOLUNTARY"
 	
@@ -284,7 +273,7 @@ sleep 5
 		BAD=$(( $BAD + 1 ))
 		sleep 5
 		
-		rm ../.telegram-cli/state
+		rm ../.telegram-cli/state  > /dev/null 
 
 		kill $CLIPID
 		kill $SCREEN
@@ -292,12 +281,12 @@ sleep 5
 		screen -d -m bash launch.sh
 		sleep 5
 		
-		CLIPID=`ps -e | grep telegram-cli | grep -v $CLIPID1 | sed 's/^[[:space:]]*//' |cut -f 1 -d" "`
+		CLIPID=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
 		
-		if [ $? != 0 ]; then
+		if [ -z "${CLIPID}" ]; then
 			echo -e "$f1 ERROR: TELEGRAM-CLI PROCESS NOT RUNNING$rst"
 			echo -e "$f1 FAILED TO RECOVER BOT$rst"
-			exit 1
+			sleep 1
 		fi
 		
 		SCREENNUM=`ps -e | grep -c screen`
