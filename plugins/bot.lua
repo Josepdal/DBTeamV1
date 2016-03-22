@@ -55,7 +55,7 @@ local function pre_process(msg)
 
 	-- If sender is sudo then re-enable the channel
 	if is_sudo(msg) then
-		if msg.text == "/bot on" or msg.text == "#bot on" or msg.text == "!bot on"then
+		if string.match(msg.text, "[/!#]bot on") then
 			enable_channel(receiver, msg.to.id)
 		end
 	end
@@ -68,7 +68,7 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-	if permissions(msg.from.id, msg.to.id, "bot") then
+	if permissions(msg.from.id, msg.to.id, "[/!#]bot") then
 		local receiver = get_receiver(msg)
 		-- Enable a channel
 		if matches[1] == 'on' then
