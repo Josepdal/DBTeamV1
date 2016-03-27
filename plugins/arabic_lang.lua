@@ -9,7 +9,7 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
---  Translated by Wathiq Al-Qajar { @Wathiqq }  --
+--  Translated by Wathiq Al-Qajar { @W3thiq }  --
 --                                              --
 --------------------------------------------------
 
