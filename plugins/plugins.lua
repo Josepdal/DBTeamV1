@@ -189,12 +189,12 @@ end
 
 return {
   patterns = {
-    "^#plugins$",
-    "^#plugins? (enable) ([%w_%.%-]+)$",
-    "^#plugins? (disable) ([%w_%.%-]+)$",
-    "^#plugins? (enable) ([%w_%.%-]+) (chat)",
-    "^#plugins? (disable) ([%w_%.%-]+) (chat)",
-    "^#plugins? (reload)$" },
+    "^[!/#]plugins$",
+    "^[!/#]plugins? (enable) ([%w_%.%-]+)$",
+    "^[!/#]plugins? (disable) ([%w_%.%-]+)$",
+    "^[!/#]plugins? (enable) ([%w_%.%-]+) (chat)",
+    "^[!/#]plugins? (disable) ([%w_%.%-]+) (chat)",
+    "^[!/#]plugins? (reload)$" },
   run = run
 }
 
