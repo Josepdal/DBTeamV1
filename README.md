@@ -230,21 +230,43 @@ Keep the bot always running
 ------------
 If your bot stops sometimes due to crashes or freezes in telegram-cli, and you want to keep it running all the time
 you can start the bot this way. Note that it only will be recovering the bot if the problem is a telegram-cli issue,
-it won't recover of vps hibernation  or system problems.
+it won't recover of vps hibernation or system problems.
 
-You need to have [screen](https://www.gnu.org/software/screen) installed:
-`sudo apt get-install screen`           
-Once installed, kill all the telegram-cli and screen processes running on your vps:
+You need to have [`tmux`](https://github.com/tmux/tmux) or [`screen`](https://www.gnu.org/software/screen) installed.
+Both are pre installed in almost all linux distributions, but in case you don't you can get it this way: `sudo apt get-install tmux screen`             
+Tmux and screen are two different terminal multiplexer programs that will be needed in order to use the script.
+
+You can use __`steady.sh`__ script in two ways: with `tmux`_(recomended)_ or with `screen`. You may also mix them, but it is not assured to work.                        
+                                
+####Using tmux
+To start the script with tmux, just run this command in your Bot folder:             
+```bash
+tmux new-session -s script "bash steady.sh -t"
+```
+Where `tmux` is the terminal multiplexer, `new-session -s` means that we want to open a tmux session with a name, `script` is the name of that session and with `"bash steady.sh -t"` we are launching  _steady.sh_ with the argument `-t` (tmux mode).        
+The script will launch and it will show you if there is any error.             
+         
+
+The bot will be running in the background even if SSH session closes. You can just detach (get out) the tmux session by typing _Control+b_ and _d_                                                     
+                                    
+                                    
+If you want to get inside the script session again, type: `tmux attach-session -t script`       
+If you want to get into Bot session (reading the messages), write: `tmux attach-session -t DBTeam`             
+               
+
+You can stop the script by pressing _Control+C_ in the script session. Alternatively, you can `tmux kill-session -t script` or also killing all tmux processes `killall tmux`. Remember that you can exit without closing the session with _Control+b_ and _d_.                                   
+
+
+####Using screen
+Firstly kill all the telegram-cli and screen processes running on your vps:
 ```bash
 killall screen
 killall telegram-cli
 ```        
 Then you have to launch the script (you need to be in DBTeam folder):
 ```bash
-screen bash steady.sh
+screen bash steady.sh -s
 ```          
-The script will launch and it will show you if there is any error.       
-Bot status is checked every 10 seconds (default) and printed on the screen. You can change this value in the script ($RELOADTIME).       
 
 Now you can close the SSH session and it will be running in the background. You can also just detach the screen by typing _Control+a_ and _Control+d_           
 
@@ -260,11 +282,25 @@ Writing: `screen -x 67890` (the number below), you will be in the script screen.
 
 
 
-You can stop the script by pressing _Control+C_ in the running script. To stop all the processes related to the bot, type:
-```bash
-killall screen
-killall telegram-cli
+To stop all the processes related to the bot and the script, type:
 ```
+killall screen
+killall tmux
+killall telegram-cli
+```                        
+
+
+
+
+
+
+Bot status is checked every 10 seconds (default) and printed on the screen. You can change this value editing the script ($RELOADTIME).               
+
+The script has __more usages__, like starting sessions detached. Type `bash steady.sh -h` to see all the commands and information about the script.                    
+                          
+It is also possible to use __steady.sh__ for other bots. You only need to change $BOT variable. This can be usefull to have more bots in the same server _(this feature is only avaliable in tmux mode)_                           
+ 
+
 
 Run it as a daemon
 ------------

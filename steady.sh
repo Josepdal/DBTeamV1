@@ -1,6 +1,6 @@
 #!/bin/bash
 # =====================================================================================================
-# Copyright (C) steady.sh v1.2 2015 iicc (@iicc1)
+# Copyright (C) steady.sh v1.2 2016 iicc (@iicc1)
 # =====================================================================================================
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ NONVOLUNTARYCHECK=0
 VOLUNTARY=1
 VOLUNTARYCHECK=0
 I=1
-BOT=DBTeam  # You can put here other bots. Also you can change it to run more than one bot in the same script.
+BOT=DBTeam  # You can put here other bots. Also you can change it to run more than one bot in the same server.
 RELOADTIME=10  # Time between checking cpu calls of the cli process. Set the value high if your bot does not receive lots of messages.
 
 
@@ -373,7 +373,7 @@ sleep 5
 	else
 		echo -e "$f5 BOT NOT RUNING, TRYING TO RELOAD IT...$rst"
 		BAD=$(( $BAD + 1 ))
-		sleep 5
+		sleep 1
 		
 		rm ../.telegram-cli/state  > /dev/null 
 
@@ -381,7 +381,7 @@ sleep 5
 		kill $SCREEN
 		
 		screen -d -m bash launch.sh
-		sleep 5
+		sleep 1
 		
 		CLIPID=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
 		
@@ -500,7 +500,7 @@ while getopts ":tsTSih" opt; do
 	i)
 	echo -e "\e[1m"
 	echo -e ""
-	echo "steady.sh bash script v1.2 iicc 2015 DBTeam" >&2
+	echo "steady.sh bash script v1.2 iicc 2016 DBTeam" >&2
 	echo ""
 	echo -e "\e[0m"
 echo -e "\033[38;5;208m      ____  ____ _____                        \033[0;00m"
