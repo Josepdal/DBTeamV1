@@ -350,8 +350,8 @@ end
 
 return {
 	patterns = {
-		'#(install) (galician_lang)$',
-		'#(update) (galician_lang)$'
+		'[!/#](install) (galician_lang)$',
+		'[!/#](update) (galician_lang)$'
 	},
 	run = run,
 }
