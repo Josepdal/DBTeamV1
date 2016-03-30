@@ -14,9 +14,7 @@
 do
 
 function run(msg, matches)
-  return 'DBTeam Bot V1 Supergroups\nAn advanced Administration bot based on yagop/telegram-bot \n\nhttp://github.com/Josepdal/DBTeam\n\nDevelopers :\n@MaSkAoS\n@Josepdal\n\nSupport :\n@skneos\n@iicc1\n@Serx666' 
-  --[[ Checkout https://github.com/Josepdal/DBTeam
-  --GNU GPL v2 license.]]
+  return 'DBTeam Bot V1 Supergroups\nAn advanced Administration bot based on yagop/telegram-bot\n\nDevelopers: @MaSkAoS @Josepdal\nSupport: @skneos @iicc1 @Serx666\nChannels: @DBTeamEN @DBTeamES\n\nCheckout: https://github.com/Josepdal/DBTeam\nGNU GPL v2 license.'
 end
 
 return {

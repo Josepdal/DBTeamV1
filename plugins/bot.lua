@@ -8,10 +8,8 @@
 --                                              --
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
---                                              --
+--              @h3iran :D                      --
 --------------------------------------------------
-
--- Checks if bot was disabled on specific chat
 local function is_channel_disabled( receiver )
 	if not _config.disabled_channels then
 		return false
@@ -55,7 +53,7 @@ local function pre_process(msg)
 	
 	-- If sender is sudo then re-enable the channel
 	if is_sudo(msg) then
-	  if msg.text == "#bot on" then
+	  if msg.text == "#bot on" or msg.text == "!bot on" or msg.text == "/bot on" then
 	    enable_channel(receiver, msg.to.id)
 	  end
 	end
@@ -85,8 +83,8 @@ end
 
 return {
 	patterns = {
-		"^#bot? (on)",
-		"^#bot? (off)" }, 
+		"^[!/#]bot? (on)",
+		"^[!/#]bot? (off)" }, 
 	run = run,
 	pre_process = pre_process
 }

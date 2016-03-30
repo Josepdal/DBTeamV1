@@ -229,6 +229,7 @@ function create_config( )
   config = {
     enabled_plugins = {
       "bot",
+      "links",
       "commands",
       "english_lang",
       "export_gban",
