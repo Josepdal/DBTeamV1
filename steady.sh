@@ -142,6 +142,20 @@ while true; do
 	echo ""
 	
 	cat /proc/$CLIPID/task/$CLIPID/status > CHECK
+	if [ $? != 0 ]; then
+		I=$(( $I + 1 ))
+		if [ $I -ge 3 ]; then
+			kill $CLIPID
+			tmux kill-session -t $BOT
+			rm ../.telegram-cli/state  > /dev/null 
+			NONVOLUNTARY=0
+			NONVOLUNTARYCHECK=0
+			VOLUNTARY=0
+			VOLUNTARYCHECK=0
+		fi
+	else
+		I=1
+	fi
 	VOLUNTARYCHECK=`grep voluntary CHECK | head -1 | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
 	NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
 	
