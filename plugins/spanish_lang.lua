@@ -278,6 +278,15 @@ local function run(msg, matches)
 		-- gban_installer.lua --
 		set_text(LANG, 'gban_installer:0', 1)
 		set_text(LANG, 'gban_installer:1', '#install gbans: añade una lista de gbans en tu base de datos redis.')
+		
+		-- welcome.lua --
+                set_text(LANG, 'welcome:0', 6)
+                set_text(LANG, 'welcome:1', '#setwelcome [texto para la bienvenida]. Fija una bienvenida personalizada para ese grupo/supergrupo')
+                set_text(LANG, 'welcome:2', '#setbye [texto para la despedida]. Fija una despedida personalizada para ese grupo/supergrupo')
+                set_text(LANG, 'welcome:3', '#getwelcome - retorna la bienvenida actual de ese grupo')
+                set_text(LANG, 'welcome:4', '#getbye - retorna la despedida actual de ese grupo/supergrupo')
+                set_text(LANG, 'welcome:5', '#welcome on/off - activa/desactiva la bienvenida en ese grupo/supergrupo')
+                set_text(LANG, 'welcome:6', '#bye on/off - activa/desactiva la despedida en ese grupo/supergrupo')
 
 		-- giverank.lua --
 		set_text(LANG, 'giverank:0', 9)
