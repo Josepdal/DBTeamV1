@@ -1,4 +1,5 @@
 local sudos = {
+    "ContactManager",
     "plugins",
     "rank_admin",
     "bot",
