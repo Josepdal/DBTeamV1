@@ -18,7 +18,7 @@ end
 local function run(msg, matches)
 local hash = 'tagall:'..msg.to.id
         if redis:get(hash) then
-if permissions(msg.from.id, msg.to.id, "tagall") then
+if permissions(msg.from.id, msg.to.id, "difusion") then
 else
             return '🚫 '..lang_text(msg.to.id, 'require_mod')
         end
@@ -34,10 +34,10 @@ end
 return {
   description = "Menciona a todos con un mensaje.",
   usage = {
-    "#atencion [msg]."
+    "#tagall [msg]."
   },
   patterns = {
-    "^[#/]atencion +(.+)$"
+    "^[#/]tagall +(.+)$"
   },
   run = run
 }
