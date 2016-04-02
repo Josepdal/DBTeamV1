@@ -9,7 +9,7 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
---  Translated by Wathiq Al-Qajar { @Wathiqq }  --
+--  Translated by Wathiq Al-Qajar { @W3thiq }   --
 --                                              --
 --------------------------------------------------
 
@@ -22,8 +22,8 @@ local function run(msg, matches)
 		-------------------------
 		-- Translation version --
 		-------------------------
-		set_text(LANG, 'version', '0.1')
-		set_text(LANG, 'versionExtended', 'إصدار الترجمة نسخة 0.1')
+		set_text(LANG, 'version', '0.2')
+		set_text(LANG, 'versionExtended', 'إصدار الترجمة نسخة 0.2')
 
 		-------------
 		-- Plugins --
@@ -58,10 +58,10 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'لا يسمح للملصقات في هذه الدردشة.')
 		set_text(LANG, 'stickersL', '.لا يسمح للملصقات في هذا السوبر كروب')
 
-		set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
-		set_text(LANG, 'LinksL', 'Links are now allowed in this supergroup.')
-		set_text(LANG, 'noLinksT', 'Links are not allowed in this chat.')
-		set_text(LANG, 'noLinksL', 'Links are not allowed in this supergroup.')
+		set_text(LANG, 'LinksT', 'لا يسمح الروابط في هذه الدردشة.')
+		set_text(LANG, 'LinksL', 'لا يسمح الروابط في هذا السوبر كروب.')
+		set_text(LANG, 'noLinksT', 'لا يسمح الروابط في هذه الدردشة.')
+		set_text(LANG, 'noLinksL', 'لا يسمح الروابط في هذا السوبر كروب.')
 
 		set_text(LANG, 'gifsT', '.لا يسمح بلصور المتحركة في هذه الدردشة')
 		set_text(LANG, 'gifsL', '.لا يسمح بلصور المتحركة في هذا السوبر كروب')
@@ -73,10 +73,10 @@ local function run(msg, matches)
 		set_text(LANG, 'noPhotosT', '.لا يسمح بلصور في هذه الدردشة')
 		set_text(LANG, 'noPhotosL', '.لا يسمح للصور في هذا السوبر كروب')
 
-		set_text(LANG, 'botsT', 'Bots are now allowed in this chat.')
-		set_text(LANG, 'botsL', 'Bots are now allowed in this supergroup.')
-		set_text(LANG, 'noBotsT', 'Bots are not allowed in this chat.')
-		set_text(LANG, 'noBotsL', 'Bots are not allowed in this supergroup.')
+		set_text(LANG, 'botsT', 'لا يسمح للبوتات في هذه الدردشة.')
+		set_text(LANG, 'botsL', 'لا يسمح للبوتات في هذه السوبر كروب.')
+		set_text(LANG, 'noBotsT', 'لا يسمح للبوتات في هذه الدردشة.')
+		set_text(LANG, 'noBotsL', 'لا يسمح للبوتات في هذه السوبر كروب.')
 
 		set_text(LANG, 'arabicT', '.لا يسمح تكلم العربية في هذه الدردشة')
 		set_text(LANG, 'arabicL', '.لا يسمح تكلم العربية في هذا السوبر كروب')
@@ -129,11 +129,11 @@ local function run(msg, matches)
 		set_text(LANG, 'setPhotoAborted', 'وقف وضع عملية الصور...')
 		set_text(LANG, 'sendPhoto', 'الرجاء,ارسالة الصورة هنا')
 
-		set_text(LANG, 'chatSetphoto', 'Now you can setphoto in this chat.')
-		set_text(LANG, 'channelSetphoto', 'Now you can setphoto in this channel.')
-		set_text(LANG, 'notChatSetphoto', 'Now you can\'t setphoto in this chat.')
-		set_text(LANG, 'notChannelSetphoto', 'Now you can\'t setphoto in this channel.')
-		set_text(LANG, 'setPhotoError', 'Please, enable setphoto settings.')
+		set_text(LANG, 'chatSetphoto', 'الآن يمكنك تعيين الصورة في هذه الدردشة.')
+		set_text(LANG, 'channelSetphoto', 'الآن يمكنك تعيين الصورة في هذه السوبر كروب.')
+		set_text(LANG, 'notChatSetphoto', 'الآن لا يمكنك تعيين الصورة في هذه الدردشة.')
+		set_text(LANG, 'notChannelSetphoto', 'الآن لا يمكنك تعيين الصورة في هذه السوبر كروب.')
+		set_text(LANG, 'setPhotoError', 'الرجاء، تمكين إعدادات الصورة المحددة.')
 
 		set_text(LANG, 'linkSaved', 'تم حفض الرابط الجديد.')
 		set_text(LANG, 'groupLink', 'رابط الكروب')
@@ -353,7 +353,7 @@ local function run(msg, matches)
 		set_text(LANG, 'plugins:0', 4)
 		set_text(LANG, 'plugins:1', '#plugins: .اضهار لائحة  جميع الإضافات')
 		set_text(LANG, 'plugins:2', '#plugins .<enable> / <disable> [plugins]: enable / disable الاضافات المحددة')
-		set_text(LANG, 'plugins:3', '#plugins .<enable> / <disable> [plugins] الدردشة: enable / disable hghqhthj hglp]]m، فقط في مجموعة الحالي /السوبر كروب')
+		set_text(LANG, 'plugins:3', '#plugins .<enable> / <disable> [plugins] الدردشة: enable / disable  فقط في مجموعة الحالي /السوبر كروب')
 		set_text(LANG, 'plugins:4', '#plugins reload: .اعادة تحميل جميع الإضافات')
 
 		-- version.lua --
