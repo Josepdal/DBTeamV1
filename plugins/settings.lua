@@ -70,7 +70,7 @@ local function pre_process(msg)
                     -- Increase the number of messages from the user on the chat
                     local hash = 'flood:'..msg.from.id..':'..msg.to.id..':msg-num'
                     local msgs = tonumber(redis:get(hash) or 0)
-                    if msgs > floodMax then
+                    if msgs > floodMax then																										
                         local receiver = get_receiver(msg)
                         local user = msg.from.id
                         local chat = msg.to.id
@@ -336,6 +336,21 @@ local function run(msg, matches)
                         end
                     end
                     return
+                    elseif matches[2] == 'tagall' then
+                    if matches[3] == 'enable' then
+                        hash = 'tagall:'..msg.to.id
+                        redis:set(hash, true)
+                        if msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'tagallL'), ok_cb, false)
+                        end
+                    elseif matches[3] == 'disable' then
+                        hash = 'tagall:'..msg.to.id
+                        redis:del(hash)
+                        if msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notagallL'), ok_cb, false)
+                        end
+                     end
+                     return
                 elseif matches[2] == 'flood' then
                     if matches[3] == 'enable' then
                         hash = 'anti-flood:'..msg.to.id
@@ -549,7 +564,18 @@ local function run(msg, matches)
                     sKickmeD = '🔹'
                 end
                 text = text..sKickmeD..' '..lang_text(msg.to.id, 'kickme')..': '..sKickme..'\n'
-
+                
+                --Enable/disable tagall
+                local hash = 'tagall:'..msg.to.id
+                if redis:get(hash) then
+                    stagall = allowed
+                    stagallD = '🔸'
+                else
+                    stagall = noAllowed
+                    stagallD = '🔹'
+                end
+                text = text..stagallD..' '..lang_text(msg.to.id, 'tagall')..': '..stagall..'\n'
+                
                 --Enable/disable spam
                 local hash = 'spam:'..msg.to.id
                 if redis:get(hash) then
