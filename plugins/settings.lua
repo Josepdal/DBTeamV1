@@ -568,11 +568,11 @@ local function run(msg, matches)
                 --Enable/disable tagall
                 local hash = 'tagall:'..msg.to.id
                 if redis:get(hash) then
-                    sKickme = allowed
-                    sKickmeD = '🔸'
+                    stagall = allowed
+                    stagallD = '🔸'
                 else
-                    sKickme = noAllowed
-                    sKickmeD = '🔹'
+                    stagall = noAllowed
+                    stagallD = '🔹'
                 end
                 text = text..stagallD..' '..lang_text(msg.to.id, 'tagall')..': '..stagall..'\n'
                 
