@@ -28,6 +28,7 @@ local mods = {
 	"ban",
 	"unban",
 	"lockmember",
+	"difusion",
 	"mute",
 	"unmute",
 	"admins",
