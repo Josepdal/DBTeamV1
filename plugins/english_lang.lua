@@ -89,6 +89,9 @@ local function run(msg, matches)
 		set_text(LANG, 'kickmeL', 'Autokick is now allowed in this supergroup.')
 		set_text(LANG, 'noKickmeT', 'Autokick is not allowed in this chat.')
 		set_text(LANG, 'noKickmeL', 'Autokick is not allowed in this supergroup.')
+		
+		set_text(LANG, 'tagallL', 'TagAll enabled in this group / supergroup.')
+		set_text(LANG, 'notagallL', 'TagAll disabled in this group / supergroup.')
 
 		set_text(LANG, 'floodT', 'Flood is now allowed in this chat.')
 		set_text(LANG, 'floodL', 'Flood is now allowed in this supergroup.')
@@ -113,6 +116,7 @@ local function run(msg, matches)
 		set_text(LANG, 'photos', 'Photos')
 		set_text(LANG, 'audios', 'Audios')
 		set_text(LANG, 'kickme', 'Kickme')
+		set_text(LANG, 'tagall', 'TagAll')
 		set_text(LANG, 'spam', 'Spam')
 		set_text(LANG, 'gName', 'Group Name')
 		set_text(LANG, 'flood', 'Flood')
@@ -275,6 +279,15 @@ local function run(msg, matches)
 		-- gban_installer.lua --
 		set_text(LANG, 'gban_installer:0', 1)
 		set_text(LANG, 'gban_installer:1', '#install gbans: add a list of gbans into your redis db.')
+		
+		-- welcome.lua --
+                set_text(LANG, 'welcome:0', 6)
+                set_text(LANG, 'welcome:1', '#setwelcome [text for welcome]. You can make a custom welcome for this group/supergroup')
+                set_text(LANG, 'welcome:2', '#setbye [text for farewell]. You can make a custom farewell for this group/supergroup')
+                set_text(LANG, 'welcome:3', '#getwelcome - returns the current welcome in this group/supergroup')
+                set_text(LANG, 'welcome:4', '#getbye - returns the current welcome in this group/supergroup')
+                set_text(LANG, 'welcome:5', '#welcome on/off - enable/disable welcome in this group/supergroup')
+                set_text(LANG, 'welcome:6', '#bye on/off - enable/disable farewell in this group/supergroup')
 
 		-- giverank.lua --
 		set_text(LANG, 'giverank:0', 9)
