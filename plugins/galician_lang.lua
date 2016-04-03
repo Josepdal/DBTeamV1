@@ -21,8 +21,8 @@ local function run(msg, matches)
 		-------------------------
 		-- Translation version --
 		-------------------------
-		set_text(LANG, 'version', '1.0')
-		set_text(LANG, 'versionExtended', 'Traducción na versión 1.0')
+		set_text(LANG, 'version', '0.2')
+		set_text(LANG, 'versionExtended', 'Traducción na versión 0.2')
 
 		-------------
 		-- Plugins --
@@ -34,7 +34,7 @@ local function run(msg, matches)
 		set_text(LANG, 'require_mod', 'Este plugin requiere privilexios mod ou superior')
 		
 		-- Spam.lua --
-	    set_text(LANG, 'reportUser', 'USUARIO')
+	    	set_text(LANG, 'reportUser', 'USUARIO')
 		set_text(LANG, 'reportReason', 'Motivo do reporte')
 		set_text(LANG, 'reportGroup', 'Grupo')
 		set_text(LANG, 'reportMessage', 'Mensaxe')
@@ -57,10 +57,10 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'Stickers permitidos neste grupo.')
 		set_text(LANG, 'stickersL', 'Stickers permitidos neste supergrupo.')
 
-		set_text(LANG, 'noTgservicesT', 'Servicios de Telegram silenciados en este chat.')
-		set_text(LANG, 'noTgservicesL', 'Servicios de Telegram silenciados en este supergrupo.')
-		set_text(LANG, 'tgservicesT', 'Servicios de Telegram visibles en este chat.')
-		set_text(LANG, 'tgservicesL', 'Servicios de Telegram visibles en este supergrupo.')
+		set_text(LANG, 'noTgservicesT', 'Servizos de Telegram silenciados neste chat.')
+		set_text(LANG, 'noTgservicesL', 'Servizos de Telegram silenciados neste supergrupo.')
+		set_text(LANG, 'tgservicesT', 'Servizos de Telegram visibles neste chat.')
+		set_text(LANG, 'tgservicesL', 'Servizos de Telegram visibles neste supergrupo.')
 		
 		set_text(LANG, 'gifsT', 'Gifs permitidos neste grupo.')
 		set_text(LANG, 'gifsL', 'Gifs permitidos neste supergrupo.')
@@ -103,7 +103,7 @@ local function run(msg, matches)
 		set_text(LANG, 'noSet', 'Non establecido')
 
 		set_text(LANG, 'stickers', 'Stickers')
-		set_text(LANG, 'tgservices', 'Tg services')
+		set_text(LANG, 'tgservices', 'Servizos TG')
 		set_text(LANG, 'links', 'Enlaces')
 		set_text(LANG, 'arabic', 'Árabe')
 		set_text(LANG, 'bots', 'Bots')
@@ -160,7 +160,7 @@ local function run(msg, matches)
 		set_text(LANG, 'accountsGban', 'Contas globalmente baneadas.')
 
 		-- giverank.lua --
-	    set_text(LANG, 'alreadyAdmin', 'Este usuario xa é admin.')
+	    	set_text(LANG, 'alreadyAdmin', 'Este usuario xa é admin.')
 		set_text(LANG, 'alreadyMod', 'Este usuario xa é mod.')
 
 		set_text(LANG, 'newAdmin', 'Novo admin')
@@ -242,7 +242,8 @@ local function run(msg, matches)
 		set_text(LANG, 'setRules', 'As regras do chat foron actualizadas.')
 		set_text(LANG, 'remRules', 'As regras do chat foron quitadas.')
 		
-        ------------
+		
+        	------------
 		-- Usages --
 		------------
 
@@ -308,27 +309,27 @@ local function run(msg, matches)
 		set_text(LANG, 'moderation:18', '#rem: respondendo a unha mensaxe, esa mensaxe será borrada.')
 		
 		-- settings.lua --
-	    set_text(LANG, 'settings:0', 20)
-	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: poderás mandar stickers cando estea activo.')
-	    set_text(LANG, 'settings:2', '#settings links enable/disable: poderás mandar links cuando estea activo.')
-	    set_text(LANG, 'settings:3', '#settings arabic enable/disable: poderás falar en árabe/persa cando estea activo.')
-	    set_text(LANG, 'settings:4', '#settings bots enable/disable: poderás engadir bots ao chat cando estea activo.')
-	    set_text(LANG, 'settings:5', '#settings gifs enable/disable: poderás mandar gifs cando estea activo.')
-	    set_text(LANG, 'settings:6', '#settings photos enable/disable: poderás mandar imaxes cando estea activo.')
-	    set_text(LANG, 'settings:7', '#settings audios enable/disable: poderás mandar audios cando estea activo.')
-	    set_text(LANG, 'settings:8', '#settings kickme enable/disable: os usuarios poderán autoexpulsarse cando estea activo.')
-	    set_text(LANG, 'settings:9', '#settings spam enable/disable: poderás mandar enlaces de spam (telegram.me) cando estea activo.')
-	    set_text(LANG, 'settings:10', '#settings setphoto enable/disable: se un usuario cambia a foto do grupo, o bot cambiarana pola foto gardada cando estea activo.')
-	    set_text(LANG, 'settings:11', '#settings setname enable/disable: se un usuario cambia o nome do grupo, o bot cambiarano polo nome gardado cando estea activo.')
-	    set_text(LANG, 'settings:12', '#settings lockmember enable/disable: o bot expulsará a toda-la xente que entre ao grupo cuando estea activo.')
-	    set_text(LANG, 'settings:13', '#settings floodtime <segs>: establece o tiempo de medición do flood.')
-	    set_text(LANG, 'settings:14', '#settings maxflood <segs>: establece o máximo de mensaxes nun floodtime para ser considerado flood.')
-	    set_text(LANG, 'settings:15', '#setname <nome do grupo>: o bot cambiará o nome do grupo.')
-	    set_text(LANG, 'settings:16', '#setphoto <despois envía a foto>: o bot cambiará la foto do grupo.')
-	    set_text(LANG, 'settings:17', '#lang <language (en, es, ga...)>: cambia o idioma do bot.')
-	    set_text(LANG, 'settings:18', '#setlink <link>: garda o link do grupo.')
-	    set_text(LANG, 'settings:19', '#link: mostra o link do grupo.')
-		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: borra los mensajes de Telegram de nuevo participante en el grupo cuando esté activo.')
+		set_text(LANG, 'settings:0', 20)
+		set_text(LANG, 'settings:1', '#settings stickers enable/disable: poderás mandar stickers cando estea activo.')
+		set_text(LANG, 'settings:2', '#settings links enable/disable: poderás mandar links cuando estea activo.')
+		set_text(LANG, 'settings:3', '#settings arabic enable/disable: poderás falar en árabe/persa cando estea activo.')
+		set_text(LANG, 'settings:4', '#settings bots enable/disable: poderás engadir bots ao chat cando estea activo.')
+		set_text(LANG, 'settings:5', '#settings gifs enable/disable: poderás mandar gifs cando estea activo.')
+		set_text(LANG, 'settings:6', '#settings photos enable/disable: poderás mandar imaxes cando estea activo.')
+		set_text(LANG, 'settings:7', '#settings audios enable/disable: poderás mandar audios cando estea activo.')
+		set_text(LANG, 'settings:8', '#settings kickme enable/disable: os usuarios poderán autoexpulsarse cando estea activo.')
+		set_text(LANG, 'settings:9', '#settings spam enable/disable: poderás mandar enlaces de spam (telegram.me) cando estea activo.')
+		set_text(LANG, 'settings:10', '#settings setphoto enable/disable: se un usuario cambia a foto do grupo, o bot cambiarana pola foto gardada cando estea activo.')
+		set_text(LANG, 'settings:11', '#settings setname enable/disable: se un usuario cambia o nome do grupo, o bot cambiarano polo nome gardado cando estea activo.')
+		set_text(LANG, 'settings:12', '#settings lockmember enable/disable: o bot expulsará a toda-la xente que entre ao grupo cuando estea activo.')
+		set_text(LANG, 'settings:13', '#settings floodtime <segs>: establece o tiempo de medición do flood.')
+		set_text(LANG, 'settings:14', '#settings maxflood <segs>: establece o máximo de mensaxes nun floodtime para ser considerado flood.')
+		set_text(LANG, 'settings:15', '#setname <nome do grupo>: o bot cambiará o nome do grupo.')
+		set_text(LANG, 'settings:16', '#setphoto <despois envía a foto>: o bot cambiará la foto do grupo.')
+		set_text(LANG, 'settings:17', '#lang <language (en, es, ga...)>: cambia o idioma do bot.')
+		set_text(LANG, 'settings:18', '#setlink <link>: garda o link do grupo.')
+		set_text(LANG, 'settings:19', '#link: mostra o link do grupo.')
+		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: borra todo-las mensaxes de Telegram dun novo participante no supergrupo cuando estea activo.')
 		
 		-- plugins.lua --
 		set_text(LANG, 'plugins:0', 4)
