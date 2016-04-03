@@ -125,6 +125,14 @@ local function pre_process(msg)
                 mp4 = msg.media.caption or 'audio'
             end
         end
+	--Checking tgservices
+        hash = 'tgservices:'..msg.to.id
+        if redis:get(hash) then
+		local action = msg.action.type
+		if action == 'chat_add_user' or action == 'chat_add_user_link' then
+			delete_msg(msg.id, ok_cb, false)
+		end
+	end
         --Checking GIFs and MP4 files
         if mp4 == 'giphy.mp4' then
             hash = 'gifs:'..msg.to.id
@@ -201,6 +209,25 @@ local function run(msg, matches)
                         elseif msg.to.type == 'channel' then
                             send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noStickersL'), ok_cb, false)
                         end
+                    end
+                    return
+		elseif matches[2] == 'tgservices' then
+                     if matches[3] == 'enable' then
+                     hash = 'tgservices:'..msg.to.id
+                     redis:del(hash)
+                       	if msg.to.type == 'chat' then
+              		     send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'tgservicesT'), ok_cb, false)
+                             elseif msg.to.type == 'channel' then
+                       		send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'tgservicesL'), ok_cb, false)
+                	     end
+                    elseif matches[3] == 'disable' then
+                       	hash = 'tgservices:'..msg.to.id
+                	redis:set(hash, true)
+                	if msg.to.type == 'chat' then
+                       	    send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noTgservicesT'), ok_cb, false)
+                       	elseif msg.to.type == 'channel' then
+                       	   send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noTgservicesL'), ok_cb, false)
+                	end
                     end
                     return
                 elseif matches[2] == 'gifs' then
@@ -472,6 +499,17 @@ local function run(msg, matches)
                     sStickersD = '🔸'
                 end
                 text = text..sStickersD..' '..lang_text(msg.to.id, 'stickers')..': '..sStickers..'\n'
+
+		--Enable/disable Tgservices
+                local hash = 'tgservices:'..msg.to.id
+                if redis:get(hash) then
+                    tTgservices = noAllowed
+                    tTgservicesD = '🔹'
+                else
+                    tTgservices = allowed
+                    tTgservicesD = '🔸'
+                end
+                text = text..tTgservicesD..' '..lang_text(msg.to.id, 'tgservices')..': '..tTgservices..'\n'
 
                 --Enable/disable Links
                 local hash = 'links:'..msg.to.id
