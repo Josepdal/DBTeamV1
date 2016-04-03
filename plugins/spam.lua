@@ -46,5 +46,6 @@ patterns = {
     "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Mm][Ee]",
     "[Tt][Ee][Ll][Ee][Gg][Rr][Aa][Mm]%.[Oo][Rr][Gg]",
     "[Aa][Dd][Ff]%.[Ll][Yy]",
-    "[Bb][Ii][Tt]%.[Ll][Yy]"
+    "[Bb][Ii][Tt]%.[Ll][Yy]",
+    "[Gg][Oo][Oo]%.[Gg][Ll]"
 }, run = run}
