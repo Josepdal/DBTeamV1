@@ -57,6 +57,11 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'Stickers permesos en aquest grup.')
 		set_text(LANG, 'stickersL', 'Stickers permesos en aquest supergrup.')
 		
+		set_text(LANG, 'noTgservicesT', 'Servicios de Telegram silenciados en este chat.')
+		set_text(LANG, 'noTgservicesL', 'Servicios de Telegram silenciados en este supergrupo.')
+		set_text(LANG, 'tgservicesT', 'Servicios de Telegram visibles en este chat.')
+		set_text(LANG, 'tgservicesL', 'Servicios de Telegram visibles en este supergrupo.')
+		
 		set_text(LANG, 'LinksT', 'Links permesos en aquest grup.')
 		set_text(LANG, 'LinksL', 'Links permesos en aquest supergrup.')
 		set_text(LANG, 'noLinksT', 'Links no permesos en aquest grup.')
@@ -108,6 +113,7 @@ local function run(msg, matches)
 		set_text(LANG, 'noSet', 'no establert')
 
 		set_text(LANG, 'stickers', 'Stickers')
+		set_text(LANG, 'tgservices', 'Tg services')
 		set_text(LANG, 'links', 'Enllaços')
 		set_text(LANG, 'arabic', 'àrab')
 		set_text(LANG, 'bots', 'Bots')
@@ -318,7 +324,7 @@ local function run(msg, matches)
 		set_text(LANG, 'moderation:18', '#rem: responent a un missatge, aquest missatge serà borrat.')
 		
 		-- settings.lua --
-	    set_text(LANG, 'settings:0', 19)
+	    set_text(LANG, 'settings:0', 20)
 	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: podràs enviar stickers quan estigui actiu.')
 	    set_text(LANG, 'settings:2', '#settings links enable/disable: podràs enviar links quan estigui actiu.')
 	    set_text(LANG, 'settings:3', '#settings arabic enable/disable: podràs parlar en àrab i persa quan estigui actiu.')
@@ -338,7 +344,8 @@ local function run(msg, matches)
 	    set_text(LANG, 'settings:17', '#lang <language (en, es...)>: canvia la llengua del bot.')
 	    set_text(LANG, 'settings:18', '#setlink <link>: guarda el link del grup.')
 	    set_text(LANG, 'settings:19', '#link: mostra el link del grup.')
-
+		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: borra los mensajes de Telegram de nuevo participante en el grupo cuando esté activo.')
+		
 		-- plugins.lua --
 		set_text(LANG, 'plugins:0', 4)
 		set_text(LANG, 'plugins:1', '#plugins: mostra una llista de tots els plugins.')

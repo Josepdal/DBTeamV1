@@ -57,6 +57,12 @@ local function run(msg, matches)
 		set_text(LANG, 'noStickersT', 'Stickers não são permitidos neste grupo.')
 		set_text(LANG, 'noStickersL', 'Stickers não são permitidos neste supergrupo.')
 
+		set_text(LANG, 'noTgservicesT', 'Telegram services muted in this chat.')
+		set_text(LANG, 'noTgservicesL', 'Telegram services muted in this supergroup.')
+		set_text(LANG, 'tgservicesT', 'Telegram services allowed in this chat.')
+		set_text(LANG, 'tgservicesL', 'Telegram services allowed in this supergroup.')
+		
+		
 		set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
 		set_text(LANG, 'LinksL', 'Links are now allowed in this supergroup.')
 		set_text(LANG, 'noLinksT', 'Links are not allowed in this chat.')
@@ -108,6 +114,7 @@ local function run(msg, matches)
 		set_text(LANG, 'noSet', 'não estabelecido')
 
 		set_text(LANG, 'stickers', 'Stickers')
+		set_text(LANG, 'tgservices', 'Tg services')
 		set_text(LANG, 'links', 'Links')
 		set_text(LANG, 'arabic', 'Árabe')
 		set_text(LANG, 'bots', 'Bots')
@@ -304,7 +311,7 @@ local function run(msg, matches)
 		set_text(LANG, 'moderation:18', '#rem: respondendo a uma mensagem, essa mensagem será apagada.')
 
 		-- settings.lua --
-		set_text(LANG, 'settings:0', 19)
+		set_text(LANG, 'settings:0', 20)
 	  	set_text(LANG, 'settings:1', '#settings stickers enable/disable: Você pode enviar stickers quando ativo.')
 	  	set_text(LANG, 'settings:2', '#settings links enable/disable: poderá mandar links quando estiver ativo.')
 	  	set_text(LANG, 'settings:3', '#settings arabic enable/disable: poderá falar em árabe/persa quando estiver ativo.')
@@ -324,7 +331,8 @@ local function run(msg, matches)
 	  	set_text(LANG, 'settings:17', '#lang <language (en, es...)>: altera o idioma do bot.')
 	  	set_text(LANG, 'settings:18', '#setlink <link>: gera link do grupo.')
 	  	set_text(LANG, 'settings:19', '#link: mostra link do grupo.')
-
+		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: when disabled, new user participant message will be erased.')
+		
 		-- plugins.lua --
 		set_text(LANG, 'plugins:0', 4)
 		set_text(LANG, 'plugins:1', '#plugins: mostra uma lista de todos os plugins.')

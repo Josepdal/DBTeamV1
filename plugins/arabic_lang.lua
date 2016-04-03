@@ -58,6 +58,12 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'لا يسمح للملصقات في هذه الدردشة.')
 		set_text(LANG, 'stickersL', '.لا يسمح للملصقات في هذا السوبر كروب')
 
+		set_text(LANG, 'noTgservicesT', 'Telegram services muted in this chat.')
+		set_text(LANG, 'noTgservicesL', 'Telegram services muted in this supergroup.')
+		set_text(LANG, 'tgservicesT', 'Telegram services allowed in this chat.')
+		set_text(LANG, 'tgservicesL', 'Telegram services allowed in this supergroup.')
+		
+		
 		set_text(LANG, 'LinksT', 'لا يسمح الروابط في هذه الدردشة.')
 		set_text(LANG, 'LinksL', 'لا يسمح الروابط في هذا السوبر كروب.')
 		set_text(LANG, 'noLinksT', 'لا يسمح الروابط في هذه الدردشة.')
@@ -109,6 +115,7 @@ local function run(msg, matches)
 		set_text(LANG, 'noSet', 'غير مضبوط')
 
 		set_text(LANG, 'stickers', 'ملصقات')
+		set_text(LANG, 'tgservices', 'Tg services')
 		set_text(LANG, 'links', 'روابط')
 		set_text(LANG, 'arabic', 'العربية')
 		set_text(LANG, 'bots', 'البوتات')
@@ -328,7 +335,7 @@ local function run(msg, matches)
 		set_text(LANG, 'moderation:18', '#rem: الرد على رسالة، سيتم إزالة رسالة.')
 		
 		-- settings.lua --
-	    set_text(LANG, 'settings:0', 19)
+	    set_text(LANG, 'settings:0', 20)
 	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: عندما مكن، سيتم مسح جميع ملصقات.')
 	    set_text(LANG, 'settings:2', '#settings links enable/disable: عندما تمكين، سيتم مسح جميع الروابط.')
 	    set_text(LANG, 'settings:3', '#settings arabic enable/disabl: عندما مكن، سيتم مسح جميع الرسائل مع العربية / الفارسية.')
@@ -348,7 +355,8 @@ local function run(msg, matches)
 	    set_text(LANG, 'settings:17', '#lang <language (en, es,ar...)>: فإنه يغير لغة بوت.')
 	    set_text(LANG, 'settings:18', '#setlink <link>: يوفر رابط المجموعة.')
 	    set_text(LANG, 'settings:19', '#link: للحصول على رابط للمجموعة.')
-
+		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: when disabled, new user participant message will be erased.')
+		
 		-- plugins.lua --
 		set_text(LANG, 'plugins:0', 4)
 		set_text(LANG, 'plugins:1', '#plugins: .اضهار لائحة  جميع الإضافات')

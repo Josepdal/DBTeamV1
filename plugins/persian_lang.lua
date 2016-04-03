@@ -57,6 +57,12 @@ local function run(msg, matches)
         set_text(LANG, 'stickersT', 'از این به بعد استفاده از استیکر در این گروه آزاد است.')
         set_text(LANG, 'stickersL', 'از این به بعد استفاده از استیکر در این سوپر گروه آزاد است.')
 
+		set_text(LANG, 'noTgservicesT', 'Telegram services muted in this chat.')
+		set_text(LANG, 'noTgservicesL', 'Telegram services muted in this supergroup.')
+		set_text(LANG, 'tgservicesT', 'Telegram services allowed in this chat.')
+		set_text(LANG, 'tgservicesL', 'Telegram services allowed in this supergroup.')
+		
+		
         set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
         set_text(LANG, 'LinksL', 'Links are now allowed in this supergroup.')
         set_text(LANG, 'noLinksT', 'Links are not allowed in this chat.')
@@ -109,6 +115,7 @@ local function run(msg, matches)
         set_text(LANG, 'noSet', 'تنظیم نشده است')
 
         set_text(LANG, 'stickers', 'استیکر')
+		set_text(LANG, 'tgservices', 'Tg services')
         set_text(LANG, 'links', 'لینک')
         set_text(LANG, 'arabic', 'زبان عربی')
         set_text(LANG, 'bots', 'ربات')
@@ -319,7 +326,7 @@ local function run(msg, matches)
         set_text(LANG, 'moderation:18', '#rem : با ریپلی کردن پیامی و استفاده از این دستور ، پیام ریپلی شده پاک خواهد شد')
         
         -- settings.lua --
-        set_text(LANG, 'settings:0', 19)
+        set_text(LANG, 'settings:0', 20)
         set_text(LANG, 'settings:1', '#settings stickers enable/disable : وقتی فعال باشد ، ربات تمامی استکیر هارا پاک خواهد کرد')
         set_text(LANG, 'settings:2', '#settings links enable/disable : وقتی فعال باشد ، ربات  تمامی لینک هارا پاک خواهد کرد')
         set_text(LANG, 'settings:3', '#settings arabic enable/disabl : وقتی فعال باشد ، ربات  تمامی پیام های فارسی و یا عربی را پاک خواهد کرد')
@@ -339,7 +346,8 @@ local function run(msg, matches)
         set_text(LANG, 'settings:17', '#lang <language (en, es...)> : زبان ربات را تغییر می دهد')
         set_text(LANG, 'settings:18', '#setlink <link> : لینک گروه را ذخیره می کند')
         set_text(LANG, 'settings:19', '#link : لینک گروه را ارسال می کند')
-
+		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: when disabled, new user participant message will be erased.')
+		
         -- plugins.lua --
         set_text(LANG, 'plugins:0', 4)
         set_text(LANG, 'plugins:1', '#plugins : لیست تمامی پلاگین هارا نشان می دهد.')
