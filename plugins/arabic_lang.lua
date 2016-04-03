@@ -58,10 +58,10 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'لا يسمح للملصقات في هذه الدردشة.')
 		set_text(LANG, 'stickersL', '.لا يسمح للملصقات في هذا السوبر كروب')
 
-		set_text(LANG, 'noTgservicesT', 'Telegram services muted in this chat.')
-		set_text(LANG, 'noTgservicesL', 'Telegram services muted in this supergroup.')
-		set_text(LANG, 'tgservicesT', 'Telegram services allowed in this chat.')
-		set_text(LANG, 'tgservicesL', 'Telegram services allowed in this supergroup.')
+		set_text(LANG, 'noTgservicesT', 'خدمات تليكرام صامتا في هذه الدردشة.')
+		set_text(LANG, 'noTgservicesL', 'خدمات تليكرام صامتا في هذا السوبر كروب.')
+		set_text(LANG, 'tgservicesT', 'خدمات تليكرام سمحت في هذه الدردشة.')
+		set_text(LANG, 'tgservicesL', 'خدمات تليكرام سمحت في هذا السوبر كروب.')
 		
 		
 		set_text(LANG, 'LinksT', 'لا يسمح الروابط في هذه الدردشة.')
@@ -115,7 +115,7 @@ local function run(msg, matches)
 		set_text(LANG, 'noSet', 'غير مضبوط')
 
 		set_text(LANG, 'stickers', 'ملصقات')
-		set_text(LANG, 'tgservices', 'Tg services')
+		set_text(LANG, 'tgservices', 'خدمات TG')
 		set_text(LANG, 'links', 'روابط')
 		set_text(LANG, 'arabic', 'العربية')
 		set_text(LANG, 'bots', 'البوتات')
@@ -355,7 +355,7 @@ local function run(msg, matches)
 	    set_text(LANG, 'settings:17', '#lang <language (en, es,ar...)>: فإنه يغير لغة بوت.')
 	    set_text(LANG, 'settings:18', '#setlink <link>: يوفر رابط المجموعة.')
 	    set_text(LANG, 'settings:19', '#link: للحصول على رابط للمجموعة.')
-		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: when disabled, new user participant message will be erased.')
+		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: عندما تعطيل، سيتم مسح رسالة مشارك مستخدم جديد.')
 		
 		-- plugins.lua --
 		set_text(LANG, 'plugins:0', 4)
