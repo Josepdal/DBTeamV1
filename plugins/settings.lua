@@ -129,8 +129,8 @@ local function pre_process(msg)
         hash = 'tgservices:'..msg.to.id
         if redis:get(hash) then
 		local action = msg.action.type
-		if action == 'chat_add_user' or action == 'chat_add_user_link' then
-			delete_msg(msg.id, ok_cb, false)
+		if action == 'chat_add_user' or action == 'chat_add_user_link' or action == 'chat_del_user' then
+		    delete_msg(msg.id, ok_cb, false)
 		end
 	end
         --Checking GIFs and MP4 files
