@@ -9,7 +9,7 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
---    Translated by Mustafa Jr. { @Musta5a }    --
+--    Translated by Mustafa Jr. [ @Musta5a ]    --
 --                                              --
 --------------------------------------------------
 
@@ -39,10 +39,10 @@ local function run(msg, matches)
 		set_text(LANG, 'reportGroup', 'المجموعة')
 		set_text(LANG, 'reportMessage', 'رسالة')
 
-		set_text(LANG, 'allowedSpamT', 'الرسائل المكررة الآن متاحة في هذه المجموعة.')
-		set_text(LANG, 'allowedSpamL', 'الرسائل المكررة الآن متاحة في هذه المجموعة الخارقة.')
-		set_text(LANG, 'notAllowedSpamT', 'الرسائل المكررة غير متاحة في هذه المجموعة.')
-		set_text(LANG, 'notAllowedSpamL', 'الرسائل المكررة غير متاحة في هذه المجموعة الخارقة.')
+		set_text(LANG, 'allowedSpamT', 'البريد المزعج الآن متاح في هذه المجموعة.')
+		set_text(LANG, 'allowedSpamL', 'البريد المزعج الآن متاح في هذه المجموعة الخارقة.')
+		set_text(LANG, 'notAllowedSpamT', 'البريد المزعج غير متاح في هذه المجموعة.')
+		set_text(LANG, 'notAllowedSpamL', 'البريد المزعج غير متاح في هذه المجموعة الخارقة.')
 
 		-- bot.lua --
 		set_text(LANG, 'botOn', 'لقد عُدت. دعونا نفعل ذلك 😅')
@@ -121,7 +121,7 @@ local function run(msg, matches)
 		set_text(LANG, 'photos', 'الصور')
 		set_text(LANG, 'audios', 'الصوتيات')
 		set_text(LANG, 'kickme', 'اطردني')
-		set_text(LANG, 'spam', 'التكرار')
+		set_text(LANG, 'spam', 'البريد المزعج')
 		set_text(LANG, 'gName', 'اسم المجموعة')
 		set_text(LANG, 'flood', 'التكرار')
 		set_text(LANG, 'language', 'اللغة')
@@ -345,7 +345,7 @@ local function run(msg, matches)
 	    set_text(LANG, 'settings:6', '#settings photos enable/disable: منع الصور')
 	    set_text(LANG, 'settings:7', '#settings audios enable/disable: منع الصوتيات')
 	    set_text(LANG, 'settings:8', '#settings kickme enable/disable: منع الطرد التقائي')
-	    set_text(LANG, 'settings:9', '#settings spam enable/disable: منع التكرار')
+	    set_text(LANG, 'settings:9', '#settings spam enable/disable: منع البريد المزعج')
 	    set_text(LANG, 'settings:10', '#settings setphoto enable/disable: منع وضع صورة')
 	    set_text(LANG, 'settings:11', '#settings setname enable/disable: منع وضع اسم')
 	    set_text(LANG, 'settings:12', '#settings lockmember enable/disable: منع قفل الاعضاء')
