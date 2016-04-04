@@ -216,7 +216,7 @@ Then, you have to install a bot language like this:
 ```
 Reinstall DBTeam without errors of AUTH (tg-cli) or any error and recover your plugins:
 ```
-sudo mkdir /home/plugins && sudo cp -r DBTeam/plugins/* /home/plugins && sudo rm -R DBTeam && sudo rm -R .telegram-cli && sudo rm -R .cache && sudo rm .bash_history && git clone https://github.com/Josepdal/DBTeam.git && cd DBTeam && ./launch.sh install && ./launch.sh
+sudo mkdir /home/plugins && sudo cp -r DBTeam/plugins/* /home/plugins && sudo rm -R DBTeam && sudo rm -R .telegram-cli && sudo rm -R .cache && sudo rm .bash_history && git clone https://github.com/Josepdal/DBTeam.git && cd DBTeam && ./launch.sh install && clear && echo -e "\e[32mReinstalation sucessfully" && read -t5 -n1 -r -p 'Press any key...' && echo -e "\e[30mOK"
 ```
 Remove DBTeam data:
 ```
