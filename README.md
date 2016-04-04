@@ -214,9 +214,9 @@ Then, you have to install a bot language like this:
 #install english_lang
 #lang en
 ```
-Reinstall DBTeam without errors of AUTH (tg-cli):
+Reinstall DBTeam without errors of AUTH (tg-cli) and recover your plugins:
 ```
-sudo rm -R DBTeam && sudo rm -R .telegram-cli && sudo rm -R .cache && sudo rm .bash_history && git clone https://github.com/Josepdal/DBTeam.git && cd DBTeam && ./launch.sh install && ./launch.sh
+sudo mkdir /home/plugins && sudo cp -r DBTeam/plugins/* /home/plugins && sudo rm -R DBTeam && sudo rm -R .telegram-cli && sudo rm -R .cache && sudo rm .bash_history && git clone https://github.com/Josepdal/DBTeam.git && cd DBTeam && ./launch.sh install && ./launch.sh
 ```
 Remove DBTeam data:
 ```
