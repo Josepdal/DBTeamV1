@@ -95,11 +95,11 @@ local function pre_process(msg)
             if action == 'chat_add_user' or action == 'chat_add_user_link' then
             	hash = 'antibot:'..msg.to.id
             	if redis:get(hash) then
-	                if string.sub(msg.from.username, (string.len(msg.from.username)-2), string.len(msg.from.username)) == 'bot' then
+	                if string.sub(msg.action.user.username:lower(), -3) == 'bot' then
 	                    if msg.to.type == 'chat' then
-	                        chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+	                        chat_del_user('chat#id'..msg.to.id, 'user#id'..msg.action.user.id, ok_cb, true)
 	                    elseif msg.to.type == 'channel' then
-	                        channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.from.id, ok_cb, true)
+	                        channel_kick_user('channel#id'..msg.to.id, 'user#id'..msg.action.user.id, ok_cb, true)
 	                    end
 	                end
 	            end
@@ -125,6 +125,14 @@ local function pre_process(msg)
                 mp4 = msg.media.caption or 'audio'
             end
         end
+	--Checking tgservices
+        hash = 'tgservices:'..msg.to.id
+        if redis:get(hash) then
+		local action = msg.action.type
+		if action == 'chat_add_user' or action == 'chat_add_user_link' or action == 'chat_del_user' then
+		    delete_msg(msg.id, ok_cb, false)
+		end
+	end
         --Checking GIFs and MP4 files
         if mp4 == 'giphy.mp4' then
             hash = 'gifs:'..msg.to.id
@@ -203,6 +211,25 @@ local function run(msg, matches)
                         end
                     end
                     return
+		elseif matches[2] == 'tgservices' then
+                     if matches[3] == 'enable' then
+                     hash = 'tgservices:'..msg.to.id
+                     redis:del(hash)
+                       	if msg.to.type == 'chat' then
+              		     send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'tgservicesT'), ok_cb, false)
+                             elseif msg.to.type == 'channel' then
+                       		send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'tgservicesL'), ok_cb, false)
+                	     end
+                    elseif matches[3] == 'disable' then
+                       	hash = 'tgservices:'..msg.to.id
+                	redis:set(hash, true)
+                	if msg.to.type == 'chat' then
+                       	    send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noTgservicesT'), ok_cb, false)
+                       	elseif msg.to.type == 'channel' then
+                       	   send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noTgservicesL'), ok_cb, false)
+                	end
+                    end
+                    return
                 elseif matches[2] == 'gifs' then
                     if matches[3] == 'enable' then
                         hash = 'gifs:'..msg.to.id
@@ -222,6 +249,25 @@ local function run(msg, matches)
                         end
                     end
                     return
+                elseif matches[2] == 'links' then
+                    if matches[3] == 'enable' then
+                        hash = 'links:'..msg.to.id
+                        redis:del(hash)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'LinksT'), ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'LinksL'), ok_cb, false)
+                        end
+                    elseif matches[3] == 'disable' then
+                        hash = 'links:'..msg.to.id
+                        redis:set(hash, true)
+                        if msg.to.type == 'chat' then
+                            send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noLinksT'), ok_cb, false)
+                        elseif msg.to.type == 'channel' then
+                            send_msg('channel#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'noLinksL'), ok_cb, false)
+                    end
+            end
+            return
                 elseif matches[2] == 'photos' then
                     if matches[3] == 'enable' then
                         hash = 'photo:'..msg.to.id
@@ -417,7 +463,7 @@ local function run(msg, matches)
                     elseif matches[2] == 'setphoto' then
                     if matches[3] == 'enable' then
                         local hash = 'setphoto:'..msg.to.id
-                        redis:del(hash)
+                        redis:set(hash, true)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'chatSetphoto'), ok_cb, false)
                         elseif msg.to.type == 'channel' then
@@ -425,7 +471,7 @@ local function run(msg, matches)
                         end
                     elseif matches[3] == 'disable' then
                         local hash = 'setphoto:'..msg.to.id
-                        redis:set(hash, true)
+                        redis:del(hash)
                         if msg.to.type == 'chat' then
                             send_msg('chat#id'..msg.to.id, 'ℹ️ '..lang_text(msg.to.id, 'notChatSetphoto'), ok_cb, false)
                         elseif msg.to.type == 'channel' then
@@ -454,8 +500,19 @@ local function run(msg, matches)
                 end
                 text = text..sStickersD..' '..lang_text(msg.to.id, 'stickers')..': '..sStickers..'\n'
 
+		--Enable/disable Tgservices
+                local hash = 'tgservices:'..msg.to.id
+                if redis:get(hash) then
+                    tTgservices = noAllowed
+                    tTgservicesD = '🔹'
+                else
+                    tTgservices = allowed
+                    tTgservicesD = '🔸'
+                end
+                text = text..tTgservicesD..' '..lang_text(msg.to.id, 'tgservices')..': '..tTgservices..'\n'
+
                 --Enable/disable Links
-                local hash = 'antilink:'..msg.to.id
+                local hash = 'links:'..msg.to.id
                 if redis:get(hash) then
                     sLink = noAllowed
                     sLinkD = '🔹'

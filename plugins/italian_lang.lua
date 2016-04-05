@@ -57,6 +57,17 @@ local function run(msg, matches)
 		set_text(LANG, 'stickersT', 'Gli stickers sono ora consentiti in questo gruppo.')
 		set_text(LANG, 'stickersL', 'Gli stickers non sono consentiti in questo supegruppo.')
 
+		set_text(LANG, 'noTgservicesT', 'Telegram services muted in this chat.')
+		set_text(LANG, 'noTgservicesL', 'Telegram services muted in this supergroup.')
+		set_text(LANG, 'tgservicesT', 'Telegram services allowed in this chat.')
+		set_text(LANG, 'tgservicesL', 'Telegram services allowed in this supergroup.')
+		
+		
+		set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
+		set_text(LANG, 'LinksL', 'Links are now allowed in this supergroup.')
+		set_text(LANG, 'noLinksT', 'Links are not allowed in this chat.')
+		set_text(LANG, 'noLinksL', 'Links are not allowed in this supergroup.')
+
 		set_text(LANG, 'gifsT', 'Le gif sono ora consentite in questo gruppo.')
 		set_text(LANG, 'gifsL', 'Le gif sono ora consentite in questo supergruppo.')
 		set_text(LANG, 'noGifsT', 'Le gif non sono consentite in questo gruppo.')
@@ -103,6 +114,7 @@ local function run(msg, matches)
 		set_text(LANG, 'noSet', 'non impostato')
 
 		set_text(LANG, 'stickers', 'Stickers')
+		set_text(LANG, 'tgservices', 'Tg services')
 		set_text(LANG, 'links', 'Link')
 		set_text(LANG, 'arabic', 'Caratteri arabi')
 		set_text(LANG, 'bots', 'Bot')
@@ -313,7 +325,7 @@ local function run(msg, matches)
 		set_text(LANG, 'moderation:18', '#rem: rispondendo ad un messaggio, questo verrà rimosso.')
 		
 		-- settings.lua --
-	    set_text(LANG, 'settings:0', 19)
+	    set_text(LANG, 'settings:0', 20)
 	    set_text(LANG, 'settings:1', '#settings stickers enable/disable: quando abilitato, ogni sticker verrà rimosso.')
 	    set_text(LANG, 'settings:2', '#settings links enable/disable: quando abilitato, ogni link verrà rimosso.')
 	    set_text(LANG, 'settings:3', '#settings arabic enable/disabl: quando abilitato, ogni messaggio contenente caratteri arabi e persiani verrà rimosso.')
@@ -333,7 +345,9 @@ local function run(msg, matches)
 	    set_text(LANG, 'settings:17', '#lang <language (en, es...)>: cambia l\'idioma del bot.')
 	    set_text(LANG, 'settings:18', '#setlink <link>: salva il link del gruppo.')
 	    set_text(LANG, 'settings:19', '#link: mostra il link del gruppo.')
-
+		set_text(LANG, 'settings:20', '#settings tgservices enable/disable: when disabled, new user participant message will be erased.')
+		
+		
 		-- plugins.lua --
 		set_text(LANG, 'plugins:0', 4)
 		set_text(LANG, 'plugins:1', '#plugins: mostra una lista di tutti i plugin.')
@@ -361,8 +375,8 @@ end
 
 return {
 	patterns = {
-		'#(install) (italian_lang)$',
-		'#(update) (italian_lang)$'
+		'[!/#](install) (italian_lang)$',
+		'[!/#](update) (italian_lang)$'
 	},
 	run = run
 }

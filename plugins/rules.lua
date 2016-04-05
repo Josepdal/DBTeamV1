@@ -68,9 +68,9 @@ end
 
 return {
   patterns = {
-    '^#(rules)$',
-    '^#(setrules) (.+)$',
-    '^#(remrules)$'
+    '^[!/#](rules)$',
+    '^[!/#](setrules) (.+)$',
+    '^[!/#](remrules)$'
   }, 
   run = run 
 }
