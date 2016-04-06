@@ -54,7 +54,7 @@ elif [ "$VAR" = 1 ]; then
 
 clear
 echo -e "\e[34m"
-echo "Por favor, selecciona tu opcion."
+echo "Please, select your option."
 echo -e "\033[38;5;208m"
 echo "   1) Run DBTeam (tmux)."
 echo "   2) Open old session (tmux)."
