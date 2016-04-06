@@ -13,6 +13,7 @@ echo "Please, select your language."
 echo -e "\033[38;5;208m"
 echo "   1) English."
 echo "   2) Spanish."
+echo "   3) Portuguese."
 echo -e "\e[32m"
 read VAR
 if [ "$VAR" = 2 ]; then
@@ -115,6 +116,58 @@ else
 clear
 echo -e "\e[31m"
 echo "Option invalid"
+echo -e "\e[32m"
+fi
+
+elif [ "$VAR" = 3 ]; then
+
+clear
+echo -e "\e[34m"
+echo "Por favor, selecione uma opção."
+echo -e "\033[38;5;208m"
+echo "   1) Executar DBTeam (tmux)."
+echo "   2) Última sessão (registrado)."
+echo "   3) Última sessão (tmux)."
+echo "   4) Fechar todas as sessões."
+echo "   5) Reiniciar DBTeam (tmux)."
+echo "   6) Atualizar DBTeam."
+echo "   7) Sair."
+echo -e "\e[32m"
+read VAR
+if [ "$VAR" = 1 ]; then
+tmux new-session -s script "bash steady.sh -t" 
+elif [ "$VAR" = 2 ]; then
+tmux attach-session -t DBTeam
+elif [ "$VAR" = 3 ]; then
+tmux attach-session -t script
+elif [ "$VAR" = 4 ]; then
+killall screen
+killall telegram-cli
+killall tmux
+clear
+echo -e "\e[34m"
+echo Sessões fechadas.
+echo -e "\e[32m"
+echo
+elif [ "$VAR" = 5 ]; then
+killall tmux
+read -t5 -n1 -r -p 'Pressione qualquer tecla para continuar...' 
+tmux new-session -s script "bash steady.sh -t" 
+elif [ "$VAR" = 6 ]; then
+clear
+git pull
+elif [ "$VAR" = 7 ]; then
+clear
+exit
+elif [ "$VAR" = "" ]; then
+clear
+echo -e "\e[31m"
+echo "Opção invalida"
+echo -e "\e[32m"
+else
+clear
+echo -e "\e[31m"
+echo "Opção invalida"
 echo -e "\e[32m"
 fi
 
