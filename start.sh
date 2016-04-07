@@ -32,7 +32,7 @@ echo "   6) Actualizar DBTeam."
 echo "   7) Respaldar DBTeam"
 echo "   8) Cambiar telefono."
 echo "   9) Instalar DBTeam."
-echo " 10) Salir."
+echo "  10) Salir."
 echo -e "\e[32m"
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -84,6 +84,8 @@ read -n1 -r -p 'Paso 2/3. Dependencias instaladas, Presiona cualquier tecla para
 ./launch.sh install
 read -n1 -r -p 'Paso 3/3. Instalacion completa! Gracias por preferir DBTeam el equipo de DBTeam te lo agradece! Esperamos que DBTeam sea de tu agrado. A continuacion te pedira tu numero telefonico y el codigo de confirmacion que te llegara por sms o Telegram, por favor, ingresa tu numero con + [Codigo De Pais] [Numero telefonico]'
 clear
+service redis-server start
+clear
 ./launch.sh
 elif [ "$VAR"  = 10]; then
 clear
@@ -115,7 +117,7 @@ echo "   6) Update DBTeam."
 echo "   7) Backup DBTeam."
 echo "   8) Change number."
 echo "   9) Install DBTeam."
-echo " 10) Exit."
+echo "  10) Exit."
 echo -e "\e[32m"
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -168,6 +170,8 @@ read -n1 -r -p 'Step 2/3. Dependences installed. Press any key to the next step'
 ./launch.sh install
 read -n1 -r -p 'Step 3/3. Instalation finished! Thanks to install DBTeam, the team of DBTeam say thank you! We hope you like DBTeam. Then, the script will ask your number y and the confirmation code, Telegram will send a sms o Telegram msg, please, type your numer with + [Code state] [Your phone]'
 clear
+service redis-server start
+clear
 ./launch.sh
 elif [ "$VAR" = 10 ]; then
 clear
@@ -199,7 +203,7 @@ echo "   6) Atualizar DBTeam."
 echo "   7) Backup DBTeam."
 echo "   8) Change number."
 echo "   9) Install DBTeam."
-echo " 10) Sair."
+echo "  10) Sair."
 echo -e "\e[32m"
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -251,6 +255,8 @@ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-d
 read -n1 -r -p 'Step 2/3. Dependences installed. Press any key to the next step'
 ./launch.sh install
 read -n1 -r -p 'Step 3/3. Instalation finished! Thanks to install DBTeam, the team of DBTeam say thank you! We hope you like DBTeam. Then, the script will ask your number y and the confirmation code, Telegram will send a sms o Telegram msg, please, type your numer with + [Code state] [Your phone]'
+clear
+service redis-server start
 clear
 ./launch.sh
 elif [ "$VAR" = 10 ]; then
