@@ -190,7 +190,28 @@ Bot Commands
     </tbody>
 </table>
 
-[Installation](https://github.com/yagop/telegram-bot/wiki/Installation)
+Easy install
+------------
+Now, you can install DBTeam with start.sh, only you need type or copy this:
+```bash
+# Tested in Vps Ovh Ubuntu
+git clone https://github.com/Josepdal/DBTeam.git
+# Now run it, and follow the steps, select your language, then, type 9 and enter.
+cd DBTeam && chmod 777 start.sh && ./start.sh # Important: if you have any error on c9 with apt-get upgrade, don't worry, It's normal.
+```
+```bash
+# If you are using c9 and you have error with redis, run it:
+service redis-server-start
+```
+Run DBTeam without crashes and secure (always run)
+```bash
+./start.sh  # Select your language. Type 1.
+./start.sh  # Recover your session. Language. Type 2.
+./start.sh  # Restart DBTeam tmux.Language. Type 5.
+```
+Done!
+
+[Advanced install](https://github.com/yagop/telegram-bot/wiki/Installation)
 ------------
 ```bash
 # Tested on Ubuntu 14.04, for other OSs check out https://github.com/yagop/telegram-bot/wiki/Installation
