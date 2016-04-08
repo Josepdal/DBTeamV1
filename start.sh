@@ -65,7 +65,7 @@ mkdir /home/DBTeamBackup
 cp -R ../DBTeam/ /home/DBTeamBackup
 read -n1 -r -p 'Respaldo exitoso! Guardado en /home/DBTeamBackup. Presiona cualquier tecla para finalizar'
 clear
-elif [ "$VAR" = 8  ]; then
+elif [ "$VAR" = 8 ]; then
 killall screen
 killall tmux
 killall telegram-cli
