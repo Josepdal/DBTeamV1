@@ -1,25 +1,24 @@
-Lua [[plugins]](https://github.com/BH-YAGHI/NOD32-BOT/blob/master/plugins/left_group.lua) : 
-```bash
-channel_leave("channel#id"..msg.to.id, ok_cb, false)
-```
-------------------------------------------------------------------------------------------------------------------------------
-tg [[lua-tg.c]](https://github.com/Josepdal/tg/blob/325979bed6c6055bec3f934483e4df7d6b6d4753/lua-tg.c):
-```bash
-lq_channel_leave
+do
+-- Will leave the group & channel if be added
+local function run(msg, matches)
+local bot_id = our_id 
+local receiver = get_receiver(msg)
+    if matches[1] == 'leave' and is_admin1(msg) then
+       chat_del_user("chat#id"..msg.to.id, 'user#id'..bot_id, ok_cb, false)
+	   leave_channel(receiver, ok_cb, false)
+    elseif msg.service and msg.action.type == "chat_add_user" and msg.action.user.id == tonumber(bot_id) and not is_sudo(msg) then
+       send_large_msg(receiver, 'This is not one of my groups.', ok_cb, false)
+       chat_del_user(receiver, 'user#id'..bot_id, ok_cb, false)
+	   leave_channel(receiver, ok_cb, false)
+    end
+end
+ 
+return {
+  patterns = {
+    "^[#!/](leave)$",
+    "^!!tgservice (.+)$",
+  },
+  run = run
+}
+end
 
-    case lq_channel_leave:
-      tgl_do_leave_channel (TLS, lua_ptr[p + 1].peer_id, lua_empty_cb, lua_ptr[p].ptr);
-      p += 2;
-      break;
-
-  {"channel_leave", lq_channel_leave, { lfp_channel, lfp_none }}
-```
-------------------------------------------------------------------------------------------------------------------------------
-**Terminal**
-```bash
-cd bot 
-cd tg 
-make 
-```
-
-open pull request 
