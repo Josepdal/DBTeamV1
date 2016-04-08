@@ -233,7 +233,7 @@ you can start the bot this way. Note that it only will be recovering the bot if 
 it won't recover of vps hibernation or system problems.
 
 You need to have [`tmux`](https://github.com/tmux/tmux) or [`screen`](https://www.gnu.org/software/screen) installed.
-Both are pre installed in almost all linux distributions, but in case you don't you can get it this way: `sudo apt get-install tmux screen`             
+Both are pre installed in almost all linux distributions, but in case you don't you can get it this way: `sudo apt-get install tmux screen`             
 Tmux and screen are two different terminal multiplexer programs that will be needed in order to use the script.
 
 You can use __`steady.sh`__ script in two ways: with `tmux`_(recomended)_ or with `screen`. You may also mix them, but it is not assured to work.                        
