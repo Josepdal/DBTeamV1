@@ -84,7 +84,7 @@ sleep 1.2
 # Checking if the bot folder is in HOME
 echo -e "$bld$f4 CHECKING INSTALLED BOT...$rst"
 sleep 0.5
-ls ../ | grep $BOT > /dev/null
+ls ../ | grep $BOT 2>/dev/null
 if [ $? != 0 ]; then
   echo -e "$f1 ERROR: BOT: $BOT NOT FOUND IN YOUR HOME DIRECTORY$rst"
   sleep 4
@@ -115,7 +115,7 @@ sleep 0.9
 # Opening new tmux in a daemon
 echo -e "$bld$f4 ATTACHING TMUX AS DAEMON...$rst"
 # It is recommended to clear cli status always before starting the bot
-rm ../.telegram-cli/state  > /dev/null 
+rm ../.telegram-cli/state 2>/dev/null
 # Nested TMUX sessions trick 
 TMUX= tmux new-session -d -s $BOT "./launch.sh"
 sleep 1.3
@@ -147,7 +147,7 @@ while true; do
 		if [ $I -ge 3 ]; then
 			kill $CLIPID
 			tmux kill-session -t $BOT
-			rm ../.telegram-cli/state  > /dev/null 
+			rm ../.telegram-cli/state 2>/dev/null
 			NONVOLUNTARY=0
 			NONVOLUNTARYCHECK=0
 			VOLUNTARY=0
@@ -168,7 +168,7 @@ while true; do
 		BAD=$(( $BAD + 1 ))
 		sleep 1
 		
-		rm ../.telegram-cli/state  > /dev/null 
+		rm ../.telegram-cli/state 2>/dev/null 
 
 		kill $CLIPID
 		tmux kill-session -t $BOT
@@ -236,7 +236,7 @@ sleep 1.3
 # Checking if the bot folder is in HOME
 echo -e "$bld$f4 CHECKING INSTALLED BOT...$rst"
 sleep 0.5
-ls ../ | grep $BOT > /dev/null
+ls ../ | grep $BOT 2>/dev/null
 if [ $? != 0 ]; then
   echo -e "$f1 ERROR: BOT: $BOT NOT FOUND IN YOUR HOME DIRECTORY$rst"
   sleep 4
@@ -295,7 +295,7 @@ done
 # I had some weird errors, so I had to do this silly fix:
 SCREENPID1=`cat SC1`
 SCREENPID2=`cat SC2`
-rm SC1 SC2 >/dev/null
+rm SC1 SC2 2>/dev/null
 
 sleep 0.7
 CLIPID=`ps -e | grep telegram-cli | sed 's/^[[:space:]]*//' | cut -f 1 -d" "`
@@ -321,7 +321,7 @@ sleep 1
 # Opening new screen in a daemon
 echo -e "$bld$f4 ATTACHING SCREEN AS DAEMON...$rst"
 # Better to clear cli status before
-rm ../.telegram-cli/state  > /dev/null 
+rm ../.telegram-cli/state 2>/dev/null
 screen -d -m bash launch.sh
 
 sleep 1.3
@@ -375,11 +375,21 @@ sleep 5
 	echo ""
 	
 	cat /proc/$CLIPID/task/$CLIPID/status > CHECK
+	if [ $? != 0 ]; then
+		I=$(( $I + 1 ))
+		if [ $I -ge 3 ]; then
+			rm ../.telegram-cli/state 2>/dev/null
+			NONVOLUNTARY=0
+			NONVOLUNTARYCHECK=0
+			VOLUNTARY=0
+			VOLUNTARYCHECK=0
+		fi
+	else
+		I=1
+	fi
 	VOLUNTARYCHECK=`grep voluntary CHECK | head -1 | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
 	NONVOLUNTARYCHECK=`grep nonvoluntary CHECK | cut -f 2 -d":" | sed 's/^[[:space:]]*//'`
-	#echo -e "NONVOLUNTARYCHECK CTXT SWITCHES: $NONVOLUNTARYCHECK"
-	#echo -e "NONVOLUNTARY CTXT SWITCHES: $NONVOLUNTARY"
-	
+
 	if [ $NONVOLUNTARY != $NONVOLUNTARYCHECK ] || [ $VOLUNTARY != $VOLUNTARYCHECK ]; then
 		echo -e "$f5 BOT RUNNING!$rst"
 		OK=$(( $OK + 1 ))
@@ -389,7 +399,7 @@ sleep 5
 		BAD=$(( $BAD + 1 ))
 		sleep 1
 		
-		rm ../.telegram-cli/state  > /dev/null 
+		rm ../.telegram-cli/state 2>/dev/null
 
 		kill $CLIPID
 		kill $SCREEN
@@ -438,7 +448,7 @@ echo "Bot running in the backgroud with TMUX"
 echo ""
 echo -e "\e[0m"
 sleep 3
-tmux kill-session script
+tmux kill-session script 2>/dev/null
 exit 1
 }
 
@@ -563,4 +573,3 @@ echo ""
       ;;
   esac
 done
-
