@@ -80,72 +80,9 @@ echo "            Cualquier otra modificacion externa de DBTeam sera sustituida.
 echo "Quieres continuar?"
 read -n1 -r -p 'Presiona cualquier tecla para continuar'
 echo -e "\e[32m"
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/Welcome.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/arabic.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/arabic_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/bot.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/catalan_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/commands.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/english_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/export_gban.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/galician_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/giverank.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/id.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/italian_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/links.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/moderation.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/persian_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/plugins.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/portuguese_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/rules.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/settings.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/spam.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/spanish_lang.lua
-wget https://github.com/Josepdal/DBTeam/blob/master/plugins/version.lua
-rm -R plugins/Welcome.lua
-rm -R plugins/arabic.lua
-rm -R plugins/arabic_lang.lua
-rm -R plugins/bot.lua
-rm -R plugins/catalan_lang.lua
-rm -R plugins/commands.lua
-rm -R plugins/english_lang.lua
-rm -R plugins/export_gban.lua
-rm -R plugins/galician_lang.lua
-rm -R plugins/giverank.lua
-rm -R plugins/id.lua
-rm -R plugins/italian_lang.lua
-rm -R plugins/links.lua
-rm -R plugins/moderation.lua
-rm -R plugins/persian_lang.lua
-rm -R plugins/plugins.lua
-rm -R plugins/portuguese_lang.lua
-rm -R plugins/rules.lua
-rm -R plugins/settings.lua
-rm -R plugins/spam.lua
-rm -R plugins/spanish_lang.lua
-rm -R plugins/version.lua
-mv Welcome.lua plugins/
-mv arabic.lua plugins/
-mv arabic_lang.lua plugins/
-mv bot.lua plugins/
-mv catalan_lang.lua plugins/
-mv commands.lua plugins/
-mv english_lang.lua plugins/
-mv export_gban.lua plugins/
-mv galician_lang.lua plugins/
-mv giverank.lua plugins/
-mv id.lua plugins/
-mv italian_lang.lua plugins/
-mv links.lua plugins/
-mv moderation.lua plugins/
-mv persian_lang.lua plugins/
-mv plugins.lua plugins/
-mv portuguese_lang.lua plugins/
-mv rules.lua plugins/
-mv settings.lua plugins/
-mv spam.lua plugins/
-mv spanish_lang.lua plugins/
-mv version.lua plugins/
+dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
+rm -rf plugins
+svn export https://github.com/Josepdal/DBTeam/trunk/plugins
 echo "Plugins restaurados y actualizados!"
 read -n1 -r -p 'Presiona cualquier tecla para volver al inicio.'
 ./start.sh
