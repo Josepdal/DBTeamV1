@@ -214,8 +214,8 @@ echo "   4) Fechar todas as sessões."
 echo "   5) Reiniciar DBTeam (tmux)."
 echo "   6) Atualizar DBTeam."
 echo "   7) Backup DBTeam."
-echo "   8) Change number."
-echo "   9) Install DBTeam."
+echo "   8) Mudar número."
+echo "   9) Instalar DBTeam."
 echo "  10) Sair."
 echo -e "\e[32m"
 read VAR
@@ -247,7 +247,7 @@ rm -R /home/DBTeamBackup
 clear
 mkdir /home/DBTeamBackup
 cp -R ../DBTeam/ /home/DBTeamBackup
-read -n1 -r -p 'Backup finished! Saved in /home/DBTeamBackup. Press any key to finish'
+read -n1 -r -p 'Backup finalizado! Salvo em /home/DBTeamBackup. Pressione qualquer tecla para finalizar.'
 clear
 elif [ "$VAR" = 8 ]; then
 killall screen
@@ -255,19 +255,19 @@ killall tmux
 killall telegram-cli
 rm -R ../.telegram-cli
 ./launch.sh install
-read -n1 -r -p 'Finished!, press any key to the next step.'
+read -n1 -r -p 'Finalizado!, Pressione qualquer tecla para o próximo passo.'
 ./launch.sh
 elif [ "$VAR" = 9 ]; then
-echo -e "      DBTeam installation will start.      "
-echo -e "DBTeam was developed by @Josepdal and @MaSkAoS"
-echo -e "Thanks to @iicc1 and @Jarriz DBTeam works easily and more stable"
-read -n1 -r -p 'Press any key to start install'
+echo -e "      A Instalação DBTeam será iniciada.      "
+echo -e "DBTeam foi desenvolvida por @Josepdal e @MaSkAoS"
+echo -e "Obrigado para @iicc1 e @Jarriz por fazer DBTeam trabalhar de forma fácil e mais estável"
+read -n1 -r -p 'Pressione qualquer tecla para iniciar a instalação'
 sudo apt-get update && apt-get upgrade
-read -n1 -r -p 'Step 1/3. Packages updated, Press any key to the next step'
+read -n1 -r -p 'Passo 1/3. Pacotes atualizados, pressione qualquer tecla para o próximo passo'
 sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev
-read -n1 -r -p 'Step 2/3. Dependences installed. Press any key to the next step'
+read -n1 -r -p 'Passo 2/3. Dependências instaladas. Pressione qualquer tecla para o próximo passo'
 ./launch.sh install
-read -n1 -r -p 'Step 3/3. Instalation finished! Thanks to install DBTeam, the team of DBTeam say thank you! We hope you like DBTeam. Then, the script will ask your number y and the confirmation code, Telegram will send a sms o Telegram msg, please, type your numer with + [Code state] [Your phone]'
+read -n1 -r -p 'Passo 3/3. Instalação finalizada! Obrigado por instalar o DBTeam, a equipe do DBTeam diz obrigado! Esperamos que você goste do DBTeam. Então, o script irá pedir o seu número e o código de confirmação, Telegram irá enviar um sms com o código do Telegram, por favor, digite o número com +[DDI] [Seu Telefone]'
 clear
 service redis-server start
 clear
