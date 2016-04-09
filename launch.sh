@@ -126,6 +126,10 @@ else
     exit 1
   fi
   
+  chmod 777 steady.sh
+  chmod 777 start.sh
+  chmod 777 config_fix.sh
+  
   #Adding some color. By @iicc1 :D
    echo -e "\033[38;5;208m"
    echo -e "      ____  ____ _____                        "
@@ -134,6 +138,6 @@ else
    echo -e "     |____/|____/ |_|\____/\_____|_/\/\_|     "
    echo -e "                                              \033[0;00m"
    echo -e "\e[36m"
-
+  ./config_fix.sh
   ./tg/bin/telegram-cli -k ./tg/tg-server.pub -s ./bot/bot.lua -l 1 -E $@
 fi
