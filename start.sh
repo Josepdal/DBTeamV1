@@ -31,8 +31,9 @@ echo "   5) Reiniciar DBTeam (tmux)."
 echo "   6) Actualizar DBTeam."
 echo "   7) Respaldar DBTeam"
 echo "   8) Cambiar telefono."
-echo "   9) Instalar DBTeam."
-echo "  10) Salir."
+echo "   9) Restaurar y actualizar plugins."
+echo "  10) Instalar DBTeam."
+echo "  11) Salir."
 echo -e "\e[32m"
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -64,7 +65,7 @@ mkdir /home/DBTeamBackup
 cp -R ../DBTeam/ /home/DBTeamBackup
 read -n1 -r -p 'Respaldo exitoso! Guardado en /home/DBTeamBackup. Presiona cualquier tecla para finalizar'
 clear
-elif [ "$VAR" = 8  ]; then
+elif [ "$VAR" = 8 ]; then
 killall screen
 killall tmux
 killall telegram-cli
@@ -72,7 +73,83 @@ rm -R ../.telegram-cli
 ./launch.sh install
 read -n1 -r -p 'Terminado!, presiona cualquier tecla para el paso siguente'
 ./launch.sh
-elif [ "$VAR" = 9  ]; then
+elif [ "$VAR"  = 9 ]; then
+echo -e "\e[31m"
+echo "IMPORTANTE: Todos tus plugins se restableceran y actualizaran a la configuracion por defecto de DBTeam."
+echo "            Cualquier otra modificacion externa de DBTeam sera sustituida."
+echo "Quieres continuar?"
+read -n1 -r -p 'Presiona cualquier tecla para continuar'
+echo -e "\e[32m"
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/Welcome.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/arabic.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/arabic_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/bot.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/catalan_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/commands.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/english_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/export_gban.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/galician_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/giverank.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/id.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/italian_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/links.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/moderation.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/persian_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/plugins.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/portuguese_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/rules.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/settings.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/spam.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/spanish_lang.lua
+wget https://github.com/Josepdal/DBTeam/blob/master/plugins/version.lua
+rm -R plugins/Welcome.lua
+rm -R plugins/arabic.lua
+rm -R plugins/arabic_lang.lua
+rm -R plugins/bot.lua
+rm -R plugins/catalan_lang.lua
+rm -R plugins/commands.lua
+rm -R plugins/english_lang.lua
+rm -R plugins/export_gban.lua
+rm -R plugins/galician_lang.lua
+rm -R plugins/giverank.lua
+rm -R plugins/id.lua
+rm -R plugins/italian_lang.lua
+rm -R plugins/links.lua
+rm -R plugins/moderation.lua
+rm -R plugins/persian_lang.lua
+rm -R plugins/plugins.lua
+rm -R plugins/portuguese_lang.lua
+rm -R plugins/rules.lua
+rm -R plugins/settings.lua
+rm -R plugins/spam.lua
+rm -R plugins/spanish_lang.lua
+rm -R plugins/version.lua
+mv Welcome.lua plugins/
+mv arabic.lua plugins/
+mv arabic_lang.lua plugins/
+mv bot.lua plugins/
+mv catalan_lang.lua plugins/
+mv commands.lua plugins/
+mv english_lang.lua plugins/
+mv export_gban.lua plugins/
+mv galician_lang.lua plugins/
+mv giverank.lua plugins/
+mv id.lua plugins/
+mv italian_lang.lua plugins/
+mv links.lua plugins/
+mv moderation.lua plugins/
+mv persian_lang.lua plugins/
+mv plugins.lua plugins/
+mv portuguese_lang.lua plugins/
+mv rules.lua plugins/
+mv settings.lua plugins/
+mv spam.lua plugins/
+mv spanish_lang.lua plugins/
+mv version.lua plugins/
+echo "Plugins restaurados y actualizados!"
+read -n1 -r -p 'Presiona cualquier tecla para volver al inicio.'
+./start.sh
+elif [ "$VAR" = 10 ]; then
 echo -e "      La instalacion de DBTeam comenzara.      "
 echo -e "DBTeam fue desarrollado por @Josepdal y @MaSkAoS"
 echo -e "Gracias a @iicc1 y a @Jarriz por hacer que DBTeam funcione con mas estabilidad y facilidad"
@@ -87,11 +164,10 @@ clear
 service redis-server start
 clear
 ./launch.sh
-elif [ "$VAR"  = 10]; then
+elif [ "$VAR" = 11 ]; then
 clear
 exit
-elif [ "$VAR" = "" ]; then
-clear
+
 echo -e "\e[31m"
 echo "Opcion invalida"
 echo -e "\e[32m"
