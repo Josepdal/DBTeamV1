@@ -5,6 +5,12 @@
 CONF=data/config.lua
 CONF2=data/config2.lua
 
+if [ -f "$CONF" ]; then
+   echo "Config.lua found"
+else
+   exit 0
+fi
+
 cat $CONF | grep "enabled_lang" > /dev/null
 if [ $? == 0 ]; then
 	echo -e "\e[33mPatching config.lua not needed.\e[36m"
