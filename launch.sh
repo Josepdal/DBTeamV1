@@ -138,6 +138,9 @@ else
    echo -e "     |____/|____/ |_|\____/\_____|_/\/\_|     "
    echo -e "                                              \033[0;00m"
    echo -e "\e[36m"
-  ./config_fix.sh
+   
+  if [ -f data/config.lua ]; then
+    ./config_fix.sh
+  fi
   ./tg/bin/telegram-cli -k ./tg/tg-server.pub -s ./bot/bot.lua -l 1 -E $@
 fi
