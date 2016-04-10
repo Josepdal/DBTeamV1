@@ -1,4 +1,5 @@
 #!/bin/bash 
+# running start.sh with sudo privileges.
 sudo start.sh
 clear
 echo -e "\033[38;5;208m"
@@ -16,6 +17,7 @@ echo "   1) English."
 echo "   2) Spanish."
 echo "   3) Portuguese."
 echo -e "\e[32m"
+# Read VAR of languages. First language Spanish.
 read VAR
 if [ "$VAR" = 2 ]; then
 
@@ -51,6 +53,7 @@ echo -e "\e[34m"
 echo Sesiones cerradas.
 echo -e "\e[32m"
 elif [ "$VAR" = 5 ]; then
+clear
 killall tmux
 read -n1 -r -p 'Presiona cualquier tecla para continuar...' 
 tmux new-session -s script "bash steady.sh -t" 
@@ -59,13 +62,15 @@ clear
 git pull
 elif [ "$VAR" = 7 ]; then
 clear
-rm -R /home/DBTeamBackup
+rm -R /home/DBTeamBackup/DBTeam
 clear
 mkdir /home/DBTeamBackup
 cp -R ../DBTeam/ /home/DBTeamBackup
-read -n1 -r -p 'Respaldo exitoso! Guardado en /home/DBTeamBackup. Presiona cualquier tecla para finalizar'
+echo "Respaldo exitoso! Guardado en /home/DBTeamBackup."
+read -n1 -r -p 'Si quieres borrar los backups escribe bkpdel al iniciar start.sh. Presiona cualquier tecla para finalizar'
 clear
 elif [ "$VAR" = 8 ]; then
+clear
 killall screen
 killall tmux
 killall telegram-cli
@@ -74,19 +79,27 @@ rm -R ../.telegram-cli
 read -n1 -r -p 'Terminado!, presiona cualquier tecla para el paso siguente'
 ./launch.sh
 elif [ "$VAR"  = 9 ]; then
+clear
 echo -e "\e[31m"
 echo "IMPORTANTE: Todos tus plugins se restableceran y actualizaran a la configuracion por defecto de DBTeam."
 echo "            Cualquier otra modificacion externa de DBTeam sera sustituida."
+echo "            Se creara un backup en /home/DBTeamBackup/plugins."
+echo "            Si deseas eliminar todos los backups escribe bkpdel al iniciar start.sh."
 echo "Quieres continuar?"
-read -n1 -r -p 'Presiona cualquier tecla para continuar'
+read -n1 -r -p 'Presiona una tecla para continuar... '
+mkdir /home/DBTeamBackup
+clear
+cp -R plugins/ /home/DBTeamBackup
+clear
 echo -e "\e[32m"
 dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
 rm -rf plugins
 svn export https://github.com/Josepdal/DBTeam/trunk/plugins
 echo "Plugins restaurados y actualizados!"
 read -n1 -r -p 'Presiona cualquier tecla para volver al inicio.'
-./start.sh
+./start.sh 
 elif [ "$VAR" = 10 ]; then
+clear
 echo -e "      La instalacion de DBTeam comenzara.      "
 echo -e "DBTeam fue desarrollado por @Josepdal y @MaSkAoS"
 echo -e "Gracias a @iicc1 y a @Jarriz por hacer que DBTeam funcione con mas estabilidad y facilidad"
@@ -104,7 +117,8 @@ clear
 elif [ "$VAR" = 11 ]; then
 clear
 exit
-
+elif [ "$VAR" = "" ]; then
+clear
 echo -e "\e[31m"
 echo "Opcion invalida"
 echo -e "\e[32m"
@@ -115,6 +129,7 @@ echo "Opcion invalida"
 echo -e "\e[32m"
 fi
 
+# English Lang
 elif [ "$VAR" = 1 ]; then
 
 clear
@@ -129,8 +144,9 @@ echo "   5) Restart DBTeam (tmux)."
 echo "   6) Update DBTeam."
 echo "   7) Backup DBTeam."
 echo "   8) Change number."
-echo "   9) Install DBTeam."
-echo "  10) Exit."
+echo "   9) Restore and Update plugins."
+echo "  10) Install DBTeam."
+echo "  11) Exit."
 echo -e "\e[32m"
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -149,6 +165,7 @@ echo Sessions closed.
 echo -e "\e[32m"
 echo
 elif [ "$VAR" = 5 ]; then
+clear
 killall tmux
 read -n1 -r -p 'Press any key to continue...' 
 tmux new-session -s script "bash steady.sh -t" 
@@ -161,9 +178,11 @@ rm -R /home/DBTeamBackup
 clear
 mkdir /home/DBTeamBackup
 cp -R ../DBTeam/ /home/DBTeamBackup
-read -n1 -r -p 'Backup finished! Saved in /home/DBTeamBackup. Press any key to finish'
+echo "Backup finished! Saved in /home/DBTeamBackup."
+read -n1 -r -p 'If you want delete all backups type bkpdel at run start.sh. Press any key to exit'
 clear
 elif [ "$VAR" = 8 ]; then
+clear
 killall screen
 killall tmux
 killall telegram-cli
@@ -171,10 +190,31 @@ rm -R ../.telegram-cli
 ./launch.sh install
 read -n1 -r -p 'Finished!, press any key to the next step.'
 ./launch.sh
-elif [ "$VAR" = 9 ]; then
+elif [ "$VAR"  = 9 ]; then
+clear
+echo -e "\e[31m"
+echo "IMPORTANT: All your plugins will be deleted and updated."
+echo "           Any Modifications will be replaced with the DBTeam repository."
+echo "           Start.sh will make a backup in /home/DBTeamBackup/plugins."
+echo "           If you want delete all backups, type bkpdel at run Start.sh."
+echo "Are you sure?"
+read -n1 -r -p 'Press any key to continue.'
+mkdir /home/DBTeamBackup
+clear
+cp -R plugins/ /home/DBTeamBackup
+clear
+echo -e "\e[32m"
+dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
+rm -rf plugins
+svn export https://github.com/Josepdal/DBTeam/trunk/plugins
+echo "Plugins restored and updated!"
+read -n1 -r -p 'Press any key to back.'
+./start.sh
+elif [ "$VAR" = 10 ]; then
+clear
 echo -e "      DBTeam installation will start.      "
 echo -e "DBTeam was developed by @Josepdal and @MaSkAoS"
-echo -e "Thanks to @iicc1 and @Jarriz DBTeam works easily and more stable"
+echo -e "Thanks to @iicc1 and @Jarriz because DBTeam works easily and more stable."
 read -n1 -r -p 'Press any key to start install'
 sudo apt-get update && apt-get upgrade
 read -n1 -r -p 'Step 1/3. Packages updated, Press any key to the next step'
@@ -186,7 +226,7 @@ clear
 service redis-server start
 clear
 ./launch.sh
-elif [ "$VAR" = 10 ]; then
+elif [ "$VAR" = 11 ]; then
 clear
 exit
 elif [ "$VAR" = "" ]; then
@@ -200,6 +240,8 @@ echo -e "\e[31m"
 echo "Option invalid"
 echo -e "\e[32m"
 fi
+
+# Portuguese Lang
 
 elif [ "$VAR" = 3 ]; then
 
@@ -215,8 +257,9 @@ echo "   5) Reiniciar DBTeam (tmux)."
 echo "   6) Atualizar DBTeam."
 echo "   7) Backup DBTeam."
 echo "   8) Mudar número."
-echo "   9) Instalar DBTeam."
-echo "  10) Sair."
+echo "   9) Excluir e Atualizar plugins."
+echo "   10) Instalar DBTeam."
+echo "   11) Sair."
 echo -e "\e[32m"
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -235,6 +278,7 @@ echo Sessões fechadas.
 echo -e "\e[32m"
 echo
 elif [ "$VAR" = 5 ]; then
+clear
 killall tmux
 read -n1 -r -p 'Pressione qualquer tecla para continuar...' 
 tmux new-session -s script "bash steady.sh -t" 
@@ -247,9 +291,11 @@ rm -R /home/DBTeamBackup
 clear
 mkdir /home/DBTeamBackup
 cp -R ../DBTeam/ /home/DBTeamBackup
-read -n1 -r -p 'Backup finalizado! Salvo em /home/DBTeamBackup. Pressione qualquer tecla para finalizar.'
+echo "Backup finalizado! Salvo em /home/DBTeamBackup."
+read -n1 -r -p 'If you want delete all backups type bkpdel at run start.sh. Pressione qualquer tecla para finalizar.'
 clear
 elif [ "$VAR" = 8 ]; then
+clear
 killall screen
 killall tmux
 killall telegram-cli
@@ -257,7 +303,28 @@ rm -R ../.telegram-cli
 ./launch.sh install
 read -n1 -r -p 'Finalizado!, Pressione qualquer tecla para o próximo passo.'
 ./launch.sh
-elif [ "$VAR" = 9 ]; then
+elif [ "$VAR"  = 9 ]; then
+clear
+echo -e "\e[31m"
+echo "IMPORTANT: All your plugins will be deleted and updated."
+echo "           Any Modifications will be replaced with the DBTeam repository."
+echo "           Start.sh will make a backup in /home/DBTeamBackup/plugins."
+echo "           If you want delete all backups, type bkpdel at run Start.sh."
+echo "Are you sure?"
+read -n1 -r -p 'Press any key to continue.'
+mkdir /home/DBTeamBackup
+clear
+cp -R plugins/ /home/DBTeamBackup
+clear
+echo -e "\e[32m"
+dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
+rm -rf plugins
+svn export https://github.com/Josepdal/DBTeam/trunk/plugins
+echo "Plugins restored and updated!"
+read -n1 -r -p 'Press any key to back.'
+./start.sh
+elif [ "$VAR" = 10 ]; then
+clear
 echo -e "      A Instalação DBTeam será iniciada.      "
 echo -e "DBTeam foi desenvolvida por @Josepdal e @MaSkAoS"
 echo -e "Obrigado para @iicc1 e @Jarriz por fazer DBTeam trabalhar de forma fácil e mais estável"
@@ -272,9 +339,7 @@ clear
 service redis-server start
 clear
 ./launch.sh
-elif [ "$VAR" = 10 ]; then
-clear
-exit
+echo -e "\e[32m"
 elif [ "$VAR" = "" ]; then
 clear
 echo -e "\e[31m"
@@ -286,7 +351,15 @@ echo -e "\e[31m"
 echo "Opção invalida"
 echo -e "\e[32m"
 fi
+# DELETE BACKUPS
+elif [ "$VAR" = bkpdel ]; then
+rm -R /home/DBTeamBackup
+clear
+echo -e "\e[31m"
+echo "Backups removed"
+echo -e "\e[32m"
 
+# If not type a valor
 elif [ "$VAR" = "" ]; then
 clear
 echo -e "\e[31m"
