@@ -22,5 +22,5 @@ end
 return {
 patterns = {
     --mute english word.
-    "[%S]://"
+    "[%S]"
 }, run = run}
