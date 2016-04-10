@@ -87,18 +87,37 @@ elif [ "$VAR"  = 9 ]; then
 	echo "            Se creara un backup en /home/DBTeamBackup/plugins."
 	echo "            Si deseas eliminar todos los backups escribe bkpdel al iniciar start.sh."
 	echo "Quieres continuar?"
-	read -n1 -r -p 'Presiona una tecla para continuar... '
-	mkdir /home/DBTeamBackup
-	clear
-	cp -R plugins/ /home/DBTeamBackup
-	clear
-	echo -e "\e[32m"
-	dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
-	rm -rf plugins
-	svn export https://github.com/Josepdal/DBTeam/trunk/plugins
-	echo "Plugins restaurados y actualizados!"
-	read -n1 -r -p 'Presiona cualquier tecla para volver al inicio.'
-	./start.sh 
+	echo "	Si = y		No = n	"
+# SubVar confirmation
+read subVAR
+	if [ "$subVAR"  = y ]; then
+		mkdir /home/DBTeamBackup
+		clear
+		cp -R plugins/ /home/DBTeamBackup
+		clear
+		echo -e "\e[32m"
+		dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
+		rm -rf plugins
+		svn export https://github.com/Josepdal/DBTeam/trunk/plugins
+		echo "Plugins restaurados y actualizados!"
+		read -n1 -r -p 'Presiona cualquier tecla para volver al inicio.'
+		./start.sh 
+	elif [ "$subVAR"  = n ]; then
+		clear
+		echo -e "\e[32m"
+		exit
+	elif [ "$subVAR" = "" ]; then
+		clear
+		echo -e "\e[31m"
+		echo "Opcion invalida"
+		echo -e "\e[32m"
+		else
+		clear
+		echo -e "\e[31m"
+		echo "Opcion invalida"
+		echo -e "\e[32m"
+	fi
+# end
 elif [ "$VAR" = 10 ]; then
 	clear
 	echo -e "      La instalacion de DBTeam comenzara.      "
@@ -200,18 +219,37 @@ elif [ "$VAR"  = 9 ]; then
 	echo "           Start.sh will make a backup in /home/DBTeamBackup/plugins."
 	echo "           If you want delete all backups, type bkpdel at run Start.sh."
 	echo "Are you sure?"
-	read -n1 -r -p 'Press any key to continue.'
-	mkdir /home/DBTeamBackup
-	clear
-	cp -R plugins/ /home/DBTeamBackup
-	clear
-	echo -e "\e[32m"
-	dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
-	rm -rf plugins
-	svn export https://github.com/Josepdal/DBTeam/trunk/plugins
-	echo "Plugins restored and updated!"
-	read -n1 -r -p 'Press any key to back.'
-	./start.sh
+	echo "	Yes = y			Not= n		"
+# SubVar confirmation
+read subVAR
+	if [ "$subVAR"  = y ]; then
+		mkdir /home/DBTeamBackup
+		clear
+		cp -R plugins/ /home/DBTeamBackup
+		clear
+		echo -e "\e[32m"
+		dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
+		rm -rf plugins
+		svn export https://github.com/Josepdal/DBTeam/trunk/plugins
+		echo "Plugins restored and updated!"
+		read -n1 -r -p 'Press any key to back.'
+		./start.sh
+	elif [ "$subVAR"  = n ]; then
+		clear
+		echo -e "\e[32m"
+		exit
+	elif [ "$subVAR" = "" ]; then
+		clear
+		echo -e "\e[31m"
+		echo "Option invalid"
+		echo -e "\e[32m"
+		else
+		clear
+		echo -e "\e[31m"
+		echo "Option invalid"
+		echo -e "\e[32m"
+	fi
+# end
 elif [ "$VAR" = 10 ]; then
 	clear
 	echo -e "      DBTeam installation will start.      "
@@ -314,18 +352,35 @@ elif [ "$VAR"  = 9 ]; then
 	echo "           Start.sh will make a backup in /home/DBTeamBackup/plugins."
 	echo "           If you want delete all backups, type bkpdel at run Start.sh."
 	echo "Are you sure?"
-	read -n1 -r -p 'Press any key to continue.'
-	mkdir /home/DBTeamBackup
-	clear
-	cp -R plugins/ /home/DBTeamBackup
-	clear
-	echo -e "\e[32m"
-	dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
-	rm -rf plugins
-	svn export https://github.com/Josepdal/DBTeam/trunk/plugins
-	echo "Plugins restored and updated!"
-	read -n1 -r -p 'Press any key to back.'
-	./start.sh
+	echo "	Yes = y		Not = n	"
+read subVAR
+	if [ "$subVAR"  = y ]; then
+		mkdir /home/DBTeamBackup
+		clear
+		cp -R plugins/ /home/DBTeamBackup
+		clear
+		echo -e "\e[32m"
+		dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
+		rm -rf plugins
+		svn export https://github.com/Josepdal/DBTeam/trunk/plugins
+		echo "Plugins restored and updated!"
+		read -n1 -r -p 'Press any key to back.'
+		./start.sh
+	elif [ "$subVAR"  = n ]; then
+		clear
+		echo -e "\e[32m"
+		exit
+	elif [ "$subVAR" = "" ]; then
+		clear
+		echo -e "\e[31m"
+		echo "Opção invalida"
+		echo -e "\e[32m"
+	else
+		clear
+		echo -e "\e[31m"
+		echo "Opção invalida"
+		echo -e "\e[32m"
+	fi
 elif [ "$VAR" = 10 ]; then
 	clear
 	echo -e "      A Instalação DBTeam será iniciada.      "
@@ -359,12 +414,41 @@ else
 fi
 # DELETE BACKUPS
 elif [ "$VAR" = bkpdel ]; then
-	rm -R /home/DBTeamBackup
+	clear
+	echo -e "\e[31m"
+	echo "1) Delete plugins backup."
+	echo "2) Delete DBTeam backup."
+	echo "3) Delete all backups."
+read BKPVAR
+if [ "$BKPVAR" = 1 ]; then
+	rm -R /home/DBTeamBackup/plugins
+	clear
+	echo -e "\e[31m"
+	echo "Backups of Plugins removed"
+	echo -e "\e[32m"
+elif [ "$BKPVAR" = 2 ]; then
+	rm -R /home/DBTeamBackup/DBTeam
+	clear
+	echo -e "\e[31m"
+	echo "Backups of DBTeam removed"
+	echo -e "\e[32m"
+elif [ "$BKPVAR" = 3 ]; then
+	rm -R /home/DBTeamBackup/
 	clear
 	echo -e "\e[31m"
 	echo "Backups removed"
 	echo -e "\e[32m"
-
+elif [ "$BKPVAR" = "" ]; then
+	clear
+	echo -e "\e[31m"
+	echo "Option invalid"
+	echo -e "\e[32m"
+else
+	clear
+	echo -e "\e[31m"
+	echo "Option invalid"
+	echo -e "\e[32m"
+fi
 # If not type a valor
 elif [ "$VAR" = "" ]; then
 	clear
