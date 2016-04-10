@@ -88,7 +88,8 @@ elif [ "$VAR"  = 9 ]; then
 	echo "            Si deseas eliminar todos los backups escribe bkpdel al iniciar start.sh."
 	echo "Quieres continuar?"
 	echo "	Si = y		No = n	"
-# SubVar confirmation
+# SubVar confirmation and change color.
+echo -e "\e[32m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
@@ -220,7 +221,8 @@ elif [ "$VAR"  = 9 ]; then
 	echo "           If you want delete all backups, type bkpdel at run Start.sh."
 	echo "Are you sure?"
 	echo "	Yes = y			Not= n		"
-# SubVar confirmation
+# SubVar confirmation and change color
+echo -e "\e[32m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
@@ -353,6 +355,8 @@ elif [ "$VAR"  = 9 ]; then
 	echo "           If you want delete all backups, type bkpdel at run Start.sh."
 	echo "Are you sure?"
 	echo "	Yes = y		Not = n	"
+# SubVar confirmation and change color.
+echo -e "\e[32m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
