@@ -107,6 +107,16 @@ install() {
   cd ..
   install_luarocks
   install_rocks
+  
+  if [ -d /mnt/c/Windows ]; then
+    echo "Patching bot.lua for Windows 10 support..."
+    sed -i '5d' bot/bot.lua
+    sed -i '5d' bot/bot.lua
+    sed -i '5i\require("bot/utils")' bot/bot.lua
+    sed -i '6i\require("bot/permissions")' bot/bot.lua
+    sed -i '7i\--File patched to support W10' bot/bot.lua
+  fi
+  
 }
 
 if [ "$1" = "install" ]; then
