@@ -63,9 +63,9 @@ elif [ "$VAR" = 6 ]; then
 	git pull
 elif [ "$VAR" = 7 ]; then
 	clear
+	mkdir /home/DBTeamBackup
 	rm -R /home/DBTeamBackup/DBTeam
 	clear
-	mkdir /home/DBTeamBackup
 	cp -R ../DBTeam/ /home/DBTeamBackup
 	echo "Respaldo exitoso! Guardado en /home/DBTeamBackup."
 	read -n1 -r -p 'Si quieres borrar los backups escribe bkpdel al iniciar start.sh. Presiona cualquier tecla para finalizar'
@@ -93,6 +93,7 @@ echo -e "\e[32m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
+		rm -R /home/DBTeamBackup/plugins
 		clear
 		cp -R plugins/ /home/DBTeamBackup
 		clear
@@ -196,9 +197,9 @@ elif [ "$VAR" = 6 ]; then
 	git pull
 elif [ "$VAR" = 7 ]; then
 	clear
-	rm -R /home/DBTeamBackup
-	clear
 	mkdir /home/DBTeamBackup
+	rm -R /home/DBTeamBackup/DBTeam
+	clear
 	cp -R ../DBTeam/ /home/DBTeamBackup
 	echo "Backup finished! Saved in /home/DBTeamBackup."
 	read -n1 -r -p 'If you want delete all backups type bkpdel at run start.sh. Press any key to exit'
@@ -225,7 +226,8 @@ elif [ "$VAR"  = 9 ]; then
 echo -e "\e[32m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
-		mkdir /home/DBTeamBackup
+		mkdir /home/DBTeamBackup/
+		rm -R /home/DBTeamBackup/plugins
 		clear
 		cp -R plugins/ /home/DBTeamBackup
 		clear
@@ -330,9 +332,9 @@ elif [ "$VAR" = 6 ]; then
 	git pull
 elif [ "$VAR" = 7 ]; then
 	clear
-	rm -R /home/DBTeamBackup
-	clear
+	rm -R /home/DBTeamBackup/DBTeam
 	mkdir /home/DBTeamBackup
+	clear
 	cp -R ../DBTeam/ /home/DBTeamBackup
 	echo "Backup finalizado! Salvo em /home/DBTeamBackup."
 	read -n1 -r -p 'If you want delete all backups type bkpdel at run start.sh. Pressione qualquer tecla para finalizar.'
@@ -360,6 +362,7 @@ echo -e "\e[32m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
+		rm -R /home/DBTeamBackup/plugins
 		clear
 		cp -R plugins/ /home/DBTeamBackup
 		clear
