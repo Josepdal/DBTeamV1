@@ -77,10 +77,10 @@ local function run(msg, matches)
 		set_text(LANG, 'noPhotosT', 'Fotos no permitidas en este grupo.')
 		set_text(LANG, 'noPhotosL', 'Fotos no permitidas en este supergrupo.')
 
-		set_text(LANG, 'botsT', 'Bots are now allowed in this chat.')
-		set_text(LANG, 'botsL', 'Bots are now allowed in this supergroup.')
-		set_text(LANG, 'noBotsT', 'Bots are not allowed in this chat.')
-		set_text(LANG, 'noBotsL', 'Bots are not allowed in this supergroup.')
+		set_text(LANG, 'botsT', 'Bots permitidos en este grupo.')
+		set_text(LANG, 'botsL', 'Bots permitidos en este supergrupo.')
+		set_text(LANG, 'noBotsT', 'Bots no permitidos en este grupo.')
+		set_text(LANG, 'noBotsL', 'Bots no permitidos en este supergrupo.')
 
 		set_text(LANG, 'arabicT', 'El árabe está permitido en este grupo.')
 		set_text(LANG, 'arabicL', 'El árabe está permitido en este supergrupo.')
@@ -134,11 +134,11 @@ local function run(msg, matches)
 		set_text(LANG, 'setPhotoAborted', 'Parando el proceso de establecer foto...')
 		set_text(LANG, 'sendPhoto', 'Envía una foto por favor')
 
-		set_text(LANG, 'chatSetphoto', 'Now you can setphoto in this chat.')
-		set_text(LANG, 'channelSetphoto', 'Now you can setphoto in this channel.')
-		set_text(LANG, 'notChatSetphoto', 'Now you can\'t setphoto in this chat.')
-		set_text(LANG, 'notChannelSetphoto', 'Now you can\'t setphoto in this channel.')
-		set_text(LANG, 'setPhotoError', 'Please, enable setphoto settings.')
+		set_text(LANG, 'chatSetphoto', 'Ahora podrás cambiar la foto en este grupo.')
+		set_text(LANG, 'channelSetphoto', 'Ahora podrás cambiar la foto en este supergrupo.')
+		set_text(LANG, 'notChatSetphoto', 'Ahora no podrás cambiar la foto en este grupo.')
+		set_text(LANG, 'notChannelSetphoto', 'Ahora no podrás cambiar la foto en este supergrupo.')
+		set_text(LANG, 'setPhotoError', 'Por favor, activa setphoto en settings.')
 
 		set_text(LANG, 'linkSaved', 'El enlace ha sido guardado')
 		set_text(LANG, 'groupLink', 'Link del grupo')
@@ -168,9 +168,9 @@ local function run(msg, matches)
 		set_text(LANG, 'muteAllX:1', 'Este grupo ha sido silenciado durante')
 		set_text(LANG, 'muteAllX:2', 'segundos.')
 
-		set_text(LANG, 'createGroup:1', 'Group')
-		set_text(LANG, 'createGroup:2', 'created.')
-		set_text(LANG, 'newGroupWelcome', 'Welcome to your new group.')
+		set_text(LANG, 'createGroup:1', 'Groupo')
+		set_text(LANG, 'createGroup:2', 'creado.')
+		set_text(LANG, 'newGroupWelcome', 'Bienvenido a tu nuevo grupo.')
 
 		-- export_gban.lua --
 		set_text(LANG, 'accountsGban', 'cuentas globalmente baneadas.')
@@ -255,8 +255,8 @@ local function run(msg, matches)
 		set_text(LANG, 'errorNoPlug', 'Este plugin no existe o no tiene comandos.')
 
 		-- rules.lua --
-		set_text(LANG, 'setRules', 'Chat rules have been updated.')
-		set_text(LANG, 'remRules', 'Chat rules have been removed.')
+		set_text(LANG, 'setRules', 'Reglas del grupo actualizadas.')
+		set_text(LANG, 'remRules', 'Reglas del grupo removidas.')
 		
         ------------
 		-- Usages --
