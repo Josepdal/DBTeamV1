@@ -84,7 +84,7 @@ sleep 1.2
 # Checking if the bot folder is in HOME
 echo -e "$bld$f4 CHECKING INSTALLED BOT...$rst"
 sleep 0.5
-ls ../ | grep $BOT 2>/dev/null
+ls ../ | grep $BOT 2>/dev/null >/dev/null
 if [ $? != 0 ]; then
   echo -e "$f1 ERROR: BOT: $BOT NOT FOUND IN YOUR HOME DIRECTORY$rst"
   sleep 4
@@ -187,6 +187,12 @@ while true; do
 
 	fi
 	
+	# Clear cache after 10h
+	if [ "$BAD" == 2400 ]; then
+		sync
+		sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
+	fi
+	
 	VOLUNTARY=`echo $VOLUNTARYCHECK`
 	NONVOLUNTARY=`echo $NONVOLUNTARYCHECK`
 	sleep $RELOADTIME
@@ -236,7 +242,7 @@ sleep 1.3
 # Checking if the bot folder is in HOME
 echo -e "$bld$f4 CHECKING INSTALLED BOT...$rst"
 sleep 0.5
-ls ../ | grep $BOT 2>/dev/null
+ls ../ | grep $BOT 2>/dev/null >/dev/null
 if [ $? != 0 ]; then
   echo -e "$f1 ERROR: BOT: $BOT NOT FOUND IN YOUR HOME DIRECTORY$rst"
   sleep 4
@@ -428,6 +434,12 @@ sleep 5
 		echo -e "$f2 SCREEN NEW PID: $SCREEN$rst"
 		sleep 3
 		
+	fi
+	
+	# Clear cache after 10h
+	if [ "$BAD" == 2400 ]; then
+		sync
+		sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
 	fi
 	
 	VOLUNTARY=`echo $VOLUNTARYCHECK`
