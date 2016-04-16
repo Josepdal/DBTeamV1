@@ -188,7 +188,7 @@ while true; do
 	fi
 	
 	# Clear cache after 10h
-	if [ "$BAD" == 2400 ]; then
+	if [ "$OK" == 2400 ]; then
 		sync
 		sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
 	fi
@@ -437,7 +437,7 @@ sleep 5
 	fi
 	
 	# Clear cache after 10h
-	if [ "$BAD" == 2400 ]; then
+	if [ "$OK" == 2400 ]; then
 		sync
 		sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'
 	fi
