@@ -1,4 +1,4 @@
-local function kick_user(msg)
+function kick_user(msg)
     local chat = 'chat#id'..msg.to.id
     local channel = 'channel#id'..msg.to.id
     local user = msg.from.id
@@ -13,7 +13,6 @@ local function run(msg, matches)
     if not permissions(msg.from.id, msg.to.id, "settings") then
         local hash = 'links:'..msg.to.id
         if redis:get(hash) then
-            kick_user(msg)
             delete_msg(msg.id, ok_cb, false)
         end
     end
