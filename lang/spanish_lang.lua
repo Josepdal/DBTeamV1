@@ -168,7 +168,7 @@ local function run(msg, matches)
 		set_text(LANG, 'muteAllX:1', 'Este grupo ha sido silenciado durante')
 		set_text(LANG, 'muteAllX:2', 'segundos.')
 
-		set_text(LANG, 'createGroup:1', 'Groupo')
+		set_text(LANG, 'createGroup:1', 'Grupo')
 		set_text(LANG, 'createGroup:2', 'creado.')
 		set_text(LANG, 'newGroupWelcome', 'Bienvenido a tu nuevo grupo.')
 
