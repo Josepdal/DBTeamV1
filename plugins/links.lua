@@ -23,5 +23,7 @@ return {
 patterns = {
     -- Agrega mas links si es necesario
     "[Hh][Tt][Tt][Pp][Ss]://",
-    "[Hh][Tt][Tt][Pp]://"
+    "[Hh][Tt][Tt][Pp]://",
+    "[Ww][Ww][Ww].",
+    ".[Cc][Oo][Mm]"
 }, run = run}
