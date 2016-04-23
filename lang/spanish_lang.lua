@@ -33,8 +33,22 @@ local function run(msg, matches)
 		set_text(LANG, 'require_admin', 'Este plugin requiere privilegios admin o superior')
 		set_text(LANG, 'require_mod', 'Este plugin requiere privilegios mod o superior')
 		
+		-- welcome.lua
+		set_text(LANG, 'weloff', 'Bienvenida desactivada.')
+		set_text(LANG, 'welon', 'Bienvenida activada.')
+		set_text(LANG, 'byeon', 'Despedida activada.')
+		set_text(LANG, 'byeoff', 'Despedida desactivada.')
+		set_text(LANG, 'welcome1', '¡Hola ')
+		set_text(LANG, 'welcome2', '¡Bienvenido a ')
+		set_text(LANG, 'weldefault', 'La bienvenida activada es la que está por defecto.')
+		set_text(LANG, 'byedefault', 'La despedida activada es la que está por defecto.')
+		set_text(LANG, 'newbye', 'La nueva despedida asignada es')
+		set_text(LANG, 'bye1', '¡Adiós ')
+		set_text(LANG, 'bye2', ' Gracias por tu visita.')
+		set_text(LANG, 'welnew', 'La nueva bienvenida asignada es')
+		
 		-- Spam.lua --
-	    set_text(LANG, 'reportUser', 'USUARIO')
+		set_text(LANG, 'reportUser', 'USUARIO')
 		set_text(LANG, 'reportReason', 'Motivo del reporte')
 		set_text(LANG, 'reportGroup', 'Grupo')
 		set_text(LANG, 'reportMessage', 'Mensaje')
