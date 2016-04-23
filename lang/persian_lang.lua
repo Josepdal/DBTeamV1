@@ -32,6 +32,20 @@ local function run(msg, matches)
         set_text(LANG, 'require_sudo', 'این پلاگین نیاز به دسترسی سودو دارد.')
         set_text(LANG, 'require_admin', 'این پلاگین نیاز به دسترسی ادمین و یا بالا تر دارد.')
         set_text(LANG, 'require_mod', 'این پلاگین نیاز به دسترسی مدیر و یا بالا تر دارد.')
+        
+        -- welcome.lua
+	set_text(LANG, 'weloff', 'Welcome enabled.')
+	set_text(LANG, 'welon', 'Welcome disabled.')
+	set_text(LANG, 'byeon', 'Goodbye enabled.')
+	set_text(LANG, 'byeoff', 'Goodbye disabled.')
+	set_text(LANG, 'welcome1', 'Hi ')
+	set_text(LANG, 'welcome2', 'Welcome to ')
+	set_text(LANG, 'weldefault', 'The welcome is the default.')
+	set_text(LANG, 'byedefault', 'The goodbye is the default.')
+	set_text(LANG, 'newbye', 'Welcome saved! is')
+	set_text(LANG, 'bye1', 'Bye ')
+	set_text(LANG, 'bye2', ' thank you for your visit.')
+	set_text(LANG, 'welnew', 'Goodbye saved! is')
 
         -- Spam.lua --
         set_text(LANG, 'reportUser', 'کاربر')
@@ -57,10 +71,10 @@ local function run(msg, matches)
         set_text(LANG, 'stickersT', 'از این به بعد استفاده از استیکر در این گروه آزاد است.')
         set_text(LANG, 'stickersL', 'از این به بعد استفاده از استیکر در این سوپر گروه آزاد است.')
 
-		set_text(LANG, 'noTgservicesT', 'Telegram services muted in this chat.')
-		set_text(LANG, 'noTgservicesL', 'Telegram services muted in this supergroup.')
-		set_text(LANG, 'tgservicesT', 'Telegram services allowed in this chat.')
-		set_text(LANG, 'tgservicesL', 'Telegram services allowed in this supergroup.')
+	set_text(LANG, 'noTgservicesT', 'Telegram services muted in this chat.')
+	set_text(LANG, 'noTgservicesL', 'Telegram services muted in this supergroup.')
+	set_text(LANG, 'tgservicesT', 'Telegram services allowed in this chat.')
+	set_text(LANG, 'tgservicesL', 'Telegram services allowed in this supergroup.')
 		
 		
         set_text(LANG, 'LinksT', 'Links are now allowed in this chat.')
