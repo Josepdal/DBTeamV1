@@ -1,3 +1,8 @@
+------------------------------------------
+--  DBTeam DBTeam DBTeam DBTeam DBTeam ---
+--  Welcome by @xxdamage               ---
+-- multilanguage and fix by@Jarriz     ---
+------------------------------------------
 function chat_new_user(msg)
    local name = msg.action.user.first_name:gsub('_', ' ')
     local id = msg.action.user.id
@@ -145,14 +150,14 @@ return {
       "^!!tgservice (chat_add_user)$",
 	   "^!!tgservice (chat_del_user)$",
       "^!!tgservice (chat_add_user_link)$",
-      "[!/#](setwelcome) (.*)",
-      "[!/#](getwelcome)",
-      "[!/#](setbye) (.*)",
-      "[!/#](getbye)",
-      "[!/#](welcome on)",
-      "[!/#](welcome off)",
-      "[!/#](bye on)",
-      "[!/#](bye off)"
+      "^[!/#](setwelcome) (.*)",
+      "^[!/#](getwelcome)",
+      "^[!/#](setbye) (.*)",
+      "^[!/#](getbye)",
+      "^[!/#](welcome on)",
+      "^[!/#](welcome off)",
+      "^[!/#](bye on)",
+      "^[!/#](bye off)"
    },
    run = run
 }
