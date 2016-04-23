@@ -147,17 +147,17 @@ return {
    description = "Service plugin that sends a custom message when an user enters a chat.",
    usage = "",
    patterns = {
-      "^!!tgservice (chat_add_user)$",
-	   "^!!tgservice (chat_del_user)$",
-      "^!!tgservice (chat_add_user_link)$",
-      "^[!/#](setwelcome) (.*)",
-      "^[!/#](getwelcome)",
-      "^[!/#](setbye) (.*)",
-      "^[!/#](getbye)",
-      "^[!/#](welcome on)",
-      "^[!/#](welcome off)",
-      "^[!/#](bye on)",
-      "^[!/#](bye off)"
+	"^!!tgservice (chat_add_user)$",
+	"^!!tgservice (chat_del_user)$",
+	"^!!tgservice (chat_add_user_link)$",
+	"^[!/#](setwelcome) (.*)",
+	"^[!/#](getwelcome)",
+	"^[!/#](setbye) (.*)",
+	"^[!/#](getbye)",
+	"^[!/#](welcome on)",
+	"^[!/#](welcome off)",
+	"^[!/#](bye on)",
+	"^[!/#](bye off)"
    },
    run = run
 }
