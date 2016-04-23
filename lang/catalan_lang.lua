@@ -33,8 +33,22 @@ local function run(msg, matches)
 		set_text(LANG, 'require_admin', 'Aquest plugin requereix permissos administrador o superior')
 		set_text(LANG, 'require_mod', 'Aquest plugin requereix permissos mod o superior')
 		
+		-- welcome.lua
+		set_text(LANG, 'weloff', 'Welcome enabled.')
+		set_text(LANG, 'welon', 'Welcome disabled.')
+		set_text(LANG, 'byeon', 'Goodbye enabled.')
+		set_text(LANG, 'byeoff', 'Goodbye disabled.')
+		set_text(LANG, 'welcome1', 'Hi ')
+		set_text(LANG, 'welcome2', 'Welcome to ')
+		set_text(LANG, 'weldefault', 'The welcome is the default.')
+		set_text(LANG, 'byedefault', 'The goodbye is the default.')
+		set_text(LANG, 'newbye', 'Goodbye saved! is')
+		set_text(LANG, 'bye1', 'Bye ')
+		set_text(LANG, 'bye2', ' thank you for your visit.')
+		set_text(LANG, 'welnew', 'Welcome saved! is')
+		
 		-- Spam.lua --
-	    set_text(LANG, 'reportUser', 'USUARI')
+		set_text(LANG, 'reportUser', 'USUARI')
 		set_text(LANG, 'reportReason', 'Motiu del report')
 		set_text(LANG, 'reportGroup', 'Grup')
 		set_text(LANG, 'reportMessage', 'Missatge')
