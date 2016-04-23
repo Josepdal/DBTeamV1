@@ -32,6 +32,20 @@ local function run(msg, matches)
 		set_text(LANG, 'require_sudo', 'هذا الامر يتطلب امتيازات مطور.')
 		set_text(LANG, 'require_admin', 'هذا الامر يتطلب امتيازات مسؤول أو أعلى.')
 		set_text(LANG, 'require_mod', 'هذا الامر يتطلب امتيازات أدمن أو أعلى.')
+		
+		-- welcome.lua
+		set_text(LANG, 'weloff', 'Welcome enabled.')
+		set_text(LANG, 'welon', 'Welcome disabled.')
+		set_text(LANG, 'byeon', 'Goodbye enabled.')
+		set_text(LANG, 'byeoff', 'Goodbye disabled.')
+		set_text(LANG, 'welcome1', 'Hi ')
+		set_text(LANG, 'welcome2', 'Welcome to ')
+		set_text(LANG, 'weldefault', 'The welcome is the default.')
+		set_text(LANG, 'byedefault', 'The goodbye is the default.')
+		set_text(LANG, 'newbye', 'Welcome saved! is')
+		set_text(LANG, 'bye1', 'Bye ')
+		set_text(LANG, 'bye2', ' thank you for your visit.')
+		set_text(LANG, 'welnew', 'Goodbye saved! is')
 
 		-- Spam.lua --
 		set_text(LANG, 'reportUser', 'العضو')
