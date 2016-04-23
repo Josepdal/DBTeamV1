@@ -34,7 +34,7 @@ local function run(msg, matches)
 		set_text(LANG, 'require_mod', 'Este plugin requiere privilegios mod o superior')
 		
 		-- Spam.lua --
-	    set_text(LANG, 'reportUser', 'USUARIO')
+		set_text(LANG, 'reportUser', 'USUARIO')
 		set_text(LANG, 'reportReason', 'Motivo del reporte')
 		set_text(LANG, 'reportGroup', 'Grupo')
 		set_text(LANG, 'reportMessage', 'Mensaje')
