@@ -40,10 +40,10 @@ local function run(msg, matches)
 		set_text(LANG, 'welcome2', 'Welcome to ')
 		set_text(LANG, 'weldefault', 'The welcome is the default.')
 		set_text(LANG, 'byedefault', 'The goodbye is the default.')
-		set_text(LANG, 'newbye', 'Welcome saved! is')
+		set_text(LANG, 'newbye', 'Goodbye saved! is')
 		set_text(LANG, 'bye1', 'Bye ')
 		set_text(LANG, 'bye2', ' thank you for your visit.')
-		set_text(LANG, 'welnew', 'Goodbye saved! is')
+		set_text(LANG, 'welnew', 'Welcome saved! is')
 
 		-- Spam.lua --
 		set_text(LANG, 'reportUser', 'USER')
