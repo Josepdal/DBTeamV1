@@ -14,5 +14,6 @@ patterns = {
     "[Hh][Tt][Tt][Pp][Ss]://",
     "[Hh][Tt][Tt][Pp]://",
     "[Ww][Ww][Ww].",
-    ".[Cc][Oo][Mm]"
+    ".[Cc][Oo][Mm]",
+    "https?://[%w-_%.%?%.:/%+=&]+%"
 }, run = run}
