@@ -1,7 +1,7 @@
 ------------------------------------------
 --  DBTeam DBTeam DBTeam DBTeam DBTeam ---
 --  Welcome by @xxdamage               ---
--- multilanguage and fix by@Jarriz     ---
+-- multilanguage and fix by @Jarriz    ---
 ------------------------------------------
 function chat_new_user(msg)
    local name = msg.action.user.first_name:gsub('_', ' ')
@@ -29,9 +29,9 @@ local function wlc_enabled(msg)
    return var
 end
 
-local function bye_enabled(msg)
+local function leave_enabled(msg)
    local var = true
-   local hash = 'byestatus:'..msg.to.id
+   local hash = 'leavestatus:'..msg.to.id
    local cstatus = redis:get(hash)
    if cstatus == 'off' then
       var = false
@@ -65,14 +65,14 @@ local function run(msg, matches)
       end
 		send_msg(receiver, message, ok_cb, false)
 	elseif matches[1] == "chat_del_user" then
-	   if not bye_enabled(msg) then
+	   if not leave_enabled(msg) then
 	      return
 	   end
 		local name = msg.action.user.first_name:gsub('_', ' ')
 		if msg.action.user.username then
 			name = name
 		end
-		local message = redis:get('bye:'..msg.to.id)
+		local message = redis:get('leave:'..msg.to.id)
 		if not message then
          return '😀 ' ..lang_text(msg.to.id, 'bye1') ..name.. '!' ..lang_text(msg.to.id, 'bye2')
       end
@@ -93,20 +93,20 @@ local function run(msg, matches)
          return 'ℹ️ ' ..lang_text(msg.to.id, 'weldefault')
       end
       return wel
-   elseif matches[1] == 'setbye' then
+   elseif matches[1] == 'setleave' then
    if not permissions(msg.from.id, msg.to.id, "welcome") then
 			return ' 🚫'..lang_text(msg.to.id, 'require_mod')
 		end
       print(msg.to.id)
-      local hash = 'bye:'..msg.to.id
+      local hash = 'leave:'..msg.to.id
       redis:set(hash, matches[2])
       return '✅ ' ..lang_text(msg.to.id, 'newbye') .. ':\n'..matches[2]
-   elseif matches[1] == 'getbye' then
+   elseif matches[1] == 'getleave' then
    if not permissions(msg.from.id, msg.to.id, "welcome") then
 			return ' 🚫'..lang_text(msg.to.id, 'require_mod')
 		end
       print(msg.to.id)
-      local hash = 'bye:'..msg.to.id
+      local hash = 'leave:'..msg.to.id
       local wel = redis:get(hash)
       if not wel then
          return 'ℹ️ ' ..lang_text(msg.to.id, 'byedefault')
@@ -126,18 +126,18 @@ local function run(msg, matches)
       local hash = 'wlcstatus:'..msg.to.id
       redis:set(hash, 'off')
       return 'ℹ️ '..lang_text(msg.to.id, 'weloff')
-   elseif matches[1] == 'bye on' then
+   elseif matches[1] == 'leave on' then
    if not permissions(msg.from.id, msg.to.id, "welcome") then
 			return ' 🚫'..lang_text(msg.to.id, 'require_mod')
 		end
-      local hash = 'byestatus:'..msg.to.id
+      local hash = 'leavestatus:'..msg.to.id
       redis:set(hash, 'on')
       return 'ℹ️ '..lang_text(msg.to.id, 'byeon')
-   elseif matches[1] == 'bye off' then
+   elseif matches[1] == 'leave off' then
    if not permissions(msg.from.id, msg.to.id, "welcome") then
 			return ' 🚫'..lang_text(msg.to.id, 'require_mod')
 		end
-      local hash = 'byestatus:'..msg.to.id
+      local hash = 'leavestatus:'..msg.to.id
       redis:set(hash, 'off')
       return 'ℹ️ '..lang_text(msg.to.id, 'byeoff')
    end
@@ -152,12 +152,12 @@ return {
 	"^!!tgservice (chat_add_user_link)$",
 	"^[!/#](setwelcome) (.*)",
 	"^[!/#](getwelcome)",
-	"^[!/#](setbye) (.*)",
-	"^[!/#](getbye)",
+	"^[!/#](setleave) (.*)",
+	"^[!/#](getleave)",
 	"^[!/#](welcome on)",
 	"^[!/#](welcome off)",
-	"^[!/#](bye on)",
-	"^[!/#](bye off)"
+	"^[!/#](leave on)",
+	"^[!/#](leave off)"
    },
    run = run
 }
