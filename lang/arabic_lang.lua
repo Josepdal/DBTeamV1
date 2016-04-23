@@ -45,7 +45,7 @@ local function run(msg, matches)
 		set_text(LANG, 'newbye', 'Goodbye saved! is')
 		set_text(LANG, 'bye1', 'Bye ')
 		set_text(LANG, 'bye2', ' thank you for your visit.')
-		set_text(LANG, 'welnew', 'Welcome saved! is'))
+		set_text(LANG, 'welnew', 'Welcome saved! is')
 
 		-- Spam.lua --
 		set_text(LANG, 'reportUser', 'العضو')
