@@ -21,8 +21,8 @@ local function run(msg, matches)
 		-------------------------
 		-- Translation version --
 		-------------------------
-		set_text(LANG, 'version', '0.2')
-		set_text(LANG, 'versionExtended', 'Traducción na versión 0.2')
+		set_text(LANG, 'version', '2.1')
+		set_text(LANG, 'versionExtended', 'Traducción na versión 2.1')
 
 		-------------
 		-- Plugins --
@@ -34,18 +34,18 @@ local function run(msg, matches)
 		set_text(LANG, 'require_mod', 'Este plugin requiere privilexios mod ou superior')
 		
 		-- welcome.lua
-		set_text(LANG, 'weloff', 'Welcome enabled.')
-		set_text(LANG, 'welon', 'Welcome disabled.')
-		set_text(LANG, 'byeon', 'Goodbye enabled.')
-		set_text(LANG, 'byeoff', 'Goodbye disabled.')
-		set_text(LANG, 'welcome1', 'Hi ')
-		set_text(LANG, 'welcome2', 'Welcome to ')
-		set_text(LANG, 'weldefault', 'The welcome is the default.')
-		set_text(LANG, 'byedefault', 'The goodbye is the default.')
-		set_text(LANG, 'newbye', 'Goodbye saved! is')
-		set_text(LANG, 'bye1', 'Bye ')
-		set_text(LANG, 'bye2', ' thank you for your visit.')
-		set_text(LANG, 'welnew', 'Welcome saved! is')
+		set_text(LANG, 'weloff', 'Benvida actiada')
+		set_text(LANG, 'welon', 'Benvida desactivada')
+		set_text(LANG, 'byeon', 'Despedida activada')
+		set_text(LANG, 'byeoff', 'Despedida desactivada')
+		set_text(LANG, 'welcome1', 'Ola ')
+		set_text(LANG, 'welcome2', 'Benvido a ')
+		set_text(LANG, 'weldefault', 'A benvida é a por defecto')
+		set_text(LANG, 'byedefault', 'A despedida é a por defecto')
+		set_text(LANG, 'newbye', 'A despedida gardouse como')
+		set_text(LANG, 'bye1', 'Adeus ')
+		set_text(LANG, 'bye2', ' grazas poa túa visita')
+		set_text(LANG, 'welnew', 'A benvida gadrouse como')
 		
 		-- Spam.lua --
 	    	set_text(LANG, 'reportUser', 'USUARIO')
