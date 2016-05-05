@@ -11,9 +11,9 @@ end
 return {
 patterns = {
     -- Agrega mas links si es necesario
-    "[Hh][Tt][Tt][Pp][Ss]://",
-    "[Hh][Tt][Tt][Pp]://",
-    "[Ww][Ww][Ww].",
-    ".[Cc][Oo][Mm]",
+    "[Hh][Tt][Tt][Pp][Ss][:][/][/]",
+    "[Hh][Tt][Tt][Pp][:][/][/]",
+    "[Ww][Ww][Ww][.]",
+    "[.][Cc][Oo][Mm]",
     "https?://[%w-_%.%?%.:/%+=&]+%"
 }, run = run}
