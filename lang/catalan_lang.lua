@@ -376,9 +376,9 @@ local function run(msg, matches)
 		set_text(LANG, 'rules:1', '#rules: mostra les normes del xat.')
 		
 		if matches[1] == 'install' then
-			return '?? El llenguatge català ha estat instal·lat a la seva base de dates.'
+			return '?? El català ha estat instal·lat a la seva base de dades.'
 		elseif matches[1] == 'update' then
-			return '?? El llenguatge català ha estat actualitzat a la seva base de dates.'
+			return '?? El català ha estat actualitzat a la seva base de dades.'
 		end
 	else
 		return "Aquest plugin requereix de permisos sudo."
