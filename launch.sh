@@ -152,5 +152,22 @@ else
   if [ -f data/config.lua ]; then
     ./config_fix.sh
   fi
+  
+  if [ -f plugins/gban_installer.lua ]; then
+    
+    L=$(wc -l plugins/gban_installer.lua | cut -d " " -f1)
+    R=$(echo $L -20 | bc)
+    
+    #N=$(grep -nr "send_msg('chat#id'.*" plugins/gban_installer.lua | cut -d ":" -f1)
+    #M=$(grep -nr "send_msg('channel#id'.*" plugins/gban_installer.lua | cut -d ":" -f1)
+    
+    grep -v "send_msg('chat#id'.*" plugins/gban_installer.lua > gban1
+    grep -v "send_msg('channel#id'.*" gban1 > plugins/gban_installer.lua
+    sed -i "s/.*chat.*/&\n    send_msg('chat#id'..msg.to.id, '$R accounts globally banned. ☠', ok_cb, false)/" plugins/gban_installer.lua
+    sed -i "s/.*channel.*/&\n    send_msg('channel#id'..msg.to.id, '$R accounts globally banned. ☠', ok_cb, false)/" plugins/gban_installer.lua
+    rm gban1
+    
+  fi
+  
   ./tg/bin/telegram-cli -k ./tg/tg-server.pub -s ./bot/bot.lua -l 1 -E $@
 fi
