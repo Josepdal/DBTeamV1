@@ -243,6 +243,9 @@ function create_config( )
     "upredis",
     "me",
     "reply",
+    "bot",
+    "welcome",
+    "version",
     "autoReply",
     "delenum"
     
@@ -312,7 +315,7 @@ https://telegram.me/joinchat/Ctyr5z9lsYfvKpfoQgssww]],
 
 ⚓️ !unlock member  👁‍🗨 لفتح اضافه المجموعة
 
-⚓️  !lock links 👁‍🗨 لمنع الروابط في المجموعة
+⚓️ !lock links 👁‍🗨 لمنع الروابط في المجموعة
 
 ⚓️ !unlock links   👁‍🗨 لفتح الروابط في المجموعة
 
@@ -359,6 +362,7 @@ https://telegram.me/joinchat/Ctyr5z9lsYfvKpfoQgssww]],
 #Developer 🕵
 
 #Dev @lock_at_me_now 🕵�
+🌝🔌 الاوامر جميعها تعمل على   ‖… / … # … ! …‖
     ]],
 	help_text_super =[[📜 ⚡️B⊙T ＢＡＢＥＬＥＯＮΞ⚡️
 🔺➖🔻➖🔺➖🔻➖🔺➖🔻➖🔺ＢＡＢＥＬＥＯＮ
@@ -371,7 +375,7 @@ https://telegram.me/joinchat/Ctyr5z9lsYfvKpfoQgssww]],
 
 ⭕️  !viplink  👁‍🗨 لارسال الرابط خاص 
 
-⭕️   !setname 👁‍🗨 لتغيير اسم المجموعة
+⭕️  !setname 👁‍🗨 لتغيير اسم المجموعة
 
 ⭕️  !setphoto 👁‍🗨 لوضع صوره
 
@@ -415,11 +419,16 @@ https://telegram.me/joinchat/Ctyr5z9lsYfvKpfoQgssww]],
 
 ⭕️  !bye off  👁‍🗨لاطفاء التوديع في المجموعة
 
+⭕️  !bot on 👁‍🗨 لتشغيل البوت في المجموعة
+
+⭕️  !bot off  👁‍🗨 لأطفاء البوت في المجموعة
+
 🔺➖🔻➖🔺➖🔻➖🔺➖🔻➖🔺ＢＡＢＥＬＥＯＮ
 ⚠️: /help  ⛔️   لمعرفه قوائم المساعده 
 #Developer 🕵
 
 #Dev @lock_at_me_now 🕵�
+🌝🔌 الاوامر جميعها تعمل على   ‖… / … # … ! …‖
 	]],
 help_text_realm = [[📜 ⚡️B⊙T ＢＡＢＥＬＥＯＮΞ⚡️
 🔺➖🔻➖🔺➖🔻➖🔺➖🔻➖🔺ＢＡＢＥＬＥＯＮ
