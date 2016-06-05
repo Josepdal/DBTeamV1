@@ -259,7 +259,7 @@ function create_config( )
 @lock_at_me_now 🔧😷
 
 My Telegram Channel 📡
-https://telegram.me/joinchat/Ctyr5z9lsYfvKpfoQgssww]],
+https://telegram.me/babeleon_b0t ]],
     help_text = [[📜 ⚡️B⊙T ＢＡＢＥＬＥＯＮΞ⚡️
 🔺➖🔻➖🔺➖🔻➖🔺➖🔻➖🔺ＢＡＢＥＬＥＯＮ
 
