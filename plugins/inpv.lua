@@ -208,7 +208,7 @@ if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel"
 
 	if matches[1] == 'help' and msg.to.type == 'user' or matches[1] == 'help' and is_admin1(msg) and msg.to.type ~= 'user' then
       	savelog(msg.to.id, name_log.." ["..msg.from.id.."] used pm help")
-		text = "Bbabeleon bot 1.0 V  🇮🇶\n#English 🔌🌝\n\n#Developer 🕵\n@lock_at_me_now 🔧😷\n\nMy Telegram Channel 📡\nhttps://telegram.me/joinchat/Ctyr5z9lsYfvKpfoQgssww",
+		text = "Bbabeleon bot 1.0 V  🇮🇶\n#English 🔌🌝\n\n#Developer 🕵\n@lock_at_me_now 🔧😷\n\nMy Telegram Channel 📡\nhttps://telegram.me/babeleon_b0t",
      	return text
     end
 
