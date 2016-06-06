@@ -1,8 +1,6 @@
 [Babeleon-Bot](https://telegram.me/lock_at_me_now) 
 ============
-☫Babeleon-bot developer ☬ 
-------------
-[![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-blue.svg)](https://telegram.me/lock_at_me_now)
+☫Babeleon-bot developer ☬  [![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-blue.svg)](https://telegram.me/lock_at_me_now)
 ============
 
 A Telegram Bot based on plugins using [tg](https://github.com/vysheng/tg).
