@@ -4,7 +4,7 @@ Babeleon-Bot
 A Telegram Bot based on plugins using [tg](https://github.com/vysheng/tg).
 
 
-[Installation-Babeleon-Bot](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup)
+[Installation](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup)
 ------------
 ```bash
 # Tested on Ubuntu 14.04, for other OSs check out https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup
@@ -16,13 +16,14 @@ A Telegram Bot based on plugins using [tg](https://github.com/vysheng/tg).
 
 ```bash
 # After those dependencies, lets install the bot
-〄git clone https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup
-〄cd Babeleon-bot
-〄chmod +x launch.sh
-〄./launch.sh install
-〄./launch.sh
-〄./launch.sh # Will ask you for a phone number & confirmation code 
-# Bbabeleon bot 1.0 V 
+〄3 git clone https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup
+〄4 cd Babeleon-bot
+〄5 chmod +x launch.sh
+〄6 ./launch.sh install
+〄7 ./launch.sh
+〄8 ./launch.sh 
+# Will ask you for a phone number & confirmation code 
+# Bbabeleon bot 1.0 V / English
 ```
 You can also use this command to install the bot in just one step 🔌🌝
 ```bash
@@ -39,5 +40,5 @@ You can also use this command to install the bot in just one step 🔌🌝
 -----------------------------------------
 ☫developer Channel ☬ 
 ------------
-[![https://telegram.me/babeleon_b0t](https://img.shields.io/badge/%F0%9F%92%AC☬Telegram-Channel bot-blue.svg)](https://telegram.me/babeleon_b0t)
+[![https://telegram.me/babeleon_b0t](https://img.shields.io/badge/☬Telegram-Channel bot-blue.svg)](https://telegram.me/babeleon_b0t)
 -----------------------------------------
