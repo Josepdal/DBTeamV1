@@ -31,7 +31,7 @@ You can also use this command to install the bot in just one step.
 -----------------------------------------
 ☫Babeleon-bot developer ☬ 
 ------------
-[![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-blue.svg)](https://telegram.me/lock_at_me_now)
+[![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-gold.svg)](https://telegram.me/lock_at_me_now)
 -----------------------------------------
 ☫bot development group ☬ 
 ------------
