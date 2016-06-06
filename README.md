@@ -1,10 +1,10 @@
-Babeleon-Bot
+Babeleon-Bot 
 ============
 
 A Telegram Bot based on plugins using [tg](https://github.com/vysheng/tg).
 
 
-[Installation](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup)
+[Installation-Babeleon-Bot](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup)
 ------------
 ```bash
 # Tested on Ubuntu 14.04, for other OSs check out https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup
@@ -16,26 +16,26 @@ A Telegram Bot based on plugins using [tg](https://github.com/vysheng/tg).
 
 ```bash
 # After those dependencies, lets install the bot
-3⃣ git clone https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup
-4⃣ cd Babeleon-bot
-5⃣ chmod +x launch.sh
-6⃣ ./launch.sh install
-7⃣ ./launch.sh
-./launch.sh # Will ask you for a phone number & confirmation code 
-# Bbabeleon bot 1.0 V  🇮🇶
+〄git clone https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup
+〄cd Babeleon-bot
+〄chmod +x launch.sh
+〄./launch.sh install
+〄./launch.sh
+〄./launch.sh # Will ask you for a phone number & confirmation code 
+# Bbabeleon bot 1.0 V 
 ```
-You can also use this command to install the bot in just one step.
+You can also use this command to install the bot in just one step 🔌🌝
 ```bash
 
 ```
 -----------------------------------------
 ☫Babeleon-bot developer ☬ 
 ------------
-[![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-gold.svg)](https://telegram.me/lock_at_me_now)
+[![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-blue.svg)](https://telegram.me/lock_at_me_now)
 -----------------------------------------
 ☫bot development group ☬ 
 ------------
-[![https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ](https://img.shields.io/badge/☬Telegram-Bot Group-chartreuse.svg)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
+[![https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ](https://img.shields.io/badge/☬Telegram-Bot Group-blue.svg)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
 -----------------------------------------
 ☫developer Channel ☬ 
 ------------
