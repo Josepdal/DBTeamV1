@@ -30,6 +30,14 @@ You can also use this command to install the bot in just one step 🔌🌝
 ```bash
 
 ```
+Enable more [`plugins`]()
+-------------------------------
+See the plugins list with !p command.
+
+Enable a disabled plugin by !p e [name].
+
+Disable an enabled plugin by !p d [name].
+
 -----------------------------------------
 ☫Babeleon-bot developer ☬ 
 ------------
