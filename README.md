@@ -29,15 +29,15 @@ You can also use this command to install the bot in just one step.
 
 ```
 -----------------------------------------
-Babeleon-bot developer ☬ 
-------------
+☫Babeleon-bot developer ☬ 
+```
 [![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-blue.svg)](https://telegram.me/lock_at_me_now)
 -----------------------------------------
-bot development group ☬ 
+☫bot development group ☬ 
 ------------
 [![https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ](https://img.shields.io/badge/☬Telegram-Bot Group-blue.svg)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
 -----------------------------------------
-and developer Channel ☬ 
+☫developer Channel ☬ 
 ------------
 [![https://telegram.me/babeleon_b0t](https://img.shields.io/badge/%F0%9F%92%AC_Telegram-Channel bot-blue.svg)](https://telegram.me/babeleon_b0t)
 -----------------------------------------
