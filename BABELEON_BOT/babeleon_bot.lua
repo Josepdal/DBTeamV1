@@ -246,7 +246,6 @@ function create_config( )
     "bot",
     "welcome",
     "version",
-    "Welcome-By-Reply",
     "autoReply",
     "delenum"
     
