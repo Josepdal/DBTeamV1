@@ -35,9 +35,9 @@ You can also use this command to install the bot in just one step.
 -----------------------------------------
 ☫bot development group ☬ 
 ------------
-[![https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ](https://img.shields.io/badge/☬Telegram-Bot Group-Green.svg)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
+[![https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ](https://img.shields.io/badge/☬Telegram-Bot Group-chartreuse.svg)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
 -----------------------------------------
 ☫developer Channel ☬ 
 ------------
-[![https://telegram.me/babeleon_b0t](https://img.shields.io/badge/%F0%9F%92%AC/☬Telegram-Channel bot-blue.svg)](https://telegram.me/babeleon_b0t)
+[![https://telegram.me/babeleon_b0t](https://img.shields.io/badge/%F0%9F%92%AC☬Telegram-Channel bot-blue.svg)](https://telegram.me/babeleon_b0t)
 -----------------------------------------
