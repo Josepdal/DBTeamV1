@@ -22,7 +22,6 @@
 〄5 chmod +x launch.sh
 〄6 ./launch.sh install
 〄7 ./launch.sh
-〄8 ./launch.sh 
 # Will ask you for a phone number & confirmation code 
 # Bbabeleon bot 1.0 V / English
 ```
