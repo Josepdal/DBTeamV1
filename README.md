@@ -30,7 +30,7 @@ You can also use this command to install the bot in just one step 🔌🌝
 ```bash
 
 ```
-Enable more [`plugins`]()
+Enable more [`plugins`](https://github.com/ibrahimlovers/Babeleon-bot/tree/supergroup/plugins)
 -------------------------------
 See the plugins list with !p command.
 
