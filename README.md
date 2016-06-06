@@ -1,4 +1,4 @@
-[Babeleon-Bot](https://telegram.me/lock_at_me_now) 
+[Babeleon-Bot](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup) 
 ============
 ☫Babeleon-bot developer ☬  [![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-blue.svg)](https://telegram.me/lock_at_me_now)
 ============
@@ -10,9 +10,9 @@
 ```bash
 # Tested on Ubuntu 14.04, for other OSs check out https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup
 
-1⃣ sudo apt-get update 
+〄1 sudo apt-get update 
 
-2⃣ sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev lua-socket lua-sec lua-expat libevent-dev make unzip git redis-server autoconf g++ libjansson-dev libpython-dev expat libexpat1-dev
+〄2 sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev lua-socket lua-sec lua-expat libevent-dev make unzip git redis-server autoconf g++ libjansson-dev libpython-dev expat libexpat1-dev
 ```
 
 ```bash
