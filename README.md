@@ -58,3 +58,6 @@ Those commands require a privileged user, privileged users are defined inside Ba
 ------------
 [![https://telegram.me/babeleon_b0t](https://img.shields.io/badge/☬Telegram-Channel bot-blue.svg)](https://telegram.me/babeleon_b0t)
 -----------------------------------------
+| [![@AD7six](http://s.gravatar.com/avatar/876a61b58a729fcf71048529885d64dc?s=90)](https://twitter.com/AD7six "Follow @AD7six on Twitter") |
+|---|
+| [Andy Dawson](http://ad7six.com/) |
