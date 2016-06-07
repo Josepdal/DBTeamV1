@@ -3,9 +3,6 @@
 ☫Babeleon-bot developer ☬  [![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-green.svg?style=plastic)](https://telegram.me/lock_at_me_now)
 ============
 
-[![bitHound](https://img.shields.io/bithound/devDependencies/github/rexxars/sse-channel.svg?maxAge=2592000?style=plastic)](https://telegram.me/lock_at_me_now)
-
------------------------------
 
 [Installation](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup)
 ------------
@@ -48,7 +45,14 @@ Those commands require a privileged user, privileged users are defined inside Ba
 -----------------------------------------
 ☫bot development group ☬ 
 ------------
+
+
 [![https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ](https://img.shields.io/badge/☬Telegram-Bot Group-blue.svg)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
+
+
+[![bitHound](https://img.shields.io/bithound/devDependencies/github/rexxars/sse-channel.svg?maxAge=2592000?style=plastic)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
+
+
 -----------------------------------------
 ☫developer Channel ☬ 
 ------------
