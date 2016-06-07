@@ -46,7 +46,6 @@ Those commands require a privileged user, privileged users are defined inside Ba
 ☫bot development group ☬ 
 ------------
 
-
 [![https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ](https://img.shields.io/badge/☬Telegram-Bot Group-blue.svg)](https://telegram.me/joinchat/B_nPJD9KrBPUSdO4b_I2UQ)
 
 
@@ -58,6 +57,6 @@ Those commands require a privileged user, privileged users are defined inside Ba
 ------------
 [![https://telegram.me/babeleon_b0t](https://img.shields.io/badge/☬Telegram-Channel bot-blue.svg)](https://telegram.me/babeleon_b0t)
 -----------------------------------------
-| [![@AD7six](http://s.gravatar.com/avatar/876a61b58a729fcf71048529885d64dc?s=90)](https://twitter.com/AD7six|
+| [![@AD7six](http://s.gravatar.com/avatar/876a61b58a729fcf71048529885d64dc?s=90)](https://telegram.me/lock_at_me_now "Follow @lock_at_me_now on Telegram") |
 |---|
 | [Andy Dawson](http://ad7six.com/) |
