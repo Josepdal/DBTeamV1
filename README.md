@@ -1,6 +1,6 @@
 [Babeleon-Bot](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup) 
 ============
-☫Babeleon-bot developer ☬  [![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/<☬Telegram->-<sheckesper>-<green>.svg)](https://telegram.me/lock_at_me_now)
+☫Babeleon-bot developer ☬  [![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-green.svg)](https://telegram.me/lock_at_me_now)
 ============
 
 
