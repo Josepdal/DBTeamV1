@@ -3,6 +3,9 @@
 ☫Babeleon-bot developer ☬  [![https://telegram.me/lock_at_me_now](https://img.shields.io/badge/☬Telegram-sheckesper-green.svg?style=plastic)](https://telegram.me/lock_at_me_now)
 ============
 
+[![bitHound](https://img.shields.io/bithound/devDependencies/github/rexxars/sse-channel.svg?maxAge=2592000?style=plastic)](https://telegram.me/lock_at_me_now)
+
+-----------------------------
 
 [Installation](https://github.com/ibrahimlovers/Babeleon-bot.git -b supergroup)
 ------------
