@@ -50,4 +50,4 @@ Those commands require a privileged user, privileged users are defined inside Ba
 ---------
 | [![@AD7six](http://s.gravatar.com/avatar/876a61b58a729fcf71048529885d64dc?s=90)](https://telegram.me/lock_at_me_now "Follow @lock_at_me_now on Telegram") |
 |---|
-| [facebook](https://www.facebook.com/profile.php?id=100005409824735) |
+| [add to facebook](https://www.facebook.com/profile.php?id=100005409824735) |
