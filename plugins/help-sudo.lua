@@ -35,7 +35,7 @@ end
  
 return {
 patterns ={
-  "^[#!/](helpsudo)$"
+  "^(helpsudo)$"
 },
 run = user99
 }
