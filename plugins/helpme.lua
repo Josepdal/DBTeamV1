@@ -11,7 +11,7 @@ local function user99(msg,matches)
    
 return {
     patterns = {
-        '[#!/](helpme)'
+        '(helpme)$'
     },
 
   run = user99
