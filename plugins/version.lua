@@ -1,27 +1,14 @@
---------------------------------------------------
---      ____  ____ _____                        --
---     |    \|  _ )_   _|___ ____   __  __      --
---     | |_  )  _ \ | |/ ·__|  _ \_|  \/  |     --
---     |____/|____/ |_|\____/\_____|_/\/\_|     --
---                                              --
---------------------------------------------------
---                                              --
---       Developers: @Josepdal & @MaSkAoS       --
---     Support: @Skneos,  @iicc1 & @serx666     --
---                                              --
---------------------------------------------------
-
 do
 
-function run(msg, matches)
-  return 'DBTeam Bot V1 Supergroups\nAn advanced Administration bot based on yagop/telegram-bot\n\nDevelopers: @MaSkAoS @Josepdal\nSupport: @skneos @iicc1 @Serx666\nChannels: @DBTeamEN @DBTeamES\n\nCheckout: https://github.com/Josepdal/DBTeam\nGNU GPL v2 license.'
+function user99(msg, matches)
+  return "Bbabeleon bot 1.0 V  🇮🇶\n#English 🔌🌝\n\n#Developer 🕵\n@lock_at_me_now 🔧😷\n\nMy Telegram Channel 📡\nhttps://telegram.me/babeleon_b0t"
 end
 
 return {
   patterns = {
-    "^#version$"
+    "^[#!/]([Dd][Ee][Vv])$"
   }, 
-  run = run 
+  run = user99 
 }
 
 end
