@@ -12,6 +12,6 @@ reply_msg(msg.id, user99, ok_cb, false)
 end 
 end
 return {
-patterns ={"^[#!/](vip)(helpbot)$"},
+patterns ={"^(vip)(helpbot)$"},
 run = user99 }
 end
