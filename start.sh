@@ -1,6 +1,7 @@
 #!/bin/bash 
-# running start.sh with sudo privileges.
-sudo start.sh
+
+# If ./start <no option> then
+if [ ! "$1" ]; then
 clear
 echo -e "\033[38;5;208m"
 echo -e "      ____  ____ _____                        "
@@ -16,7 +17,7 @@ echo -e "\033[38;5;208m"
 echo "   1) English."
 echo "   2) Spanish."
 echo "   3) Portuguese."
-echo -e "\e[32m"
+echo -e "\e[0m"
 # Read VAR of languages. First language Spanish.
 # options
 read VAR
@@ -36,7 +37,7 @@ echo "   8) Cambiar telefono."
 echo "   9) Restaurar y actualizar plugins."
 echo "  10) Instalar DBTeam."
 echo "  11) Salir."
-echo -e "\e[32m"
+echo -e "\e[0m"
 # Suboptions spanish
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -46,16 +47,15 @@ elif [ "$VAR" = 2 ]; then
 elif [ "$VAR" = 3 ]; then
 	tmux attach-session -t script
 elif [ "$VAR" = 4 ]; then
-	killall screen
 	killall telegram-cli
-	killall tmux
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	clear
-	echo -e "\e[34m"
-	echo Sesiones cerradas.
-	echo -e "\e[32m"
+	echo -e '\e[34mSesiones cerradas.\e[0m'
 elif [ "$VAR" = 5 ]; then
 	clear
-	killall tmux
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	read -n1 -r -p 'Presiona cualquier tecla para continuar...' 
 	tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 6 ]; then
@@ -72,9 +72,9 @@ elif [ "$VAR" = 7 ]; then
 	clear
 elif [ "$VAR" = 8 ]; then
 	clear
-	killall screen
-	killall tmux
 	killall telegram-cli
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	rm -R ../.telegram-cli
 	./launch.sh install
 	read -n1 -r -p 'Terminado!, presiona cualquier tecla para el paso siguente'
@@ -89,7 +89,7 @@ elif [ "$VAR"  = 9 ]; then
 	echo "Quieres continuar?"
 	echo "	Si = y		No = n	"
 # SubVar confirmation and change color.
-echo -e "\e[32m"
+echo -e '\e[0m'
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
@@ -106,18 +106,14 @@ read subVAR
 		./start.sh 
 	elif [ "$subVAR"  = n ]; then
 		clear
-		echo -e "\e[32m"
+		echo -e "\e[0m"
 		exit
 	elif [ "$subVAR" = "" ]; then
 		clear
-		echo -e "\e[31m"
-		echo "Opcion invalida"
-		echo -e "\e[32m"
+		echo -e '\e[31mOpcion invalida\e[0m'
 		else
 		clear
-		echo -e "\e[31m"
-		echo "Opcion invalida"
-		echo -e "\e[32m"
+		echo -e '\e[31mOpcion invalida\e[0m'
 	fi
 # end
 elif [ "$VAR" = 10 ]; then
@@ -141,14 +137,10 @@ elif [ "$VAR" = 11 ]; then
 	exit
 elif [ "$VAR" = "" ]; then
 	clear
-	echo -e "\e[31m"
-	echo "Opcion invalida"
-	echo -e "\e[32m"
+	echo -e '\e[31mOpcion invalida\e[0m'
 	else
 	clear
-	echo -e "\e[31m"
-	echo "Opcion invalida"
-	echo -e "\e[32m"
+	echo -e '\e[31mOpcion invalida\e[0m'
 fi
 
 # English Lang
@@ -169,7 +161,7 @@ echo "   8) Change number."
 echo "   9) Restore and Update plugins."
 echo "  10) Install DBTeam."
 echo "  11) Exit."
-echo -e "\e[32m"
+echo -e '\e[0m'
 # options
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -179,17 +171,16 @@ elif [ "$VAR" = 2 ]; then
 elif [ "$VAR" = 3 ]; then
 	tmux attach-session -t script
 elif [ "$VAR" = 4 ]; then
-	killall screen
 	killall telegram-cli
-	killall tmux
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	clear
-	echo -e "\e[34m"
-	echo Sessions closed.
-	echo -e "\e[32m"
+	echo -e '\e[34mSessions closed\e[0m'
 	echo
 elif [ "$VAR" = 5 ]; then
 	clear
-	killall tmux
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	read -n1 -r -p 'Press any key to continue...' 
 	tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 6 ]; then
@@ -206,9 +197,9 @@ elif [ "$VAR" = 7 ]; then
 	clear
 elif [ "$VAR" = 8 ]; then
 	clear
-	killall screen
-	killall tmux
 	killall telegram-cli
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	rm -R ../.telegram-cli
 	./launch.sh install
 	read -n1 -r -p 'Finished!, press any key to the next step.'
@@ -223,7 +214,7 @@ elif [ "$VAR"  = 9 ]; then
 	echo "Are you sure?"
 	echo "	Yes = y			Not= n		"
 # SubVar confirmation and change color
-echo -e "\e[32m"
+echo -e "\e[0m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup/
@@ -240,18 +231,14 @@ read subVAR
 		./start.sh
 	elif [ "$subVAR"  = n ]; then
 		clear
-		echo -e "\e[32m"
+		echo -e "\e[0m"
 		exit
 	elif [ "$subVAR" = "" ]; then
 		clear
-		echo -e "\e[31m"
-		echo "Option invalid"
-		echo -e "\e[32m"
+		echo -e '\e[31mOption invalid\e[0m'
 		else
 		clear
-		echo -e "\e[31m"
-		echo "Option invalid"
-		echo -e "\e[32m"
+		echo -e '\e[31mOption invalid\e[0m'
 	fi
 # end
 elif [ "$VAR" = 10 ]; then
@@ -275,14 +262,10 @@ elif [ "$VAR" = 11 ]; then
 	exit
 elif [ "$VAR" = "" ]; then
 	clear
-	echo -e "\e[31m"
-	echo "Option invalid"
-	echo -e "\e[32m"
+	echo -e '\e[31mOption invalid\e[0m'
 else
 	clear
-	echo -e "\e[31m"
-	echo "Option invalid"
-	echo -e "\e[32m"
+	echo -e '\e[31mOption invalid\e[0m'
 fi
 
 # Portuguese Lang
@@ -304,7 +287,7 @@ echo "   8) Mudar número."
 echo "   9) Excluir e Atualizar plugins."
 echo "   10) Instalar DBTeam."
 echo "   11) Sair."
-echo -e "\e[32m"
+echo -e "\e[0m"
 # Suboptions portuguese
 read VAR
 if [ "$VAR" = 1 ]; then
@@ -314,17 +297,17 @@ elif [ "$VAR" = 2 ]; then
 elif [ "$VAR" = 3 ]; then
 	tmux attach-session -t script
 elif [ "$VAR" = 4 ]; then
-	killall screen
 	killall telegram-cli
-	killall tmux
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	clear
-	echo -e "\e[34m"
-	echo Sessões fechadas.
-	echo -e "\e[32m"
+	echo -e '\e[34mSessões fechadas.\e[0m'
 	echo
 elif [ "$VAR" = 5 ]; then
 	clear
-	killall tmux
+	killall telegram-cli
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	read -n1 -r -p 'Pressione qualquer tecla para continuar...' 
 	tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 6 ]; then
@@ -341,9 +324,9 @@ elif [ "$VAR" = 7 ]; then
 	clear
 elif [ "$VAR" = 8 ]; then
 	clear
-	killall screen
-	killall tmux
 	killall telegram-cli
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
 	rm -R ../.telegram-cli
 	./launch.sh install
 	read -n1 -r -p 'Finalizado!, Pressione qualquer tecla para o próximo passo.'
@@ -358,7 +341,7 @@ elif [ "$VAR"  = 9 ]; then
 	echo "Are you sure?"
 	echo "	Yes = y		Not = n	"
 # SubVar confirmation and change color.
-echo -e "\e[32m"
+echo -e "\e[0m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
@@ -375,18 +358,14 @@ read subVAR
 		./start.sh
 	elif [ "$subVAR"  = n ]; then
 		clear
-		echo -e "\e[32m"
+		echo -e "\e[0m"
 		exit
 	elif [ "$subVAR" = "" ]; then
 		clear
-		echo -e "\e[31m"
-		echo "Opção invalida"
-		echo -e "\e[32m"
+		echo -e '\e[31mOpção invalida\e[0m'
 	else
 		clear
-		echo -e "\e[31m"
-		echo "Opção invalida"
-		echo -e "\e[32m"
+		echo -e '\e[31mOpção invalida\e[0m'
 	fi
 elif [ "$VAR" = 10 ]; then
 	clear
@@ -404,20 +383,16 @@ elif [ "$VAR" = 10 ]; then
 	service redis-server start
 	clear
 	./launch.sh
-	echo -e "\e[32m"
+	echo -e "\e[0m"
 elif [ "$VAR" = 11 ]; then
 	clear
 	exit
 elif [ "$VAR" = "" ]; then
 	clear
-	echo -e "\e[31m"
-	echo "Opção invalida"
-	echo -e "\e[32m"
+	echo -e '\e[31mOpção invalida\e[0m'
 else
 	clear
-	echo -e "\e[31m"
-	echo "Opção invalida"
-	echo -e "\e[32m"
+	echo -e '\e[31mOpção invalida\e[0m'
 fi
 # DELETE BACKUPS
 elif [ "$VAR" = bkpdel ]; then
@@ -430,41 +405,48 @@ read BKPVAR
 if [ "$BKPVAR" = 1 ]; then
 	rm -R /home/DBTeamBackup/plugins
 	clear
-	echo -e "\e[31m"
-	echo "Backups of Plugins removed"
-	echo -e "\e[32m"
+	echo -e '\e[31mBackups of Plugins removed\e[0m'
 elif [ "$BKPVAR" = 2 ]; then
 	rm -R /home/DBTeamBackup/DBTeam
 	clear
-	echo -e "\e[31m"
-	echo "Backups of DBTeam removed"
-	echo -e "\e[32m"
+	echo -e '\e[31mBackups of DBTeam removed\e[0m'
 elif [ "$BKPVAR" = 3 ]; then
 	rm -R /home/DBTeamBackup/
 	clear
-	echo -e "\e[31m"
-	echo "Backups removed"
-	echo -e "\e[32m"
+	echo -e '\e[31mBackups removed\e[0m'
 elif [ "$BKPVAR" = "" ]; then
 	clear
-	echo -e "\e[31m"
-	echo "Option invalid"
-	echo -e "\e[32m"
+	echo -e '\e[31mOption invalid\e[0m'
 else
 	clear
-	echo -e "\e[31m"
-	echo "Option invalid"
-	echo -e "\e[32m"
+	echo -e '\e[31mOption invalid\e[0m'
 fi
 # If not type a valor
 elif [ "$VAR" = "" ]; then
 	clear
-	echo -e "\e[31m"
-	echo "Option invalid"
-	echo -e "\e[32m"
+	echo -e '\e[31mOption invalid\e[0m'
 else
 	clear
-	echo -e "\e[31m"
-	echo "Option invalid"
-	echo -e "\e[32m"
+	echo -e '\e[31mOption invalid\e[0m'
+fi
+fi
+
+# Options in ./start.sh <option>
+
+if [ "$1" = "tmux" ]; then
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
+	tmux new-session -s script "bash steady.sh -t" 
+fi
+
+if [ "$1" = "kill" ]; then
+	clear
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
+	echo -e '\e[31mSessions closed.\e[0m'
+fi
+
+if [ "$1" = "attach" ]; then
+	clear
+	tmux attach-session -t DBTeam
 fi
