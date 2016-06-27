@@ -1,7 +1,8 @@
 #!/bin/bash 
-# running start.sh with sudo privileges.
-clear
+
+# If ./start <no option> then
 if [ ! "$1" ]; then
+clear
 echo -e "\033[38;5;208m"
 echo -e "      ____  ____ _____                        "
 echo -e "     |    \|  _ )_   _|___ ____   __  __      "
