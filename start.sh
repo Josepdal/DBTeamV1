@@ -463,6 +463,7 @@ if [ "$1" = "screen" ]; then
 fi
 
 if [ "$1" = "update" ]; then
+	echo -e '\e[1;34m'
 	sudo apt-get update
 	clear
 	sudo screen -X -S DBTeam kill
@@ -470,12 +471,13 @@ if [ "$1" = "update" ]; then
 	tmux kill-session -t script
 	sudo killall telegram-cli
 	clear
+	echo -e '\e[1;32m'
 	sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev tmux subversion
 	clear
+	echo -e '\e[1;34m'
 	sudo rm -Rf .git/refs/stash .git/logs/refs/stash
 	clear
 	sudo git pull
-	clear
 	echo -e '\e[0;32m----------\e[0m'
 	echo -e '\e[0;32m----------\e[0m'
 	echo -e '\e[0;32m--\e[0m\e[1;32m DONE \e[0m\e[0;32m--\e[0m'
