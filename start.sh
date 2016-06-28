@@ -41,30 +41,30 @@ echo -e "\e[0m"
 # Suboptions spanish
 read VAR
 if [ "$VAR" = 1 ]; then
-	tmux new-session -s script "bash steady.sh -t" 
+	sudo tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 2 ]; then
-	tmux attach-session -t DBTeam
+	sudo tmux attach-session -t DBTeam
 elif [ "$VAR" = 3 ]; then
-	tmux attach-session -t script
+	sudo tmux attach-session -t script
 elif [ "$VAR" = 4 ]; then
-	killall telegram-cli
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo killall telegram-cli
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	clear
 	echo -e '\e[34mSesiones cerradas.\e[0m'
 elif [ "$VAR" = 5 ]; then
 	clear
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	read -n1 -r -p 'Presiona cualquier tecla para continuar...' 
-	tmux new-session -s script "bash steady.sh -t" 
+	sudo tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 6 ]; then
 	clear
-	git pull
+	sudo git pull
 elif [ "$VAR" = 7 ]; then
 	clear
 	mkdir /home/DBTeamBackup
-	rm -R /home/DBTeamBackup/DBTeam
+	sudo rm -R /home/DBTeamBackup/DBTeam
 	clear
 	cp -R ../DBTeam/ /home/DBTeamBackup
 	echo "Respaldo exitoso! Guardado en /home/DBTeamBackup."
@@ -72,13 +72,13 @@ elif [ "$VAR" = 7 ]; then
 	clear
 elif [ "$VAR" = 8 ]; then
 	clear
-	killall telegram-cli
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
-	rm -R ../.telegram-cli
-	./launch.sh install
+	sudo killall telegram-cli
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
+	sudo rm -R ../.telegram-cli
+	sudo ./launch.sh install
 	read -n1 -r -p 'Terminado!, presiona cualquier tecla para el paso siguente'
-	./launch.sh
+	sudo ./launch.sh
 elif [ "$VAR"  = 9 ]; then
 	clear
 	echo -e "\e[31m"
@@ -93,17 +93,17 @@ echo -e '\e[0m'
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
-		rm -R /home/DBTeamBackup/plugins
+		sudo rm -R /home/DBTeamBackup/plugins
 		clear
 		cp -R plugins/ /home/DBTeamBackup
 		clear
 		echo -e "\e[32m"
 		dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
-		rm -rf plugins
+		sudo rm -rf plugins
 		svn export https://github.com/Josepdal/DBTeam/trunk/plugins
 		echo "Plugins restaurados y actualizados!"
 		read -n1 -r -p 'Presiona cualquier tecla para volver al inicio.'
-		./start.sh 
+		sudo ./start.sh 
 	elif [ "$subVAR"  = n ]; then
 		clear
 		echo -e "\e[0m"
@@ -126,12 +126,12 @@ elif [ "$VAR" = 10 ]; then
 	read -n1 -r -p 'Paso 1/3. Paquetes actualizados, Presiona cualquier tecla para seguir con el siguiente paso'
 	sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev
 	read -n1 -r -p 'Paso 2/3. Dependencias instaladas, Presiona cualquier tecla para seguir con el siguiente paso'
-	./launch.sh install
+	sudo ./launch.sh install
 	read -n1 -r -p 'Paso 3/3. Instalacion completa! Gracias por preferir DBTeam el equipo de DBTeam te lo agradece! Esperamos que DBTeam sea de tu agrado. A continuacion te pedira tu numero telefonico y el codigo de confirmacion que te llegara por sms o Telegram, por favor, ingresa tu numero con + [Codigo De Pais] [Numero telefonico]'
 	clear
-	service redis-server start
+	sudo service redis-server start
 	clear
-	./launch.sh
+	sudo ./launch.sh
 elif [ "$VAR" = 11 ]; then
 	clear
 	exit
@@ -165,31 +165,31 @@ echo -e '\e[0m'
 # options
 read VAR
 if [ "$VAR" = 1 ]; then
-	tmux new-session -s script "bash steady.sh -t" 
+	sudo tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 2 ]; then
-	tmux attach-session -t DBTeam
+	sudo tmux attach-session -t DBTeam
 elif [ "$VAR" = 3 ]; then
-	tmux attach-session -t script
+	sudo tmux attach-session -t script
 elif [ "$VAR" = 4 ]; then
-	killall telegram-cli
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo killall telegram-cli
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	clear
 	echo -e '\e[34mSessions closed\e[0m'
 	echo
 elif [ "$VAR" = 5 ]; then
 	clear
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	read -n1 -r -p 'Press any key to continue...' 
-	tmux new-session -s script "bash steady.sh -t" 
+	sudo tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 6 ]; then
 	clear
-	git pull
+	sudo git pull
 elif [ "$VAR" = 7 ]; then
 	clear
 	mkdir /home/DBTeamBackup
-	rm -R /home/DBTeamBackup/DBTeam
+	sudo rm -R /home/DBTeamBackup/DBTeam
 	clear
 	cp -R ../DBTeam/ /home/DBTeamBackup
 	echo "Backup finished! Saved in /home/DBTeamBackup."
@@ -197,13 +197,13 @@ elif [ "$VAR" = 7 ]; then
 	clear
 elif [ "$VAR" = 8 ]; then
 	clear
-	killall telegram-cli
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
-	rm -R ../.telegram-cli
-	./launch.sh install
+	sudo killall telegram-cli
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
+	sudo rm -R ../.telegram-cli
+	sudo ./launch.sh install
 	read -n1 -r -p 'Finished!, press any key to the next step.'
-	./launch.sh
+	sudo ./launch.sh
 elif [ "$VAR"  = 9 ]; then
 	clear
 	echo -e "\e[31m"
@@ -218,17 +218,17 @@ echo -e "\e[0m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup/
-		rm -R /home/DBTeamBackup/plugins
+		sudo rm -R /home/DBTeamBackup/plugins
 		clear
 		cp -R plugins/ /home/DBTeamBackup
 		clear
 		echo -e "\e[32m"
 		dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
-		rm -rf plugins
+		sudo rm -rf plugins
 		svn export https://github.com/Josepdal/DBTeam/trunk/plugins
 		echo "Plugins restored and updated!"
 		read -n1 -r -p 'Press any key to back.'
-		./start.sh
+		sudo ./start.sh
 	elif [ "$subVAR"  = n ]; then
 		clear
 		echo -e "\e[0m"
@@ -251,12 +251,12 @@ elif [ "$VAR" = 10 ]; then
 	read -n1 -r -p 'Step 1/3. Packages updated, Press any key to the next step'
 	sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev
 	read -n1 -r -p 'Step 2/3. Dependences installed. Press any key to the next step'
-	./launch.sh install
+	sudo ./launch.sh install
 	read -n1 -r -p 'Step 3/3. Instalation finished! Thanks to install DBTeam, the team of DBTeam say thank you! We hope you like DBTeam. Then, the script will ask your number y and the confirmation code, Telegram will send a sms o Telegram msg, please, type your numer with + [Code state] [Your phone]'
 	clear
-	service redis-server start
+	sudo service redis-server start
 	clear
-	./launch.sh
+	sudo ./launch.sh
 elif [ "$VAR" = 11 ]; then
 	clear
 	exit
@@ -291,31 +291,31 @@ echo -e "\e[0m"
 # Suboptions portuguese
 read VAR
 if [ "$VAR" = 1 ]; then
-	tmux new-session -s script "bash steady.sh -t" 
+	sudo tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 2 ]; then
-	tmux attach-session -t DBTeam
+	sudo tmux attach-session -t DBTeam
 elif [ "$VAR" = 3 ]; then
-	tmux attach-session -t script
+	sudo tmux attach-session -t script
 elif [ "$VAR" = 4 ]; then
-	killall telegram-cli
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo killall telegram-cli
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	clear
 	echo -e '\e[34mSessões fechadas.\e[0m'
 	echo
 elif [ "$VAR" = 5 ]; then
 	clear
-	killall telegram-cli
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo killall telegram-cli
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	read -n1 -r -p 'Pressione qualquer tecla para continuar...' 
-	tmux new-session -s script "bash steady.sh -t" 
+	sudo tmux new-session -s script "bash steady.sh -t" 
 elif [ "$VAR" = 6 ]; then
 	clear
-	git pull
+	sudo git pull
 elif [ "$VAR" = 7 ]; then
 	clear
-	rm -R /home/DBTeamBackup/DBTeam
+	sudo rm -R /home/DBTeamBackup/DBTeam
 	mkdir /home/DBTeamBackup
 	clear
 	cp -R ../DBTeam/ /home/DBTeamBackup
@@ -324,13 +324,13 @@ elif [ "$VAR" = 7 ]; then
 	clear
 elif [ "$VAR" = 8 ]; then
 	clear
-	killall telegram-cli
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
-	rm -R ../.telegram-cli
-	./launch.sh install
+	sudo killall telegram-cli
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
+	sudo rm -R ../.telegram-cli
+	sudo ./launch.sh install
 	read -n1 -r -p 'Finalizado!, Pressione qualquer tecla para o próximo passo.'
-	./launch.sh
+	sudo ./launch.sh
 elif [ "$VAR"  = 9 ]; then
 	clear
 	echo -e "\e[31m"
@@ -345,17 +345,17 @@ echo -e "\e[0m"
 read subVAR
 	if [ "$subVAR"  = y ]; then
 		mkdir /home/DBTeamBackup
-		rm -R /home/DBTeamBackup/plugins
+		sudo rm -R /home/DBTeamBackup/plugins
 		clear
 		cp -R plugins/ /home/DBTeamBackup
 		clear
 		echo -e "\e[32m"
 		dpkg -s subversion 2>/dev/null >/dev/null || sudo apt-get -y install subversion
-		rm -rf plugins
+		sudo rm -rf plugins
 		svn export https://github.com/Josepdal/DBTeam/trunk/plugins
 		echo "Plugins restored and updated!"
 		read -n1 -r -p 'Press any key to back.'
-		./start.sh
+		sudo ./start.sh
 	elif [ "$subVAR"  = n ]; then
 		clear
 		echo -e "\e[0m"
@@ -377,12 +377,12 @@ elif [ "$VAR" = 10 ]; then
 	read -n1 -r -p 'Passo 1/3. Pacotes atualizados, pressione qualquer tecla para o próximo passo'
 	sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev
 	read -n1 -r -p 'Passo 2/3. Dependências instaladas. Pressione qualquer tecla para o próximo passo'
-	./launch.sh install
+	sudo ./launch.sh install
 	read -n1 -r -p 'Passo 3/3. Instalação finalizada! Obrigado por instalar o DBTeam, a equipe do DBTeam diz obrigado! Esperamos que você goste do DBTeam. Então, o script irá pedir o seu número e o código de confirmação, Telegram irá enviar um sms com o código do Telegram, por favor, digite o número com +[DDI] [Seu Telefone]'
 	clear
-	service redis-server start
+	sudo service redis-server start
 	clear
-	./launch.sh
+	sudo ./launch.sh
 	echo -e "\e[0m"
 elif [ "$VAR" = 11 ]; then
 	clear
@@ -403,15 +403,15 @@ elif [ "$VAR" = bkpdel ]; then
 	echo "3) Delete all backups."
 read BKPVAR
 if [ "$BKPVAR" = 1 ]; then
-	rm -R /home/DBTeamBackup/plugins
+	sudo rm -Rf /home/DBTeamBackup/plugins
 	clear
 	echo -e '\e[31mBackups of Plugins removed\e[0m'
 elif [ "$BKPVAR" = 2 ]; then
-	rm -R /home/DBTeamBackup/DBTeam
+	sudo rm -R /home/DBTeamBackup/DBTeam
 	clear
 	echo -e '\e[31mBackups of DBTeam removed\e[0m'
 elif [ "$BKPVAR" = 3 ]; then
-	rm -R /home/DBTeamBackup/
+	sudo rm -R /home/DBTeamBackup/
 	clear
 	echo -e '\e[31mBackups removed\e[0m'
 elif [ "$BKPVAR" = "" ]; then
@@ -435,31 +435,31 @@ fi
 
 if [ "$1" = "tmux" ]; then
 	sudo screen -X -S DBTeam kill
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	clear
-	tmux new-session -s script "bash steady.sh -t" 
+	sudo tmux new-session -s script "bash steady.sh -t" 
 fi
 
 if [ "$1" = "kill" ]; then
 	clear
 	sudo screen -X -S DBTeam kill
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	echo -e '\e[31mSessions closed.\e[0m'
 fi
 
 if [ "$1" = "attach" ]; then
 	clear
-	tmux attach-session -t DBTeam
+	sudo tmux attach-session -t DBTeam
 fi
 
 if [ "$1" = "screen" ]; then
 	sudo screen -X -S DBTeam kill
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	clear
-	screen -S DBTeam -t screen bash steady.sh -s
+	sudo screen -S DBTeam -t screen bash steady.sh -s
 fi
 
 if [ "$1" = "update" ]; then
@@ -467,8 +467,8 @@ if [ "$1" = "update" ]; then
 	sudo apt-get update
 	clear
 	sudo screen -X -S DBTeam kill
-	tmux kill-session -t DBTeam
-	tmux kill-session -t script
+	sudo tmux kill-session -t DBTeam
+	sudo tmux kill-session -t script
 	sudo killall telegram-cli
 	clear
 	echo -e '\e[1;32m'
