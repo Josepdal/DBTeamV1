@@ -11,6 +11,8 @@ echo -e "     |____/|____/ |_|\____/\_____|_/\/\_|     "
 echo -e "                                              \033[0;00m"
 echo -e "          Developers @Josepdal @MaSkAoS       "
 echo -e "      steady by @iicc1         start by @Jarriz  "
+echo -en "\n"
+echo -e " Run ./start --help to see the availables options  "
 echo -e "\e[34m"
 echo "Please, select your language."
 echo -e "\033[38;5;208m"
@@ -484,4 +486,17 @@ if [ "$1" = "update" ]; then
 	echo -e '\e[0;32m----------\e[0m'
 	echo -e '\e[0;32m----------\e[0m'
 	sleep 1s
+fi
+
+if [ "$1" = "--help" ]; then
+	echo -en "\n"
+	echo "You can use ./start.sh <option>"
+	echo "Options availables:"
+	echo -en "\n"
+	echo "tmux - start a tmux session."
+	echo "kill - kill sessions in screen/tmux."
+	echo "attach - return to tmux session of DBTeam."
+	echo "update - update all dependences, packages and DBTeam."
+	echo "screen - start a screen session of DBTeam."
+	echo -en "\n"
 fi
