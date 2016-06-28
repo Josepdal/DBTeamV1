@@ -485,4 +485,3 @@ if [ "$1" = "update" ]; then
 	echo -e '\e[0;32m----------\e[0m'
 	sleep 1s
 fi
-	
