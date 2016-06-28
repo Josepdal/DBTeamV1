@@ -434,13 +434,16 @@ fi
 # Options in ./start.sh <option>
 
 if [ "$1" = "tmux" ]; then
+	sudo screen -X -S DBTeam kill
 	tmux kill-session -t DBTeam
 	tmux kill-session -t script
+	clear
 	tmux new-session -s script "bash steady.sh -t" 
 fi
 
 if [ "$1" = "kill" ]; then
 	clear
+	sudo screen -X -S DBTeam kill
 	tmux kill-session -t DBTeam
 	tmux kill-session -t script
 	echo -e '\e[31mSessions closed.\e[0m'
@@ -450,3 +453,34 @@ if [ "$1" = "attach" ]; then
 	clear
 	tmux attach-session -t DBTeam
 fi
+
+if [ "$1" = "screen" ]; then
+	sudo screen -X -S DBTeam kill
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
+	clear
+	screen -S DBTeam -t screen bash steady.sh -s
+fi
+
+if [ "$1" = "update" ]; then
+	sudo apt-get update
+	clear
+	sudo screen -X -S DBTeam kill
+	tmux kill-session -t DBTeam
+	tmux kill-session -t script
+	sudo killall telegram-cli
+	clear
+	sudo apt-get install libreadline-dev libconfig-dev libssl-dev lua5.2 liblua5.2-dev libevent-dev make unzip git redis-server g++ libjansson-dev libpython-dev expat libexpat1-dev tmux subversion
+	clear
+	sudo rm -Rf .git/refs/stash .git/logs/refs/stash
+	clear
+	sudo git pull
+	clear
+	echo -e '\e[0;32m----------\e[0m'
+	echo -e '\e[0;32m----------\e[0m'
+	echo -e '\e[0;32m--\e[0m\e[1;32m DONE \e[0m\e[0;32m--\e[0m'
+	echo -e '\e[0;32m----------\e[0m'
+	echo -e '\e[0;32m----------\e[0m'
+	sleep 1s
+fi
+	
