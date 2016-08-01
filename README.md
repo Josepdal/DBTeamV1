@@ -1,3 +1,10 @@
+tg-cli is being obsoleted
+-------------------------
+
+If you are not interested in tg-cli particular options like invite, del_msg, create groups...
+
+We recommend to you use this API Bot written in lua: https://github.com/RememberTheAir/GroupButler from a very good friend.
+
 DBTeam-bot
 ============
 
