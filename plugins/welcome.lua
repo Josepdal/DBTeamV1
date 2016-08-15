@@ -12,10 +12,11 @@ function chat_new_user(msg)
    local chat = msg.to.print_name:gsub('_', ' ')
    local receiver = get_receiver(msg)
    local message = redis:get('welcome:'..msg.to.id)
+   local custom_message = message:gsub('$id', msg.action.user.id):gsub('$name', msg.action.user.first_name):gsub('$user', '@'..msg.action.user.username)
    if not message then
       return '😀 ' ..lang_text(msg.to.id, 'welcome1') ..name.. '! ' ..lang_text(msg.to.id, 'welcome2') ..chat..'!\n🆔 ' ..id
    end
-   send_msg(receiver, message, ok_cb, false)
+   send_msg(receiver, custom_message, ok_cb, false)
 end
 
 local function wlc_enabled(msg)
