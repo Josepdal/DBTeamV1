@@ -9,7 +9,7 @@
 --       Developers: @Josepdal & @MaSkAoS       --
 --     Support: @Skneos,  @iicc1 & @serx666     --
 --                                              --
---    Translated by Mustafa Jr. [ @Musta5a ]    --
+--   Translated by Wathiq Al-Qajar { @iluli }   --
 --                                              --
 --------------------------------------------------
 
@@ -34,18 +34,18 @@ local function run(msg, matches)
 		set_text(LANG, 'require_mod', 'هذا الامر يتطلب امتيازات أدمن أو أعلى.')
 		
 		-- welcome.lua
-		set_text(LANG, 'weloff', 'Welcome enabled.')
-		set_text(LANG, 'welon', 'Welcome disabled.')
-		set_text(LANG, 'byeon', 'Goodbye enabled.')
-		set_text(LANG, 'byeoff', 'Goodbye disabled.')
-		set_text(LANG, 'welcome1', 'Hi ')
-		set_text(LANG, 'welcome2', 'Welcome to ')
-		set_text(LANG, 'weldefault', 'The welcome is the default.')
-		set_text(LANG, 'byedefault', 'The goodbye is the default.')
-		set_text(LANG, 'newbye', 'Goodbye saved! is')
-		set_text(LANG, 'bye1', 'Bye ')
-		set_text(LANG, 'bye2', ' thank you for your visit.')
-		set_text(LANG, 'welnew', 'Welcome saved! is')
+		set_text(LANG, 'weloff', 'الترحيب مفعل')
+		set_text(LANG, 'welon', 'الترحيب غير مفعل')
+		set_text(LANG, 'byeon', 'التوديع مفعل')
+		set_text(LANG, 'byeoff', 'التوديع غير مفعل')
+		set_text(LANG, 'welcome1', 'اهلا ')
+		set_text(LANG, 'welcome2', 'مرحبا بكم في ')
+		set_text(LANG, 'weldefault', 'الترحيب هو الافتراضي.')
+		set_text(LANG, 'byedefault', 'الماوادعة هي الافتراضية.')
+		set_text(LANG, 'newbye', 'حفظ وداعا! هو')
+		set_text(LANG, 'bye1', 'وداعا ')
+		set_text(LANG, 'bye2', ' شكرا على الزيارة.')
+		set_text(LANG, 'welnew', 'نرحب بكم حفظ! هو')
 
 		-- Spam.lua --
 		set_text(LANG, 'reportUser', 'العضو')
