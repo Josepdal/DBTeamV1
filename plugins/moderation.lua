@@ -215,7 +215,7 @@ local function chat_unban(extra, success, result)
     local user = msg.from.id
     unban_user(user, chat)
     chat_add_user('chat#id'..chat, 'user#id'..user, ok_cb, false)
-    send_msg(chat, 'User '..user..' unbanned', ok_cb,  true)
+    send_msg(chat, 'ℹ️ '..lang_text(chat, 'banUser:1')..user..' unbanned', ok_cb,  true)
 end
 
 local function channel_unban(extra, success, result)
@@ -225,8 +225,7 @@ local function channel_unban(extra, success, result)
     local user = msg.from.id
     unban_user(user, chat)
     channel_invite_user('channel#id'..chat, 'user#id'..user, ok_cb, true)
-    send_msg('channel#id'..chat, 'User '..user..' unbanned', ok_cb,  true)
-    
+    send_msg('channel#id'..chat, 'ℹ️ '..lang_text(chat, 'unbanUser:1')..' '..user..' '..lang_text(chat, 'unbanUser:2'), ok_cb,  true)    
 end
 
 local function ban_by_username(cb_extra, success, result)
