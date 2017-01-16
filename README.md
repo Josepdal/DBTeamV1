@@ -1,5 +1,11 @@
-tg-cli is being obsoleted
--------------------------
+DBTeamV2 is OUT
+===============
+New tg-cli, working on all supergroups
+--------------------------------------
+https://github.com/Josepdal/DBTeamV2
+
+
+
 
 If you are not interested in tg-cli particular options like invite, del_msg, create groups...
 
