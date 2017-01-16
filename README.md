@@ -1,6 +1,6 @@
 DBTeamV2 is OUT
 ===============
-New tg-cli, working on all supergroups
+New tg-cli, working in all supergroups
 --------------------------------------
 https://github.com/Josepdal/DBTeamV2
 
